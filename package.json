@@ -44,8 +44,8 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "REPLACE_WITH_GH_OWNER",
-      "repo": "REPLACE_WITH_GH_REPO",
+      "owner": "awolanin6611",
+      "repo": "sw5e-character-app",
       "private": false,
       "releaseType": "release"
     }
