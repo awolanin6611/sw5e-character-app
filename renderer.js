@@ -445,6 +445,177 @@ function parseCommaList(value) {
   return value.split(',').map((part) => part.trim()).filter(Boolean);
 }
 
+function coerceNumber(value, fallback = 0) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function normalizeConditionList(conditions) {
+  if (Array.isArray(conditions)) {
+    return conditions.map((item) => String(item || '').trim()).filter(Boolean).join(', ');
+  }
+  if (typeof conditions === 'string') {
+    return conditions;
+  }
+  return '';
+}
+
+function extractClassForcePowers(classes) {
+  if (!Array.isArray(classes)) {
+    return [];
+  }
+
+  const powersByName = new Map();
+  classes.forEach((classEntry) => {
+    const classPowers = Array.isArray(classEntry?.forcePowers) ? classEntry.forcePowers : [];
+    classPowers.forEach((power) => {
+      const powerName = String(power?.name || '').trim();
+      if (!powerName) {
+        return;
+      }
+
+      if (!powersByName.has(powerName.toLowerCase())) {
+        powersByName.set(powerName.toLowerCase(), {
+          name: powerName,
+          level: Math.max(0, coerceNumber(power?.level, 0)),
+          alignment: String(power?.alignment || 'universal').toLowerCase(),
+          description: String(power?.description || '')
+        });
+      }
+    });
+  });
+
+  return Array.from(powersByName.values());
+}
+
+function buildSkillsFromTweaks(tweaks) {
+  const mapped = {};
+  const skillByLabel = {
+    'athletics': 'athletics',
+    'acrobatics': 'acrobatics',
+    'sleight of hand': 'sleightOfHand',
+    'stealth': 'stealth',
+    'investigation': 'investigation',
+    'lore': 'lore',
+    'nature': 'nature',
+    'piloting': 'piloting',
+    'technology': 'technology',
+    'animal handling': 'animalHandling',
+    'insight': 'insight',
+    'medicine': 'medicine',
+    'perception': 'perception',
+    'survival': 'survival',
+    'deception': 'deception',
+    'intimidation': 'intimidation',
+    'performance': 'performance',
+    'persuasion': 'persuasion'
+  };
+
+  const abilityScores = tweaks?.abilityScores || {};
+  Object.keys(abilityScores).forEach((abilityName) => {
+    const abilityTweaks = abilityScores[abilityName] || {};
+    const skills = abilityTweaks.skills || {};
+
+    Object.keys(skills).forEach((skillLabel) => {
+      const normalizedLabel = String(skillLabel || '').trim().toLowerCase();
+      const targetId = skillByLabel[normalizedLabel];
+      if (!targetId) {
+        return;
+      }
+
+      const profText = String(skills[skillLabel]?.proficiency || '').toLowerCase();
+      mapped[targetId] = {
+        prof: profText === 'proficient' || profText === 'expertise',
+        expertise: profText === 'expertise'
+      };
+    });
+  });
+
+  return mapped;
+}
+
+function mapBuilderCharacterToSheet(data) {
+  const classes = Array.isArray(data?.classes) ? data.classes : [];
+  const firstClass = classes[0] || {};
+  const classConfig = classes.length
+    ? classes.map((entry) => ({
+      name: String(entry?.name || 'Consular'),
+      level: Math.max(1, coerceNumber(entry?.levels, 1)),
+      archetype: String(entry?.archetype?.name || '')
+    }))
+    : [{ name: 'Consular', level: 1, archetype: '' }];
+
+  const importedSkills = (data?.skills && typeof data.skills === 'object')
+    ? data.skills
+    : buildSkillsFromTweaks(data?.tweaks);
+
+  const forcePowers = extractClassForcePowers(classes);
+  const conditions = normalizeConditionList(data?.currentStats?.conditions);
+
+  return {
+    name: String(data?.name || 'Unnamed Character'),
+    species: String(data?.species?.name || ''),
+    class: String(firstClass?.name || 'Consular'),
+    level: Math.max(1, coerceNumber(firstClass?.levels, 1)),
+    experiencePoints: Math.max(0, coerceNumber(data?.experiencePoints, 0)),
+    background: String(data?.background?.name || ''),
+    archetype: String(firstClass?.archetype?.name || ''),
+    attributes: {
+      str: coerceNumber(data?.baseAbilityScores?.Strength, 0),
+      dex: coerceNumber(data?.baseAbilityScores?.Dexterity, 0),
+      con: coerceNumber(data?.baseAbilityScores?.Constitution, 0),
+      int: coerceNumber(data?.baseAbilityScores?.Intelligence, 0),
+      wis: coerceNumber(data?.baseAbilityScores?.Wisdom, 0),
+      cha: coerceNumber(data?.baseAbilityScores?.Charisma, 0)
+    },
+    characteristics: {
+      alignment: String(data?.characteristics?.alignment || ''),
+      gender: String(data?.characteristics?.Gender || ''),
+      age: String(data?.characteristics?.Age || ''),
+      height: String(data?.characteristics?.Height || ''),
+      weight: String(data?.characteristics?.Weight || ''),
+      hair: String(data?.characteristics?.Hair || ''),
+      eyes: String(data?.characteristics?.Eyes || ''),
+      skin: String(data?.characteristics?.Skin || ''),
+      appearance: String(data?.characteristics?.Appearance || ''),
+      backstory: String(data?.characteristics?.Backstory || ''),
+      personality: String(data?.characteristics?.['Personality Traits'] || ''),
+      ideal: String(data?.characteristics?.Ideal || ''),
+      bond: String(data?.characteristics?.Bond || ''),
+      flaw: String(data?.characteristics?.Flaw || '')
+    },
+    combatStats: {
+      maxHitPoints: coerceNumber(data?.currentStats?.maxHitPoints, (Array.isArray(firstClass?.hitPoints)
+        ? firstClass.hitPoints.reduce((sum, hp) => sum + coerceNumber(hp, 0), 0)
+        : 0)),
+      hitPointsLost: coerceNumber(data?.currentStats?.hitPointsLost, 0),
+      temporaryHitPoints: coerceNumber(data?.currentStats?.temporaryHitPoints, 0),
+      forcePointsUsed: coerceNumber(data?.currentStats?.forcePointsUsed, 0),
+      forceShieldUsed: coerceNumber(data?.currentStats?.forceShieldUsed, 0),
+      techPointsUsed: coerceNumber(data?.currentStats?.techPointsUsed, 0),
+      techPointsMax: coerceNumber(data?.currentStats?.techPointsMax, 0),
+      credits: coerceNumber(data?.credits, 0)
+    },
+    status: {
+      inspiration: Boolean(data?.currentStats?.hasInspiration),
+      exhaustion: coerceNumber(data?.currentStats?.exhaustion, 0),
+      conditions,
+      notes: String(data?.notes || '')
+    },
+    forceConfig: {
+      castingAbility: 'wis',
+      forceAffinity: 'none',
+      fecChosen: []
+    },
+    abilityScoreConfig: {
+      asiHistory: []
+    },
+    classes: classConfig,
+    skills: importedSkills,
+    forcePowers
+  };
+}
+
 function isTelekineticsArchetype(archetype) {
   return String(archetype || '').toLowerCase().includes('telekin');
 }
@@ -1625,73 +1796,7 @@ function loadTemplate() {
     }
 
     console.log('Successfully loaded template:', data.name);
-    
-    const characterData = {
-      name: data.name,
-      species: data.species.name,
-      class: data.classes[0].name,
-      level: data.classes[0].levels,
-      experiencePoints: data.experiencePoints,
-      background: data.background.name,
-      archetype: data.classes[0].archetype.name,
-      attributes: {
-        str: data.baseAbilityScores.Strength,
-        dex: data.baseAbilityScores.Dexterity,
-        con: data.baseAbilityScores.Constitution,
-        int: data.baseAbilityScores.Intelligence,
-        wis: data.baseAbilityScores.Wisdom,
-        cha: data.baseAbilityScores.Charisma
-      },
-      characteristics: {
-        alignment: data.characteristics.alignment,
-        gender: data.characteristics.Gender,
-        age: data.characteristics.Age,
-        height: data.characteristics.Height,
-        weight: data.characteristics.Weight,
-        hair: data.characteristics.Hair,
-        eyes: data.characteristics.Eyes,
-        skin: data.characteristics.Skin,
-        appearance: data.characteristics.Appearance,
-        backstory: data.characteristics.Backstory,
-        personality: data.characteristics['Personality Traits'],
-        ideal: data.characteristics.Ideal,
-        bond: data.characteristics.Bond,
-        flaw: data.characteristics.Flaw
-      },
-      combatStats: {
-        maxHitPoints: data.currentStats.maxHitPoints || (Array.isArray(data.classes[0].hitPoints)
-          ? data.classes[0].hitPoints.reduce((sum, hp) => sum + (Number(hp) || 0), 0)
-          : 0),
-        hitPointsLost: data.currentStats.hitPointsLost,
-        temporaryHitPoints: data.currentStats.temporaryHitPoints,
-        forcePointsUsed: data.currentStats.forcePointsUsed,
-        forceShieldUsed: data.currentStats.forceShieldUsed || 0,
-        techPointsUsed: data.currentStats.techPointsUsed,
-        credits: data.credits
-      },
-      status: {
-        inspiration: data.currentStats.hasInspiration,
-        exhaustion: data.currentStats.exhaustion,
-        conditions: data.currentStats.conditions.join(', '),
-        notes: data.notes
-      },
-      forceConfig: {
-        castingAbility: 'wis',
-        forceAffinity: 'none',
-        fecChosen: []
-      },
-      abilityScoreConfig: {
-        asiHistory: []
-      },
-      classes: (data.classes || []).map((entry) => ({
-        name: entry.name,
-        level: entry.levels,
-        archetype: entry.archetype?.name || ''
-      })),
-      skills: data.skills || {},
-      forcePowers: data.classes?.[0]?.forcePowers || []
-    };
-    return characterData;
+    return mapBuilderCharacterToSheet(data);
   } catch (err) {
     console.error('Error loading template:', err);
     // Fallback path for environments where require/fs is unavailable.
@@ -1706,72 +1811,7 @@ function loadTemplate() {
 
       const data = JSON.parse(request.responseText);
       console.log('Successfully loaded template via XHR fallback:', data.name);
-
-      return {
-        name: data.name,
-        species: data.species.name,
-        class: data.classes[0].name,
-        level: data.classes[0].levels,
-        experiencePoints: data.experiencePoints,
-        background: data.background.name,
-        archetype: data.classes[0].archetype.name,
-        attributes: {
-          str: data.baseAbilityScores.Strength,
-          dex: data.baseAbilityScores.Dexterity,
-          con: data.baseAbilityScores.Constitution,
-          int: data.baseAbilityScores.Intelligence,
-          wis: data.baseAbilityScores.Wisdom,
-          cha: data.baseAbilityScores.Charisma
-        },
-        characteristics: {
-          alignment: data.characteristics.alignment,
-          gender: data.characteristics.Gender,
-          age: data.characteristics.Age,
-          height: data.characteristics.Height,
-          weight: data.characteristics.Weight,
-          hair: data.characteristics.Hair,
-          eyes: data.characteristics.Eyes,
-          skin: data.characteristics.Skin,
-          appearance: data.characteristics.Appearance,
-          backstory: data.characteristics.Backstory,
-          personality: data.characteristics['Personality Traits'],
-          ideal: data.characteristics.Ideal,
-          bond: data.characteristics.Bond,
-          flaw: data.characteristics.Flaw
-        },
-        combatStats: {
-          maxHitPoints: data.currentStats.maxHitPoints || (Array.isArray(data.classes[0].hitPoints)
-            ? data.classes[0].hitPoints.reduce((sum, hp) => sum + (Number(hp) || 0), 0)
-            : 0),
-          hitPointsLost: data.currentStats.hitPointsLost,
-          temporaryHitPoints: data.currentStats.temporaryHitPoints,
-          forcePointsUsed: data.currentStats.forcePointsUsed,
-          forceShieldUsed: data.currentStats.forceShieldUsed || 0,
-          techPointsUsed: data.currentStats.techPointsUsed,
-          credits: data.credits
-        },
-        status: {
-          inspiration: data.currentStats.hasInspiration,
-          exhaustion: data.currentStats.exhaustion,
-          conditions: data.currentStats.conditions.join(', '),
-          notes: data.notes
-        },
-        forceConfig: {
-          castingAbility: 'wis',
-          forceAffinity: 'none',
-          fecChosen: []
-        },
-        abilityScoreConfig: {
-          asiHistory: []
-        },
-        classes: (data.classes || []).map((entry) => ({
-          name: entry.name,
-          level: entry.levels,
-          archetype: entry.archetype?.name || ''
-        })),
-        skills: data.skills || {},
-        forcePowers: data.classes?.[0]?.forcePowers || []
-      };
+      return mapBuilderCharacterToSheet(data);
     } catch (fallbackErr) {
       console.error('Fallback template load failed:', fallbackErr);
       alert('Error loading template: ' + fallbackErr.message);
@@ -2231,6 +2271,43 @@ function resetCharacter() {
   }
 }
 
+function importCharacterFromFile() {
+  const fileInput = document.getElementById('characterImportInput');
+  if (!fileInput) {
+    alert('Import control is unavailable on this page.');
+    return;
+  }
+  fileInput.value = '';
+  fileInput.click();
+}
+
+function handleCharacterFileSelected(event) {
+  const selectedFile = event?.target?.files?.[0];
+  if (!selectedFile) {
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const rawText = String(reader.result || '');
+      const parsed = JSON.parse(rawText);
+      const mapped = mapBuilderCharacterToSheet(parsed);
+      setCharacterData(mapped);
+      alert(`Imported character "${mapped.name}" from ${selectedFile.name}.`);
+    } catch (err) {
+      console.error('Error importing character file:', err);
+      alert('Unable to import that file. Make sure it is a valid SW5E builder JSON export.');
+    }
+  };
+
+  reader.onerror = () => {
+    alert('Unable to read the selected file.');
+  };
+
+  reader.readAsText(selectedFile);
+}
+
 // Load default character template from bundled data on page load
 window.addEventListener('DOMContentLoaded', () => {
   loadForcePowerCatalog();
@@ -2283,4 +2360,10 @@ window.addEventListener('DOMContentLoaded', () => {
   window.updateClassLevelRow = updateClassLevelRow;
   window.changeClassLevelBy = changeClassLevelBy;
   window.removeClassLevelRow = removeClassLevelRow;
+  window.importCharacterFromFile = importCharacterFromFile;
+
+  const importInput = document.getElementById('characterImportInput');
+  if (importInput) {
+    importInput.addEventListener('change', handleCharacterFileSelected);
+  }
 });

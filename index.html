@@ -598,7 +598,9 @@
   <footer class="app-footer">
     <button class="footer-btn" onclick="saveCharacter()">Save Character</button>
     <button class="footer-btn" onclick="loadCharacter()">Load Character</button>
+    <button class="footer-btn" onclick="importCharacterFromFile()">Import Builder JSON</button>
     <button class="footer-btn" onclick="resetCharacter()">Reset to Template</button>
+    <input id="characterImportInput" type="file" accept=".json,application/json" hidden>
   </footer>
 
   <script>
