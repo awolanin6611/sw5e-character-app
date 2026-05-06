@@ -10,6 +10,7 @@ out/
 *.zip
 *.blockmap
 *.yml
+!.github/workflows/*.yml
 
 # Environment and editor
 .venv/
