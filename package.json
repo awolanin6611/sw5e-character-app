@@ -1,0 +1,60 @@
+{
+  "name": "sw5e-character-app",
+  "version": "1.0.0",
+  "description": "SW5E Character Sheet Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win nsis portable",
+    "release": "electron-builder --win nsis --publish always"
+  },
+  "devDependencies": {
+    "electron": "^41.5.0",
+    "electron-builder": "^26.0.12",
+    "png-to-ico": "^3.0.1"
+  },
+  "build": {
+    "appId": "com.awola.sw5echaracterapp",
+    "productName": "SW5E Character App",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "main.js",
+      "renderer.js",
+      "styles.css",
+      "asset/**/*",
+      "data/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "asset/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "REPLACE_WITH_GH_OWNER",
+      "repo": "REPLACE_WITH_GH_REPO",
+      "private": false,
+      "releaseType": "release"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "electron-updater": "^6.8.3"
+  }
+}

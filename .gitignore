@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output and installers
+dist/
+release/
+out/
+*.exe
+*.msi
+*.zip
+*.blockmap
+*.yml
+
+# Environment and editor
+.venv/
+.vscode/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local/non-release assets
+asset/Copilot_20260505_173236.png
+asset/image0.jpg
+data/EC 03 - Archetypes _ GM Binder.pdf
+data/SW5e - Player's Handbook.pdf

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SW5e Character Sheet</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <h1>Star Wars 5e Character Sheet</h1>
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('basic-info')">Character Info</button>
+      <button class="tab-btn" onclick="showTab('level-progression')">Powers and Feats</button>
+      <button class="tab-btn" onclick="showTab('attributes')">Attributes</button>
+      <button class="tab-btn" onclick="showTab('asi')">Leveling</button>
+      <button class="tab-btn" onclick="showTab('characteristics')">Characteristics</button>
+      <button class="tab-btn" onclick="showTab('combat-stats')">Combat Stats</button>
+      <button class="tab-btn" onclick="showTab('status')">Status</button>
+    </nav>
+  </header>
+
+  <main>
+
+  <section id="basic-info" class="tab-page active">
+    <h2>Character Info</h2>
+    <div class="basic-three-col">
+      <div class="basic-info-col">
+        <div class="basic-card">
+          <label class="fp-label" for="name">Character Name</label>
+          <input id="name" placeholder="Character Name">
+        </div>
+        <div class="basic-card">
+          <label class="fp-label" for="species">Species</label>
+          <input id="species" placeholder="Species">
+        </div>
+        <div class="basic-card">
+          <label class="fp-label" for="class">Class</label>
+          <input id="class" placeholder="Class (e.g., Consular)">
+        </div>
+          <div class="basic-card">
+          <label class="fp-label" for="forcePointsMax">Maximum Force Points</label>
+          <input id="forcePointsMax" readonly placeholder="Maximum Force Points">
+        </div>
+        <div class="basic-card">
+          <label class="fp-label" for="techPointsMax">Maximum Tech Powers</label>
+          <input id="techPointsMax" type="number" min="0" placeholder="0 if none" title="Maximum tech points for classes/archetypes that use Tech Points.">
+          <span class="fp-used-label">Set this only if your build uses Tech powers.</span>
+        </div>
+       </div>
+      <div class="level-hp-panel">
+        <div class="basic-card">
+          <label class="fp-label" for="maxHitPoints">Max Hit Points</label>
+          <input id="maxHitPoints" type="number" min="0" placeholder="Max Hit Points">
+        </div>
+        <div class="fp-counter hp-counter">
+          <div class="fp-display">
+            <span class="fp-label">Hit Points</span>
+            <div class="fp-bar">
+              <button type="button" class="fp-btn" onclick="adjustHitPoints(+1)">&#43;</button>
+              <div class="fp-readout">
+                <span id="hpCurrent" class="fp-remaining">0</span>
+                <span class="fp-sep">/</span>
+                <span id="hpMax" class="fp-max">0</span>
+              </div>
+              <button type="button" class="fp-btn" onclick="adjustHitPoints(-1)">&#8722;</button>
+            </div>
+            <span class="fp-used-label">Damage Taken: <span id="hpLostLabel">0</span></span>
+            <div class="temp-hp-row">
+              <label class="fp-label" for="temporaryHitPoints">Temp HP</label>
+              <input id="temporaryHitPoints" type="number" placeholder="0" class="temp-hp-input">
+            </div>
+          </div>
+          <input id="hitPoints" type="hidden" value="0">
+        </div>
+      </div>
+      <div class="basic-info-col">
+        <div class="basic-card">
+          <label class="fp-label" for="archetype">Archetype</label>
+          <input id="archetype" placeholder="Archetype">
+        </div>
+        <div class="basic-card">
+          <label class="fp-label" for="background">Background</label>
+          <input id="background" placeholder="Background">
+        </div>
+        <div class="basic-card">
+          <label class="fp-label" for="credits">Credits</label>
+          <input id="credits" type="number" placeholder="Credits">
+        </div>
+        <div class="basic-card">
+          <label class="fp-label" for="forcePowersKnown">Force Powers Known</label>
+          <input id="forcePowersKnown" readonly placeholder="Force Powers Known">
+        </div>
+        <div class="basic-card">
+          <label class="fp-label" for="techPowersKnown">Tech Powers Known</label>
+          <input id="techPowersKnown" readonly placeholder="Tech Powers Known">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="level-progression" class="tab-page">
+    <h2>Powers and Feats</h2>
+    <h3>Known Force Powers</h3>
+    <div class="class-layout">
+      <div id="powersLeft" class="powers-col"></div>
+      <div class="class-center-col">
+        <div class="fp-counter">
+          <div class="fp-display">
+            <span class="fp-label">Force Points</span>
+            <div class="fp-bar">
+              <button type="button" class="fp-btn" onclick="adjustForcePoints(+1)">&#43;</button>
+              <div class="fp-readout">
+                <span id="fpRemaining" class="fp-remaining">—</span>
+                <span class="fp-sep">/</span>
+                <span id="fpMax" class="fp-max">—</span>
+              </div>
+              <button type="button" class="fp-btn" onclick="adjustForcePoints(-1)">&#8722;</button>
+            </div>
+            <span class="fp-used-label">Used: <span id="fpUsedLabel">0</span></span>
+          </div>
+          <input id="forcePointsUsed" type="hidden" value="0">
+        </div>
+        <div class="fp-counter">
+          <div class="fp-display">
+            <span class="fp-label">Tech Points</span>
+            <div class="fp-bar">
+              <button type="button" class="fp-btn" onclick="adjustTechPoints(+1)">&#43;</button>
+              <div class="fp-readout">
+                <span id="tpRemaining" class="fp-remaining">—</span>
+                <span class="fp-sep">/</span>
+                <span id="tpMax" class="fp-max">—</span>
+              </div>
+              <button type="button" class="fp-btn" onclick="adjustTechPoints(-1)">&#8722;</button>
+            </div>
+            <span class="fp-used-label">Used: <span id="tpUsedLabel">0</span></span>
+          </div>
+          <input id="techPointsUsed" type="hidden" value="0">
+          <input id="forceShieldUsed" type="hidden" value="0">
+        </div>
+        <div class="center-features-section">
+          <span class="fp-label">Unlocked Features</span>
+          <div id="unlockedFeaturesCenter" class="features-dropdown-list">
+            <p class="features-empty">No features unlocked yet.</p>
+          </div>
+        </div>
+      </div>
+      <div id="powersRight" class="powers-col"></div>
+    </div>
+    <input id="fecChosen" type="hidden" value="">
+
+    <div class="fec-display-section">
+      <h3>Force-Empowered Casting</h3>
+      <div id="fecDisplay" class="fec-display-panel">
+        <p class="fec-empty-msg">No Force-Empowered options chosen. Select options in the Leveling tab.</p>
+      </div>
+    </div>
+
+    <div class="affinity-display-section">
+      <h3>Force Affinity Effect</h3>
+      <div id="affinityInfo" class="affinity-info-panel">
+        <h4 id="affinityInfoTitle" class="affinity-info-title">No Affinity Chosen</h4>
+        <p id="affinityInfoDesc" class="affinity-info-desc">Choose Ashla, Bendu, or Bogan in the Leveling tab to see its effect.</p>
+      </div>
+    </div>
+
+    <div class="grid-two" hidden>
+      <input id="proficiencyBonus" readonly placeholder="Proficiency Bonus">
+      <input id="maxPowerLevel" readonly placeholder="Max Power Level">
+      <input id="fecOptionsAllowed" readonly placeholder="FEC Options Allowed">
+      <input id="forceRecoveryAmount" readonly placeholder="Force Recovery Amount">
+      <input id="forceShieldUses" readonly placeholder="Force Shield Uses">
+      <input id="repulsingWaveUses" readonly placeholder="Repulsing Wave Uses">
+      <input id="mightyBlastTargets" readonly placeholder="Mighty Blast Targets">
+    </div>
+
+    <p id="levelValidation" class="validation"></p>
+  </section>
+
+  <section id="attributes" class="tab-page">
+    <h2>Attributes &amp; Skills</h2>
+    <div class="attributes-layout">
+      <div class="attributes-panel">
+        <h3>Main Attribute Scores</h3>
+        <div class="attribute-scores-grid">
+          <div class="attribute-score-card">
+            <span class="attribute-score-title">Strength</span>
+            <div class="attribute-score-row">
+              <span class="attribute-value-label">Score</span>
+              <input id="str" type="number" class="ability-score" oninput="updateAbilityModifiers()">
+              <span class="attribute-divider-dot">•</span>
+              <span class="attribute-value-label">Mod</span>
+              <input id="strMod" readonly class="ability-mod" placeholder="MOD">
+            </div>
+          </div>
+          <div class="attribute-score-card">
+            <span class="attribute-score-title">Dexterity</span>
+            <div class="attribute-score-row">
+              <span class="attribute-value-label">Score</span>
+              <input id="dex" type="number" class="ability-score" oninput="updateAbilityModifiers()">
+              <span class="attribute-divider-dot">•</span>
+              <span class="attribute-value-label">Mod</span>
+              <input id="dexMod" readonly class="ability-mod" placeholder="MOD">
+            </div>
+          </div>
+          <div class="attribute-score-card">
+            <span class="attribute-score-title">Constitution</span>
+            <div class="attribute-score-row">
+              <span class="attribute-value-label">Score</span>
+              <input id="con" type="number" class="ability-score" oninput="updateAbilityModifiers()">
+              <span class="attribute-divider-dot">•</span>
+              <span class="attribute-value-label">Mod</span>
+              <input id="conMod" readonly class="ability-mod" placeholder="MOD">
+            </div>
+          </div>
+          <div class="attribute-score-card">
+            <span class="attribute-score-title">Intelligence</span>
+            <div class="attribute-score-row">
+              <span class="attribute-value-label">Score</span>
+              <input id="int" type="number" class="ability-score" oninput="updateAbilityModifiers()">
+              <span class="attribute-divider-dot">•</span>
+              <span class="attribute-value-label">Mod</span>
+              <input id="intMod" readonly class="ability-mod" placeholder="MOD">
+            </div>
+          </div>
+          <div class="attribute-score-card">
+            <span class="attribute-score-title">Wisdom</span>
+            <div class="attribute-score-row">
+              <span class="attribute-value-label">Score</span>
+              <input id="wis" type="number" class="ability-score" oninput="updateAbilityModifiers()">
+              <span class="attribute-divider-dot">•</span>
+              <span class="attribute-value-label">Mod</span>
+              <input id="wisMod" readonly class="ability-mod" placeholder="MOD">
+            </div>
+          </div>
+          <div class="attribute-score-card">
+            <span class="attribute-score-title">Charisma</span>
+            <div class="attribute-score-row">
+              <span class="attribute-value-label">Score</span>
+              <input id="cha" type="number" class="ability-score" oninput="updateAbilityModifiers()">
+              <span class="attribute-divider-dot">•</span>
+              <span class="attribute-value-label">Mod</span>
+              <input id="chaMod" readonly class="ability-mod" placeholder="MOD">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-panel">
+        <h3>Skills &amp; Saving Throws</h3>
+        <p class="skill-legend"><strong>P</strong> = Proficient &nbsp;&nbsp; <strong>E</strong> = Expertise &nbsp;&nbsp; (hover checkbox for tooltip)</p>
+        <div class="abilities-grid skills-grid">
+
+          <div class="ability-block skill-group">
+            <div class="skill-group-title">Strength</div>
+            <div class="skill-col-headers"><span>P</span><span>E</span><span class="skill-value-header">Mod</span></div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_strSave" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_strSave" onchange="updateSkills()" title="Expertise">
+              <input id="val_strSave" readonly class="skill-val">
+              <span class="skill-name">Saving Throw</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_athletics" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_athletics" onchange="updateSkills()" title="Expertise">
+              <input id="val_athletics" readonly class="skill-val">
+              <span class="skill-name">Athletics</span>
+            </div>
+          </div>
+
+          <div class="ability-block skill-group">
+            <div class="skill-group-title">Dexterity</div>
+            <div class="skill-col-headers"><span>P</span><span>E</span><span class="skill-value-header">Mod</span></div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_dexSave" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_dexSave" onchange="updateSkills()" title="Expertise">
+              <input id="val_dexSave" readonly class="skill-val">
+              <span class="skill-name">Saving Throw</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_acrobatics" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_acrobatics" onchange="updateSkills()" title="Expertise">
+              <input id="val_acrobatics" readonly class="skill-val">
+              <span class="skill-name">Acrobatics</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_sleightOfHand" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_sleightOfHand" onchange="updateSkills()" title="Expertise">
+              <input id="val_sleightOfHand" readonly class="skill-val">
+              <span class="skill-name">Sleight of Hand</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_stealth" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_stealth" onchange="updateSkills()" title="Expertise">
+              <input id="val_stealth" readonly class="skill-val">
+              <span class="skill-name">Stealth</span>
+            </div>
+          </div>
+
+          <div class="ability-block skill-group">
+            <div class="skill-group-title">Constitution</div>
+            <div class="skill-col-headers"><span>P</span><span>E</span><span class="skill-value-header">Mod</span></div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_conSave" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_conSave" onchange="updateSkills()" title="Expertise">
+              <input id="val_conSave" readonly class="skill-val">
+              <span class="skill-name">Saving Throw</span>
+            </div>
+          </div>
+
+          <div class="ability-block skill-group">
+            <div class="skill-group-title">Intelligence</div>
+            <div class="skill-col-headers"><span>P</span><span>E</span><span class="skill-value-header">Mod</span></div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_intSave" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_intSave" onchange="updateSkills()" title="Expertise">
+              <input id="val_intSave" readonly class="skill-val">
+              <span class="skill-name">Saving Throw</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_investigation" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_investigation" onchange="updateSkills()" title="Expertise">
+              <input id="val_investigation" readonly class="skill-val">
+              <span class="skill-name">Investigation</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_lore" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_lore" onchange="updateSkills()" title="Expertise">
+              <input id="val_lore" readonly class="skill-val">
+              <span class="skill-name">Lore</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_nature" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_nature" onchange="updateSkills()" title="Expertise">
+              <input id="val_nature" readonly class="skill-val">
+              <span class="skill-name">Nature</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_piloting" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_piloting" onchange="updateSkills()" title="Expertise">
+              <input id="val_piloting" readonly class="skill-val">
+              <span class="skill-name">Piloting</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_technology" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_technology" onchange="updateSkills()" title="Expertise">
+              <input id="val_technology" readonly class="skill-val">
+              <span class="skill-name">Technology</span>
+            </div>
+          </div>
+
+          <div class="ability-block skill-group">
+            <div class="skill-group-title">Wisdom</div>
+            <div class="skill-col-headers"><span>P</span><span>E</span><span class="skill-value-header">Mod</span></div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_wisSave" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_wisSave" onchange="updateSkills()" title="Expertise">
+              <input id="val_wisSave" readonly class="skill-val">
+              <span class="skill-name">Saving Throw</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_animalHandling" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_animalHandling" onchange="updateSkills()" title="Expertise">
+              <input id="val_animalHandling" readonly class="skill-val">
+              <span class="skill-name">Animal Handling</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_insight" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_insight" onchange="updateSkills()" title="Expertise">
+              <input id="val_insight" readonly class="skill-val">
+              <span class="skill-name">Insight</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_medicine" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_medicine" onchange="updateSkills()" title="Expertise">
+              <input id="val_medicine" readonly class="skill-val">
+              <span class="skill-name">Medicine</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_perception" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_perception" onchange="updateSkills()" title="Expertise">
+              <input id="val_perception" readonly class="skill-val">
+              <span class="skill-name">Perception</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_survival" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_survival" onchange="updateSkills()" title="Expertise">
+              <input id="val_survival" readonly class="skill-val">
+              <span class="skill-name">Survival</span>
+            </div>
+          </div>
+
+          <div class="ability-block skill-group">
+            <div class="skill-group-title">Charisma</div>
+            <div class="skill-col-headers"><span>P</span><span>E</span><span class="skill-value-header">Mod</span></div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_chaSave" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_chaSave" onchange="updateSkills()" title="Expertise">
+              <input id="val_chaSave" readonly class="skill-val">
+              <span class="skill-name">Saving Throw</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_deception" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_deception" onchange="updateSkills()" title="Expertise">
+              <input id="val_deception" readonly class="skill-val">
+              <span class="skill-name">Deception</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_intimidation" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_intimidation" onchange="updateSkills()" title="Expertise">
+              <input id="val_intimidation" readonly class="skill-val">
+              <span class="skill-name">Intimidation</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_performance" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_performance" onchange="updateSkills()" title="Expertise">
+              <input id="val_performance" readonly class="skill-val">
+              <span class="skill-name">Performance</span>
+            </div>
+            <div class="skill-row">
+              <input type="checkbox" id="prof_persuasion" onchange="updateSkills()" title="Proficient">
+              <input type="checkbox" id="exp_persuasion" onchange="updateSkills()" title="Expertise">
+              <input id="val_persuasion" readonly class="skill-val">
+              <span class="skill-name">Persuasion</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="asi" class="tab-page">
+    <h2>Leveling</h2>
+    <div class="leveling-shell">
+      <div class="leveling-panel leveling-panel-overview">
+        <h3>Class Levels</h3>
+        <div class="leveling-summary-row">
+          <div class="leveling-summary-card">
+            <label class="fp-label" for="level">Total Character Level</label>
+            <input id="level" type="number" readonly placeholder="Total Level">
+            <span class="fp-used-label">Automatically totals all class levels. Maximum supported character level is 20.</span>
+          </div>
+          <div class="leveling-summary-actions">
+            <button type="button" class="fp-btn fp-btn-apply" onclick="addClassLevelRow()">Add Class</button>
+            <button type="button" class="fp-btn fp-btn-apply" onclick="applyLevelProgression({ announce: true })">Apply Levels</button>
+          </div>
+        </div>
+        <div id="classLevelList" class="class-level-list"></div>
+        <div class="level-choice-panel">
+          <div class="level-choice-panel-header">
+            <h3>Level Choices</h3>
+            <span class="fp-used-label">Pick class-specific changes when they unlock.</span>
+          </div>
+          <div id="levelChoiceList" class="level-choice-list">
+            <p class="features-empty">No class-specific choices unlocked at the current levels.</p>
+          </div>
+        </div>
+        <p class="leveling-help-text">Set one or more classes here for multiclassing. Supported progression math is currently implemented for Consular, Engineer, and Scout; other classes still contribute to total level and proficiency bonus.</p>
+      </div>
+    </div>
+    <div class="row">
+      <label for="castingAbility">Universal Force Ability</label>
+      <select id="castingAbility">
+        <option value="wis">Wisdom</option>
+        <option value="cha">Charisma</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="forceAffinity">Force Affinity</label>
+      <select id="forceAffinity">
+        <option value="none">Not Chosen</option>
+        <option value="ashla">Ashla</option>
+        <option value="bendu">Bendu</option>
+        <option value="bogan">Bogan</option>
+      </select>
+    </div>
+    <h3>Ability Score Improvements</h3>
+    <div class="grid-two">
+      <select id="asiPrimary">
+        <option value="str">Strength</option>
+        <option value="dex">Dexterity</option>
+        <option value="con">Constitution</option>
+        <option value="int">Intelligence</option>
+        <option value="wis">Wisdom</option>
+        <option value="cha">Charisma</option>
+      </select>
+      <select id="asiSecondary">
+        <option value="str">Strength</option>
+        <option value="dex">Dexterity</option>
+        <option value="con">Constitution</option>
+        <option value="int">Intelligence</option>
+        <option value="wis">Wisdom</option>
+        <option value="cha">Charisma</option>
+      </select>
+      <input id="asiSpent" readonly placeholder="ASI Spent">
+      <input id="asiAvailable" readonly placeholder="ASI Available">
+    </div>
+    <div class="actions">
+      <button type="button" onclick="applyAsi('+2')">Apply +2 to Primary</button>
+      <button type="button" onclick="applyAsi('+1/+1')">Apply +1/+1</button>
+      <button type="button" onclick="undoAsi()">Undo Last ASI</button>
+    </div>
+    <h3>Force-Empowered Casting Options</h3>
+    <p class="fec-slots-label">Slots available at your level: <strong id="fecSlotsLabel">—</strong></p>
+    <div class="fec-checklist">
+      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Careful Power" onchange="updateFecChosen()"> <span class="fec-option-name">Careful Power</span></label>
+      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Distant Power" onchange="updateFecChosen()"> <span class="fec-option-name">Distant Power</span></label>
+      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Empowered Power" onchange="updateFecChosen()"> <span class="fec-option-name">Empowered Power</span></label>
+      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Extended Power" onchange="updateFecChosen()"> <span class="fec-option-name">Extended Power</span></label>
+      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Heightened Power" onchange="updateFecChosen()"> <span class="fec-option-name">Heightened Power</span></label>
+      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Quickened Power" onchange="updateFecChosen()"> <span class="fec-option-name">Quickened Power</span></label>
+      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Seeking Power" onchange="updateFecChosen()"> <span class="fec-option-name">Seeking Power</span></label>
+      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Twinned Power" onchange="updateFecChosen()"> <span class="fec-option-name">Twinned Power</span></label>
+    </div>
+    <h3>Experience Progress</h3>
+    <div class="xp-counter">
+      <div class="xp-display">
+        <span class="fp-label">Experience Points</span>
+        <input id="experiencePoints" type="number" min="0" placeholder="Experience Points">
+        <div class="xp-level-row">
+          <span id="xpCurrentLevel" class="xp-level-label">Level 1</span>
+          <span id="xpNextLevel" class="xp-level-label">Level 2</span>
+        </div>
+        <div class="xp-track" aria-hidden="true">
+          <div id="xpFill" class="xp-fill"></div>
+        </div>
+        <span id="xpProgressText" class="fp-used-label">0 / 300 XP</span>
+      </div>
+    </div>
+    <div class="powers-add-section">
+      <h3>Add Force Powers</h3>
+      <div class="powers-input-row">
+        <select id="forcePowerFilter" class="powers-level-select force-filter-level" onchange="renderForcePowerCatalog()">
+          <option value="all">All Levels</option>
+          <option value="0">At-will</option>
+          <option value="1">1st Level</option>
+          <option value="2">2nd Level</option>
+          <option value="3">3rd Level</option>
+          <option value="4">4th Level</option>
+          <option value="5">5th Level</option>
+          <option value="6">6th Level</option>
+          <option value="7">7th Level</option>
+          <option value="8">8th Level</option>
+          <option value="9">9th Level</option>
+        </select>
+        <select id="forcePowerAlignmentFilter" class="powers-level-select force-filter-alignment" onchange="renderForcePowerCatalog()">
+          <option value="all">All Alignments</option>
+          <option value="universal">Universal</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+        <input id="forcePowerSearch" class="powers-add-input" placeholder="Search force powers..." oninput="renderForcePowerCatalog()">
+      </div>
+      <div class="power-catalog-meta">
+        <span id="forcePowerCatalogStatus" class="fp-used-label">Loading force power catalog...</span>
+        <span class="fp-used-label">Add buttons unlock only for powers at or below your current Max Power Level.</span>
+      </div>
+      <div id="forcePowerCatalogList" class="force-power-catalog-list">
+        <p class="features-empty">Loading force power catalog...</p>
+      </div>
+    </div>
+    <textarea id="asiHistory" hidden></textarea>
+    <textarea id="classConfig" hidden></textarea>
+  </section>
+
+  <section id="characteristics" class="tab-page">
+    <h2>Characteristics</h2>
+    <input id="alignment" placeholder="Alignment">
+    <input id="gender" placeholder="Gender">
+    <input id="age" type="number" placeholder="Age">
+    <input id="height" placeholder="Height">
+    <input id="weight" type="number" placeholder="Weight">
+    <input id="hair" placeholder="Hair Color">
+    <input id="eyes" placeholder="Eyes">
+    <input id="skin" placeholder="Skin Color">
+    <textarea id="appearance" placeholder="Appearance"></textarea>
+    <textarea id="backstory" placeholder="Backstory"></textarea>
+    <textarea id="personality" placeholder="Personality Traits"></textarea>
+    <textarea id="ideal" placeholder="Ideal"></textarea>
+    <textarea id="bond" placeholder="Bond"></textarea>
+    <textarea id="flaw" placeholder="Flaw"></textarea>
+  </section>
+
+  <section id="combat-stats" class="tab-page">
+    <h2>Combat Stats</h2>
+  </section>
+
+  <section id="status" class="tab-page">
+    <h2>Status</h2>
+    <label><input id="inspiration" type="checkbox"> Inspiration</label>
+    <input id="exhaustion" type="number" placeholder="Exhaustion Level" min="0" max="6">
+    <input id="conditions" placeholder="Conditions (comma separated)">
+    <textarea id="notes" placeholder="Notes"></textarea>
+  </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <button class="footer-btn" onclick="saveCharacter()">Save Character</button>
+    <button class="footer-btn" onclick="loadCharacter()">Load Character</button>
+    <button class="footer-btn" onclick="resetCharacter()">Reset to Template</button>
+  </footer>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-page').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+  <script src="renderer.js"></script>
+</body>
+</html>

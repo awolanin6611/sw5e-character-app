@@ -1,0 +1,408 @@
+{
+  "name": "Netahl",
+  "id": "c1a3729d-79aa-4cdd-80b2-24defa233aab",
+  "userId": "bc340881-0292-47c6-b0b4-7bb21e283691",
+  "builderVersion": "0.7.6",
+  "image": "",
+  "user": "",
+  "experiencePoints": 6500,
+  "skills": {
+    "strSave": {
+      "prof": false,
+      "expertise": false
+    },
+    "athletics": {
+      "prof": false,
+      "expertise": false
+    },
+    "dexSave": {
+      "prof": false,
+      "expertise": false
+    },
+    "acrobatics": {
+      "prof": false,
+      "expertise": false
+    },
+    "sleightOfHand": {
+      "prof": false,
+      "expertise": false
+    },
+    "stealth": {
+      "prof": false,
+      "expertise": false
+    },
+    "conSave": {
+      "prof": false,
+      "expertise": false
+    },
+    "intSave": {
+      "prof": false,
+      "expertise": false
+    },
+    "investigation": {
+      "prof": false,
+      "expertise": false
+    },
+    "lore": {
+      "prof": false,
+      "expertise": false
+    },
+    "nature": {
+      "prof": false,
+      "expertise": false
+    },
+    "piloting": {
+      "prof": true,
+      "expertise": false
+    },
+    "technology": {
+      "prof": false,
+      "expertise": false
+    },
+    "wisSave": {
+      "prof": true,
+      "expertise": false
+    },
+    "animalHandling": {
+      "prof": false,
+      "expertise": false
+    },
+    "insight": {
+      "prof": false,
+      "expertise": false
+    },
+    "medicine": {
+      "prof": false,
+      "expertise": false
+    },
+    "perception": {
+      "prof": true,
+      "expertise": false
+    },
+    "survival": {
+      "prof": false,
+      "expertise": false
+    },
+    "chaSave": {
+      "prof": true,
+      "expertise": false
+    },
+    "deception": {
+      "prof": true,
+      "expertise": true
+    },
+    "intimidation": {
+      "prof": false,
+      "expertise": false
+    },
+    "performance": {
+      "prof": false,
+      "expertise": false
+    },
+    "persuasion": {
+      "prof": true,
+      "expertise": true
+    }
+  },
+  "species": {
+    "name": "Miraluka",
+    "abilityScoreImprovementSelectedOption": 0,
+    "abilityScoreImprovement": {}
+  },
+  "classes": [
+    {
+      "name": "Consular",
+      "levels": 5,
+      "hitPoints": [
+        6,
+        6,
+        6,
+        4
+      ],
+      "abilityScoreImprovements": [],
+      "forcePowers": [
+        {
+          "name": "Force Push/Pull",
+          "level": 0,
+          "alignment": "universal",
+          "description": "Casting Time: 1 action Range: 60 feet Duration: Instantaneous You gain the minor ability to move or manipulate creatures and objects with the Force. You can exert fine control on objects with your telekinetic grip, such as manipulating a simple tool, opening a door or a container, stowing or retrieving an item from an open container, or pouring the contents from a vial. Alternatively, you can push or pull a creature or object you can see. You use the Force to move a Medium or smaller creature or object not being worn or carried within range. The target must make a Strength saving throw. An object automatically fails this saving throw. On a failed save, the creature or object moves a number of feet in a direction of your choice based on its size. A Tiny creature or object can be moved up to 20 feet, a Small creature or object can be moved up to 10 feet, and a Medium creature or object can be moved up to 5 feet. If at the end of this movement the creature or object strikes another creature or object, it must make a Dexterity saving throw. An object automatically fails this saving throw. On a failed save, they both take 1d4 kinetic damage. This power improves when you reach higher levels. At 5th level, you can move a Tiny creature or object up to 30 feet, a Small creature or object up to 20 feet, a Medium creature or object up to 10 feet, and the power's damage increases to 2d4 kinetic damage. At 11th level, you can move a Small creature or object up to 30 feet, a Medium creature up to 20 feet, and the power's damage increases to 3d4 kinetic damage. At 17th level, you can move a Medium creature to up 30 feet, and the power's damage increases to 4d4 kinetic damage."
+        },
+        {
+          "name": "Force Whisper",
+          "level": 0,
+          "alignment": "universal",
+          "description": "Casting Time: 1 action Range: 120 feet Duration: 1 round You use the Force to carry a message in your voice to another creature within range. The target (and only the target) hears the message and can reply in a whisper that only you can hear. You can cast this power through solid objects if you are familiar with the target and know it is beyond the barrier. An enhanced silence effect, 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood blocks the power. The power doesn't have to follow a straight line and can travel freely around corners or through openings."
+        },
+        {
+          "name": "Mind Trick",
+          "level": 0,
+          "alignment": "universal",
+          "description": "Casting Time: 1 action Range: 30 feet Duration: Concentration, up to 1 minute Choose a target within range that isn't hostile toward you. The target must make a Wisdom saving throw. On a failed save, the target has disadvantage on Wisdom (Perception) and Intelligence (Investigation) checks. On a successful save, the creature realizes that you tried to use the Force to influence its awareness and becomes hostile toward you. A creature prone to violence might attack you. Another creature might seek retribution in other ways (at the GM's discretion), depending on the nature of your interaction with it. This power has no effect on droids or constructs."
+        },
+        {
+          "name": "Affect Mind",
+          "level": 0,
+          "alignment": "universal",
+          "description": "Casting Time: 1 action Range: 30 feet Duration: Concentration, up to 1 minute Choose a target within range that isn't hostile toward you. The target must make a Wisdom saving throw. On a failed save, you have advantage on all Charisma checks directed at that target. On a successful save, the creature does not realize that you tried to use the Force to influence its mood, but it becomes immune to this power for one day. This power has no effect on droids or constructs."
+        },
+        {
+          "name": "Force Disarm",
+          "level": 0,
+          "alignment": "universal",
+          "description": "Casting Time: 1 action Range: 30 feet Duration: Instantaneous You select a weapon or object being worn or carried by a Large or smaller creature within range. The creature must make a Strength or Dexterity saving throw (the creature chooses the ability to use). If the item is being carried, this save is made with advantage. On a failed save, the item is pulled directly to you. If you have a free hand, you catch the weapon. Otherwise, it lands at your feet."
+        },
+        {
+          "name": "Turbulence",
+          "level": 0,
+          "alignment": "light",
+          "description": "Casting Time: 1 action Range: 60 feet Duration: Instantaneous Choose one creature, or choose two creatures that are within 5 feet of each other, within range. A target must succeed on a Dexterity saving throw or take 1d6 force damage. This power's damage increases by 1d6 when you reach 5th, 11th, and 17th level."
+        },
+        {
+          "name": "Force Current",
+          "level": 1,
+          "alignment": "universal",
+          "description": "You harness the Force to create a current in a 15-foot cone. Each creature in the area must make a Strength saving throw. On a failed save, it is pushed 10 feet away and knocked prone."
+        },
+        {
+          "name": "Force Propel",
+          "level": 1,
+          "alignment": "universal",
+          "description": "Prerequisite: Force Push/Pull Casting Time: 1 action Range: 60 feet Duration: Instantaneous Choose one or more creatures or objects not being worn or carried within 60 feet that weigh up to a combined total of 15 pounds. The creatures or objects immediately move 60 feet in a direction of your choice. If the creatures or objects end this movement in the air, they immediately fall to the ground. If the creatures or objects collide with any one target during its travel, both the creatures or objects and the target take 3d8 kinetic damage. If the target is a creature, it must make a Dexterity saving throw. On a failed save, it takes the kinetic damage, or half as much on a successful one. Force Potency. When you cast this power using a force slot of 2nd level or higher, the maximum weight increases by 15 pounds and the damage increases by 1d8 for each slot level above 1st. CHAPTER 11 | FORCE POWERS 247"
+        },
+        {
+          "name": "Telepathic Link",
+          "level": 1,
+          "alignment": "universal",
+          "description": "You forge a telepathic link with one creature you can see within 30 feet. The creature must be willing. While the link exists, you can communicate with the target telepathically. The link lasts for 1 hour."
+        },
+        {
+          "name": "Sense Emotion",
+          "level": 1,
+          "alignment": "universal",
+          "description": "Casting Time: 1 action Range: Self Duration: Concentration, up to 10 minutes You attune your senses to pick up the emotions of others for the duration. When you cast the power, and as your action on each turn until the power ends, you can focus your senses on one humanoid you can see within 30 feet of you. You instantly learn the target's prevailing emotion, whether it's love, anger, pain, fear, calm, or something else, and you have advantage on Wisdom (Insight) checks against the target. If the target isn't actually humanoid or it is immune to being charmed, you sense that it is calm."
+        },
+        {
+          "name": "Sense Force",
+          "level": 1,
+          "alignment": "universal",
+          "description": "Casting Time: 1 action Range: Self Duration: Concentration, up to 10 minutes For the duration, you sense the use of the Force, or its presence in an inanimate object within 30 feet of you. If you sense the Force in this way, you can use your action to determine the direction from which it originates and, if it's in line of sight, you see a faint aura around the person or object from which the Force emanates. Force Potency. When you cast this power using a 3rd-level force slot, the range increases to 60 feet. When you use a 5th-level force slot, the range increases to 500 feet. When you use a 7th-level force slot, the range increases to 1 mile. When you use a 9th- level force slot, the range increases to 10 miles."
+        },
+        {
+          "name": "Sanctuary",
+          "level": 1,
+          "alignment": "light",
+          "description": "Casting Time: 1 bonus action Range: 30 feet Duration: 1 minute Until the power ends, any creature who targets the warded creature with an attack, a harmful power, or a hostile action must first make a Wisdom saving throw. On a failed save, the creature must choose a new target or lose the attack or power. This power doesn't protect the warded creature from area effects. If the warded creature makes an attack, casts a power that affects an enemy creature, or takes a hostile action this power ends."
+        },
+        {
+          "name": "Force Throw",
+          "level": 2,
+          "alignment": "universal",
+          "description": "Prerequisite: Force Push/Pull Casting Time: 1 action Range: 90 feet Duration: Instantaneous You use the Force to move a Large or smaller creature or object not being worn or carried within range. The target must make a Strength saving throw. An object automatically fails this saving throw. On a failed save, the creature or object moves a number of feet in a direction of your choice based on its size. A Tiny creature or object can be moved up to 90 feet, a Small creature or object can be moved up to 60 feet, a Medium creature or object can be moved up to 30 feet, and a Large creature or object can be moved up to 10 feet. If at the end of this movement the creature or object strikes another creature or object, they both take 2d8 force damage. Force Potency. When you cast this power using a force slot of 3rd level or higher, the range you can throw a creature or object increases by 10 feet, to a maximum of 90 feet, and the power's damage increases by 1d8."
+        },
+        {
+          "name": "Coerce Mind",
+          "level": 2,
+          "alignment": "universal",
+          "description": "Prerequisite: Affect Mind Casting Time: 1 action Range: 30 feet Duration: Concentration, up to 8 hours You suggest a course of activity (limited to a sentence or two) and influence with the Force a creature you can see within range that can hear and understand you. Creatures that can't be charmed are immune to this effect. The suggestion must be worded in such a manner as to make the course of action sound reasonable. Asking the creature to harm itself automatically negates the effect of the power. The target must make a Wisdom saving throw. On a failed save, it pursues the course of action you described to the best of its ability. The suggested course of action can continue for the entire duration. If the suggested activity can be completed in a shorter time, the power ends when the subject finishes what it was asked to do. You can also specify conditions that will trigger a special activity during the duration. For example, you might suggest that a soldier give her speeder to the first vagrant she meets. If the condition isn't met before the power expires, the activity isn't performed. If you or any of your companions damage the target, the power ends. This power has no effect on droids or constructs."
+        },
+        {
+          "name": "Animate Weapon",
+          "level": 2,
+          "alignment": "universal",
+          "description": "Prerequisite: Force Disarm Casting Time: 1 bonus action Range: 60 feet Duration: 1 minute You select a light- or vibro-weapon within this power's range that is not worn or carried by a conscious creature other than you, and use the Force to cause it to levitate, acting as an extension of your will for the duration or until you cast this power again. When you use this power, you can cause the weapon to move up to 20 feet and make a melee force attack against a creature within 5 feet of it. On a hit, the target takes 1d8 + your forcecasting ability modifier damage. The type is of the normal damage dealt by the weapon. While the weapon is animated, on each of your turns you can use a bonus action to move the weapon up to 20 feet and repeat the attack against a creature within 5 feet of it. At any time, you can end this force power to return the animated weapon to your hand. An enemy can attempt to gain control of the weapon by using its action to make a Strength (Athletics) check against your force save DC. On a success, the creature gains control of the weapon and the power ends. Force Potency. When you cast this power using a force slot of 3rd level or higher, the weapon's damage increases by 1d8 for every two slot levels above 2nd."
+        },
+        {
+          "name": "Probe Mind",
+          "level": 2,
+          "alignment": "dark",
+          "description": "You attempt to probe the mind of a creature within 30 feet. The target must make an Intelligence saving throw. On a failed save, you learn its alignment and its strongest emotion. If it fails by 5 or more, you learn one piece of information it knows."
+        },
+        {
+          "name": "Force Sight",
+          "level": 2,
+          "alignment": "universal",
+          "description": "Prerequisite: Sense Force Casting Time: 1 action Range: Self Duration: Concentration, up to 10 minutes You shift your vision to see through use of the Force; colors fade and inanimate objects appear as shades of gray. For the duration, you gain the following benefits. Living things glow with the power of the Force. Those with an affinity for the light side glow blue, those with an affinity for the dark side glow red, and those with no attunement to either side of the Force glow yellow. How bright they glow is determined by how strong their connection to the Force is. You gain blindsight to 30 feet. You have advantage on Wisdom (Perception) checks that rely on sight against living targets within 30 feet. CHAPTER 11 | FORCE POWERS 248"
+        },
+        {
+          "name": "Telekinetic Shield",
+          "level": 3,
+          "alignment": "universal",
+          "description": "Prerequisite: Animate Weapon Casting Time: 1 action Range: Self Duration: Concentration, up to 1 minute You lift three piles of debris or small objects from the ground and interpose them between you and your opponents for the duration. While at least three piles remain, you have three- quarters cover. While two piles remain, you have half cover. While only one pile remains, you have one- quarter cover. The piles don't hinder your attacks. When you cast the power, or as an action on a subsequent turn, you can direct up to two piles to attack up to two creatures you can see within 30 feet. Make a ranged force attack roll for each pile. On a hit, a creature takes 2d6 kinetic plus 1d10 force damage. The pile is destroyed whether it hits or misses. Force Potency. If you cast this power with a force slot of 4th level or higher, the power creates one additional pile for each level above 3rd."
+        },
+        {
+          "name": "Force Repulse",
+          "level": 3,
+          "alignment": "universal",
+          "description": "Casting Time: 1 action Range: Self (20-foot radius) Duration: Instantaneous You release an omnidirectional telekinetic burst. Each creature within 20 feet must make a Dexterity saving throw. On a failed save, a creature takes 8d6 force damage and is pushed back 5 feet. On a successful save, a creature takes half damage and isn't pushed. All small objects that are not worn or carried are also pushed 5 feet back. Force Potency. When you cast this power using a force slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd."
+        },
+        {
+          "name": "Telekinetic Storm",
+          "level": 3,
+          "alignment": "light",
+          "description": "Prerequisite: Turbulence Casting Time: 1 action Range: Self (15-foot radius) Duration: Concentration, up to 1 minute You stir the Force around you, creating a turbulent field of telekinetic energy that buffets enemies around you. The field extends out to a distance of 15 feet around you for the duration. When you cast this power, you can designate any number of creatures you can see to be unaffected by it. An affected creature gains 1 slowed level while in the area, and when the creature enters the area for the first time on a turn or starts its turn there, it must make a Constitution saving throw. On a failed save, the creature takes 3d8 force damage. On a successful save, the creature takes half as much damage. Force Potency. When you cast this power using a force power slot of 4th level or higher, the damage increases by 1d8 for each slot level above 3rd. CHAPTER 11 | FORCE POWERS 266"
+        }
+      ],
+      "archetype": {
+        "name": "Way of Telekinetics"
+      }
+    }
+  ],
+  "baseAbilityScores": {
+    "Strength": 15,
+    "Dexterity": 16,
+    "Constitution": 13,
+    "Intelligence": 16,
+    "Wisdom": 16,
+    "Charisma": 17
+  },
+  "background": {
+    "name": "Jedi",
+    "feat": {
+      "name": "Formfighting Dabbler",
+      "type": "Feat"
+    },
+    "feature": ""
+  },
+  "characteristics": {
+    "alignment": "Balanced Neutral",
+    "Personality Traits": "",
+    "Ideal": "",
+    "Bond": "",
+    "Flaw": "",
+    "Gender": "male",
+    "Place of Birth": "",
+    "Age": "16",
+    "Height": "5'10",
+    "Weight": "190",
+    "Hair": "blonde",
+    "Eyes": "blind",
+    "Skin": "tan",
+    "Appearance": "",
+    "Backstory": ""
+  },
+  "credits": 0,
+  "equipment": [
+    {
+      "name": "Lightsaber",
+      "quantity": 1,
+      "category": "Equipment",
+      "equipped": true
+    },
+    {
+      "name": "Pouch",
+      "quantity": 1,
+      "category": "Equipment"
+    },
+    {
+      "name": "Jedi Padawan's Robe",
+      "quantity": 1,
+      "category": "EnhancedItem",
+      "attuned": true
+    }
+  ],
+  "currentStats": {
+    "hitPointsLost": 0,
+    "temporaryHitPoints": 0,
+    "techPointsUsed": 0,
+    "forcePointsUsed": 6,
+    "superiorityDiceUsed": 0,
+    "hitDiceUsed": {
+      "d6": 0
+    },
+    "deathSaves": {
+      "successes": 0,
+      "failures": 0
+    },
+    "hasInspiration": false,
+    "featuresTimesUsed": {},
+    "conditions": [],
+    "exhaustion": 0,
+    "highLevelCasting": {
+      "level6": false,
+      "level7": false,
+      "level8": false,
+      "level9": false
+    }
+  },
+  "tweaks": {
+    "abilityScores": {
+      "Wisdom": {
+        "skills": {
+          "Perception": {
+            "bonus": null,
+            "override": null,
+            "proficiency": "Proficient"
+          }
+        },
+        "score": {
+          "bonus": 1,
+          "override": null
+        }
+      },
+      "Charisma": {
+        "skills": {
+          "Persuasion": {
+            "proficiency": "Expertise"
+          },
+          "Deception": {
+            "proficiency": "Expertise"
+          }
+        }
+      },
+      "Intelligence": {
+        "skills": {
+          "Piloting": {
+            "proficiency": "Proficient"
+          }
+        }
+      }
+    },
+    "initiative": {
+      "bonus": 1,
+      "override": null
+    },
+    "forceCasting": {
+      "maxPoints": {
+        "bonus": 3,
+        "override": null
+      }
+    }
+  },
+  "customProficiencies": [],
+  "customLanguages": [],
+  "customFeatures": [
+    {
+      "name": "Staggering Stratagem",
+      "content": "Way of Telekinetics: 3rd level\n\nYour potency with the telekinetic power of the Force heightens. You can manipulate creatures of Large size or smaller with your force powers and Way of Telekinetics features. Additionally, once per turn, when you deal force or kinetic damage to a Large or smaller creature with a force power or class feature, you can choose to either push it up to 10 feet away from you or pull it up to 10 feet closer to you."
+    },
+    {
+      "name": "Heightened Power",
+      "content": "When you cast a power that forces a creature to make a saving throw to resist its effects, you can spend 3 additional force points to give one target of the power disadvantage on its first saving throw made against the power."
+    },
+    {
+      "name": "Twinned Power",
+      "content": "When you cast a power that can only have one target and doesn’t have a range of self, you can spend a number of additional force points equal to the power’s level to choose a second target in range with the same power (1 force point if the power is at-will)."
+    },
+    {
+      "name": "Force-Bound Brothers",
+      "content": "Prerequisite\nOne Guardian and one Consular. Both characters must take this feat and designate each other as\nbonded allies.\nBond Range: 60 feet\nPresence and Perception\nWhile you are within 60 feet of each other:\n• The Guardian has advantage on the first weapon attack they make in the first round of combat.\n• The Consular has advantage on the first Force power attack roll, or may impose disadvantage on the\nfirst saving throw against one of their Force powers in the first round of combat.\n• Neither of you can be surprised while the other is conscious.\nGuided Strike (1/Short Rest)\nWhen the Guardian hits a creature with a weapon attack, the Consular may use their reaction to\nenhance the strike, causing the attack to deal one additional weapon damage die.\nSteadfast Focus (1/Short Rest)\nWhen the Consular casts a Force power that requires a saving throw, the Guardian may use their\nreaction to impose disadvantage on one target’s saving throw against that power."
+    }
+  ],
+  "customFeats": [],
+  "customTechPowers": [],
+  "customForcePowers": [
+    "Sense Force",
+    "Force Sight",
+    "Sanctuary"
+  ],
+  "customEquipment": [],
+  "settings": {
+    "isEnforcingForcePrerequisites": true,
+    "isFixedHitPoints": false,
+    "abilityScoreMethod": "Manual"
+  },
+  "notes": "",
+  "createdAt": 1763935370878,
+  "changedAt": 1776133636412,
+  "localId": "temp-gunl0sy4r"
+}
