@@ -15,6 +15,9 @@ out/
 # Environment and editor
 .venv/
 .vscode/
+__pycache__/
+*.py[cod]
+*$py.class
 *.log
 npm-debug.log*
 yarn-debug.log*
