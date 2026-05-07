@@ -75,8 +75,11 @@
       </div>
       <div class="basic-info-col">
         <div class="basic-card">
-          <label class="fp-label" for="archetype">Archetype</label>
-          <input id="archetype" placeholder="Archetype">
+          <label class="fp-label">Class Archetype</label>
+          <div id="basicInfoArchetypeTabs" class="character-archetype-tabs-wrap">
+            <p class="features-empty">Add a class to choose an archetype.</p>
+          </div>
+          <input id="archetype" type="hidden" value="">
         </div>
         <div class="basic-card">
           <label class="fp-label" for="background">Background</label>
@@ -100,7 +103,7 @@
 
   <section id="level-progression" class="tab-page">
     <h2>Powers and Feats</h2>
-    <h3>Known Force Powers</h3>
+    <h3>Known Powers</h3>
     <div class="class-layout">
       <div id="powersLeft" class="powers-col"></div>
       <div class="class-center-col">
@@ -148,14 +151,14 @@
     </div>
     <input id="fecChosen" type="hidden" value="">
 
-    <div class="fec-display-section">
+    <div id="consularFecDisplaySection" class="fec-display-section">
       <h3>Force-Empowered Casting</h3>
       <div id="fecDisplay" class="fec-display-panel">
         <p class="fec-empty-msg">No Force-Empowered options chosen. Select options in the Leveling tab.</p>
       </div>
     </div>
 
-    <div class="affinity-display-section">
+    <div id="consularAffinityDisplaySection" class="affinity-display-section">
       <h3>Force Affinity Effect</h3>
       <div id="affinityInfo" class="affinity-info-panel">
         <h4 id="affinityInfoTitle" class="affinity-info-title">No Affinity Chosen</h4>
@@ -166,6 +169,7 @@
     <div class="grid-two" hidden>
       <input id="proficiencyBonus" readonly placeholder="Proficiency Bonus">
       <input id="maxPowerLevel" readonly placeholder="Max Power Level">
+      <input id="techMaxPowerLevel" readonly placeholder="Tech Max Power Level">
       <input id="fecOptionsAllowed" readonly placeholder="FEC Options Allowed">
       <input id="forceRecoveryAmount" readonly placeholder="Force Recovery Amount">
       <input id="forceShieldUses" readonly placeholder="Force Shield Uses">
@@ -458,21 +462,23 @@
         <p class="leveling-help-text">Set one or more classes here for multiclassing. Supported progression math is currently implemented for Consular, Engineer, and Scout; other classes still contribute to total level and proficiency bonus.</p>
       </div>
     </div>
-    <div class="row">
-      <label for="castingAbility">Universal Force Ability</label>
-      <select id="castingAbility">
-        <option value="wis">Wisdom</option>
-        <option value="cha">Charisma</option>
-      </select>
-    </div>
-    <div class="row">
-      <label for="forceAffinity">Force Affinity</label>
-      <select id="forceAffinity">
-        <option value="none">Not Chosen</option>
-        <option value="ashla">Ashla</option>
-        <option value="bendu">Bendu</option>
-        <option value="bogan">Bogan</option>
-      </select>
+    <div id="consularConfigSection">
+      <div class="row">
+        <label for="castingAbility">Universal Force Ability</label>
+        <select id="castingAbility">
+          <option value="wis">Wisdom</option>
+          <option value="cha">Charisma</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="forceAffinity">Force Affinity</label>
+        <select id="forceAffinity">
+          <option value="none">Not Chosen</option>
+          <option value="ashla">Ashla</option>
+          <option value="bendu">Bendu</option>
+          <option value="bogan">Bogan</option>
+        </select>
+      </div>
     </div>
     <h3>Ability Score Improvements</h3>
     <div class="grid-two">
@@ -500,17 +506,19 @@
       <button type="button" onclick="applyAsi('+1/+1')">Apply +1/+1</button>
       <button type="button" onclick="undoAsi()">Undo Last ASI</button>
     </div>
-    <h3>Force-Empowered Casting Options</h3>
-    <p class="fec-slots-label">Slots available at your level: <strong id="fecSlotsLabel">—</strong></p>
-    <div class="fec-checklist">
-      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Careful Power" onchange="updateFecChosen()"> <span class="fec-option-name">Careful Power</span></label>
-      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Distant Power" onchange="updateFecChosen()"> <span class="fec-option-name">Distant Power</span></label>
-      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Empowered Power" onchange="updateFecChosen()"> <span class="fec-option-name">Empowered Power</span></label>
-      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Extended Power" onchange="updateFecChosen()"> <span class="fec-option-name">Extended Power</span></label>
-      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Heightened Power" onchange="updateFecChosen()"> <span class="fec-option-name">Heightened Power</span></label>
-      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Quickened Power" onchange="updateFecChosen()"> <span class="fec-option-name">Quickened Power</span></label>
-      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Seeking Power" onchange="updateFecChosen()"> <span class="fec-option-name">Seeking Power</span></label>
-      <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Twinned Power" onchange="updateFecChosen()"> <span class="fec-option-name">Twinned Power</span></label>
+    <div id="consularFecOptionsSection">
+      <h3>Force-Empowered Casting Options</h3>
+      <p class="fec-slots-label">Slots available at your level: <strong id="fecSlotsLabel">—</strong></p>
+      <div class="fec-checklist">
+        <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Careful Power" onchange="updateFecChosen()"> <span class="fec-option-name">Careful Power</span></label>
+        <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Distant Power" onchange="updateFecChosen()"> <span class="fec-option-name">Distant Power</span></label>
+        <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Empowered Power" onchange="updateFecChosen()"> <span class="fec-option-name">Empowered Power</span></label>
+        <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Extended Power" onchange="updateFecChosen()"> <span class="fec-option-name">Extended Power</span></label>
+        <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Heightened Power" onchange="updateFecChosen()"> <span class="fec-option-name">Heightened Power</span></label>
+        <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Quickened Power" onchange="updateFecChosen()"> <span class="fec-option-name">Quickened Power</span></label>
+        <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Seeking Power" onchange="updateFecChosen()"> <span class="fec-option-name">Seeking Power</span></label>
+        <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Twinned Power" onchange="updateFecChosen()"> <span class="fec-option-name">Twinned Power</span></label>
+      </div>
     </div>
     <h3>Experience Progress</h3>
     <div class="xp-counter">
@@ -528,35 +536,68 @@
       </div>
     </div>
     <div class="powers-add-section">
-      <h3>Add Force Powers</h3>
-      <div class="powers-input-row">
-        <select id="forcePowerFilter" class="powers-level-select force-filter-level" onchange="renderForcePowerCatalog()">
-          <option value="all">All Levels</option>
-          <option value="0">At-will</option>
-          <option value="1">1st Level</option>
-          <option value="2">2nd Level</option>
-          <option value="3">3rd Level</option>
-          <option value="4">4th Level</option>
-          <option value="5">5th Level</option>
-          <option value="6">6th Level</option>
-          <option value="7">7th Level</option>
-          <option value="8">8th Level</option>
-          <option value="9">9th Level</option>
-        </select>
-        <select id="forcePowerAlignmentFilter" class="powers-level-select force-filter-alignment" onchange="renderForcePowerCatalog()">
-          <option value="all">All Alignments</option>
-          <option value="universal">Universal</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-        <input id="forcePowerSearch" class="powers-add-input" placeholder="Search force powers..." oninput="renderForcePowerCatalog()">
+      <h3>Add Powers</h3>
+      <div class="power-catalog-tabs">
+        <button id="powerCatalogTabForce" type="button" class="power-catalog-tab active" onclick="switchPowerCatalogTab('force')">Force Powers</button>
+        <button id="powerCatalogTabTech" type="button" class="power-catalog-tab" onclick="switchPowerCatalogTab('tech')">Tech Powers</button>
       </div>
-      <div class="power-catalog-meta">
-        <span id="forcePowerCatalogStatus" class="fp-used-label">Loading force power catalog...</span>
-        <span class="fp-used-label">Add buttons unlock only for powers at or below your current Max Power Level.</span>
+
+      <div id="forcePowerCatalogPanel" class="power-catalog-panel active">
+        <div class="powers-input-row">
+          <select id="forcePowerFilter" class="powers-level-select force-filter-level" onchange="renderForcePowerCatalog()">
+            <option value="all">All Levels</option>
+            <option value="0">At-will</option>
+            <option value="1">1st Level</option>
+            <option value="2">2nd Level</option>
+            <option value="3">3rd Level</option>
+            <option value="4">4th Level</option>
+            <option value="5">5th Level</option>
+            <option value="6">6th Level</option>
+            <option value="7">7th Level</option>
+            <option value="8">8th Level</option>
+            <option value="9">9th Level</option>
+          </select>
+          <select id="forcePowerAlignmentFilter" class="powers-level-select force-filter-alignment" onchange="renderForcePowerCatalog()">
+            <option value="all">All Alignments</option>
+            <option value="universal">Universal</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+          <input id="forcePowerSearch" class="powers-add-input" placeholder="Search force powers..." oninput="renderForcePowerCatalog()">
+        </div>
+        <div class="power-catalog-meta">
+          <span id="forcePowerCatalogStatus" class="fp-used-label">Loading force power catalog...</span>
+          <span class="fp-used-label">Force powers unlock by Forcecasting class levels and max force power level.</span>
+        </div>
+        <div id="forcePowerCatalogList" class="force-power-catalog-list">
+          <p class="features-empty">Loading force power catalog...</p>
+        </div>
       </div>
-      <div id="forcePowerCatalogList" class="force-power-catalog-list">
-        <p class="features-empty">Loading force power catalog...</p>
+
+      <div id="techPowerCatalogPanel" class="power-catalog-panel">
+        <div class="powers-input-row">
+          <select id="techPowerFilter" class="powers-level-select force-filter-level" onchange="renderTechPowerCatalog()">
+            <option value="all">All Levels</option>
+            <option value="0">At-will</option>
+            <option value="1">1st Level</option>
+            <option value="2">2nd Level</option>
+            <option value="3">3rd Level</option>
+            <option value="4">4th Level</option>
+            <option value="5">5th Level</option>
+            <option value="6">6th Level</option>
+            <option value="7">7th Level</option>
+            <option value="8">8th Level</option>
+            <option value="9">9th Level</option>
+          </select>
+          <input id="techPowerSearch" class="powers-add-input" placeholder="Search tech powers..." oninput="renderTechPowerCatalog()">
+        </div>
+        <div class="power-catalog-meta">
+          <span id="techPowerCatalogStatus" class="fp-used-label">Loading tech power catalog...</span>
+          <span class="fp-used-label">Tech powers unlock by Techcasting class levels and max tech power level.</span>
+        </div>
+        <div id="techPowerCatalogList" class="force-power-catalog-list">
+          <p class="features-empty">Loading tech power catalog...</p>
+        </div>
       </div>
     </div>
     <textarea id="asiHistory" hidden></textarea>

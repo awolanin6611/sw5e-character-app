@@ -1,0 +1,1002 @@
+[
+  {
+    "name": "Acid Splash",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Acidic Strike",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Assess the Situation",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Combustive Shot",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Cryogenic Burst",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Echo Blast",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Electrical Burst",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Electroshock",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Encrypted Message",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Extinguish",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Haywire",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Illusory Strike",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Ion Blast",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Ionic Strike",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Jet of Flame",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Light",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Mending",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Minor Defibrillation",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Minor Hologram",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Mobile Lights",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "On/Off",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Pheromone Burst",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Poison Spray",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Pressure Crush",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Reboot",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Rime Shot",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Rime Strike",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Short Circuit",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Sonic Shot",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Sonic Strike",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Spectrum Ray",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Storming Shot",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Targeting Shot",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Temporary Boost",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Venomous Strike",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Vortex Shot",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Ward",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Warding Shot",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Wire Line",
+    "level": 0,
+    "description": ""
+  },
+  {
+    "name": "Absorb Energy",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Acid Wind",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Alarm",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Analyze",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Bacta Pack",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Buffer",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Condense/Vaporize",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Copy",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Countermeasures",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Cryogenic Blast",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Cryogenic Wave",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Decryption Program",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Detect Enhancement",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Element of Surprise",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Energy Shield",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Execute Command",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Expeditious Retreat",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Flame Sweep",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Flash",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Gleaming Outline",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Hologram",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Holographic Disguise",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Homing Rockets",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Ionic Bond",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Kolto Pack",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Oil Slick",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Overload",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Poison Dart",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Preparedness",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Repair Droid",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Ring of Fire",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Smoke Cloud",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Sonic Fists",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Spectrum Bolt",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Spot the Weakness",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Stack the Deck",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Tactical Barrier",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Target Lock",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Toxin Scan",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Tracer Bolt",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Tracker Droid Interface",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Tranquilizer",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Translation Program",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Voltaic Shielding",
+    "level": 1,
+    "description": ""
+  },
+  {
+    "name": "Acid Dart",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Capacity Boost",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Concealed Caltrops",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Cryogenic Volley",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Darkvision",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Detect Invisibility",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Detect Traps",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Electromesh",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Energetic Burst",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Enhance Droid",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Flaming Shots",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Frequency Scan",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Glide",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Hold Droid",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Implant Message",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Infiltrate",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Kolto Dispenser",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Lock",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Magnetic Field",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Magnetic Hold",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Mirror Image",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Motivator Boost",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Overheat",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Paralyze Humanoid",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Pyrotechnics",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Release",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Shared Shielding",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Shatter",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Shocking Ray",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Smuggle",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Toxin Purge",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Translocate",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Truth Serum",
+    "level": 2,
+    "description": ""
+  },
+  {
+    "name": "Autonomous Servant",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Bestow Virus",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Cryogenic Suspension",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Debilitating Gas",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Destroy Tech",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Diminish Tech",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Enhance Weapon",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Explosion",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Fabricate Trap",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Greater Hologram",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Greater Light",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Greater Translation Program",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Invisibility to Cameras",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Kolto Cloud",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Protection From Energy",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Read Memory",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Remove Virus",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Sabotage Charges",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Scramble Interface",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Sending",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Slow-release Medpac",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Tactical Advantage",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Tech Override",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Tonal Translocate",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Vertical Maneuvering",
+    "level": 3,
+    "description": ""
+  },
+  {
+    "name": "Ballistic Shield",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Cloaking Screen",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Corrosive Sphere",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Cryogenic Storm",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Defibrillate",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Elemental Accelerant",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Holding Cell",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Illusory Terrain",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Kolto Reserve",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Radiation",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Salvo",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Scan Area",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Sensor Probe",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Synchronicity",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Wire Bind",
+    "level": 4,
+    "description": ""
+  },
+  {
+    "name": "Cryogenic Spray",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Friendly Fire",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Greater Analyze",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Greater Translocate",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Group Hologram",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Immolate",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Mass Repair Droid",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Mislead",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Override Interface",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Paralyze Creature",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Reprogram Droid",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Rewrite Memory",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Shutdown",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Skill Protocol",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Toxic Cloud",
+    "level": 5,
+    "description": ""
+  },
+  {
+    "name": "Carbon Fog",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Carbonite",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Contingency",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Disintegrate",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Disperse Energy",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Find the Path",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Firestorm",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Kolto Infusion",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Programmed Illusion",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Scrambling Barrier",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Security Protocols",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Superior Translation Program",
+    "level": 6,
+    "description": ""
+  },
+  {
+    "name": "Cage",
+    "level": 7,
+    "description": ""
+  },
+  {
+    "name": "Delayed Explosion",
+    "level": 7,
+    "description": ""
+  },
+  {
+    "name": "Greater Sabotage Charges",
+    "level": 7,
+    "description": ""
+  },
+  {
+    "name": "Neurotoxin",
+    "level": 7,
+    "description": ""
+  },
+  {
+    "name": "Project Hologram",
+    "level": 7,
+    "description": ""
+  },
+  {
+    "name": "Tactical Superiority",
+    "level": 7,
+    "description": ""
+  },
+  {
+    "name": "Antipathy/Sympathy",
+    "level": 8,
+    "description": ""
+  },
+  {
+    "name": "Energizing Aura",
+    "level": 8,
+    "description": ""
+  },
+  {
+    "name": "Incendiary Cloud",
+    "level": 8,
+    "description": ""
+  },
+  {
+    "name": "Scrambling Field",
+    "level": 8,
+    "description": ""
+  },
+  {
+    "name": "Stun Dart",
+    "level": 8,
+    "description": ""
+  },
+  {
+    "name": "Carbonite Explosion",
+    "level": 9,
+    "description": ""
+  },
+  {
+    "name": "Greater Explosion",
+    "level": 9,
+    "description": ""
+  },
+  {
+    "name": "Greater Salvo",
+    "level": 9,
+    "description": ""
+  },
+  {
+    "name": "Invulnerability",
+    "level": 9,
+    "description": ""
+  },
+  {
+    "name": "Kolto Waves",
+    "level": 9,
+    "description": ""
+  },
+  {
+    "name": "Predictive Ai",
+    "level": 9,
+    "description": ""
+  }
+]

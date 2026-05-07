@@ -2,6 +2,11 @@
 let fs, path, app, dataPath;
 let storageBackend = 'none';
 let forcePowerCatalog = [];
+let techPowerCatalog = [];
+let classProgressionCatalog = {};
+let activeFeatureClassTab = '';
+let activeCharacterArchetypeTab = '';
+let activePowerCatalogTab = 'force';
 const LOCAL_STORAGE_KEY = 'sw5e.character';
 
 const CONSULAR_TABLE = {
@@ -29,20 +34,84 @@ const CONSULAR_TABLE = {
 
 const TECH_POWERS_KNOWN_TABLES = {
   engineer: {
-    1: 4, 2: 5, 3: 6, 4: 7, 5: 8,
-    6: 9, 7: 10, 8: 11, 9: 12, 10: 12,
-    11: 13, 12: 13, 13: 14, 14: 14, 15: 15,
-    16: 15, 17: 16, 18: 16, 19: 17, 20: 17
+    1: 6, 2: 7, 3: 9, 4: 10, 5: 12,
+    6: 13, 7: 15, 8: 16, 9: 18, 10: 19,
+    11: 21, 12: 22, 13: 23, 14: 24, 15: 25,
+    16: 26, 17: 27, 18: 28, 19: 29, 20: 30
   },
   scout: {
-    1: 0, 2: 2, 3: 3, 4: 3, 5: 4,
-    6: 4, 7: 5, 8: 5, 9: 6, 10: 6,
-    11: 7, 12: 7, 13: 8, 14: 8, 15: 9,
-    16: 9, 17: 10, 18: 10, 19: 11, 20: 11
+    1: 0, 2: 4, 3: 5, 4: 6, 5: 7,
+    6: 8, 7: 9, 8: 10, 9: 12, 10: 13,
+    11: 14, 12: 15, 13: 16, 14: 17, 15: 18,
+    16: 19, 17: 20, 18: 21, 19: 22, 20: 23
   }
 };
 
+const GUARDIAN_FORCE_TABLE = {
+  1: { forcePowersKnown: 5, maxPowerLevel: 1 },
+  2: { forcePowersKnown: 7, maxPowerLevel: 1 },
+  3: { forcePowersKnown: 9, maxPowerLevel: 1 },
+  4: { forcePowersKnown: 10, maxPowerLevel: 1 },
+  5: { forcePowersKnown: 12, maxPowerLevel: 2 },
+  6: { forcePowersKnown: 13, maxPowerLevel: 2 },
+  7: { forcePowersKnown: 14, maxPowerLevel: 2 },
+  8: { forcePowersKnown: 15, maxPowerLevel: 2 },
+  9: { forcePowersKnown: 17, maxPowerLevel: 3 },
+  10: { forcePowersKnown: 18, maxPowerLevel: 3 },
+  11: { forcePowersKnown: 19, maxPowerLevel: 3 },
+  12: { forcePowersKnown: 20, maxPowerLevel: 3 },
+  13: { forcePowersKnown: 22, maxPowerLevel: 4 },
+  14: { forcePowersKnown: 23, maxPowerLevel: 4 },
+  15: { forcePowersKnown: 24, maxPowerLevel: 4 },
+  16: { forcePowersKnown: 25, maxPowerLevel: 4 },
+  17: { forcePowersKnown: 27, maxPowerLevel: 5 },
+  18: { forcePowersKnown: 28, maxPowerLevel: 5 },
+  19: { forcePowersKnown: 29, maxPowerLevel: 5 },
+  20: { forcePowersKnown: 30, maxPowerLevel: 5 }
+};
+
+const SENTINEL_FORCE_TABLE = {
+  1: { forcePowersKnown: 7, maxPowerLevel: 1 },
+  2: { forcePowersKnown: 9, maxPowerLevel: 1 },
+  3: { forcePowersKnown: 11, maxPowerLevel: 2 },
+  4: { forcePowersKnown: 13, maxPowerLevel: 2 },
+  5: { forcePowersKnown: 15, maxPowerLevel: 2 },
+  6: { forcePowersKnown: 17, maxPowerLevel: 3 },
+  7: { forcePowersKnown: 18, maxPowerLevel: 3 },
+  8: { forcePowersKnown: 19, maxPowerLevel: 3 },
+  9: { forcePowersKnown: 21, maxPowerLevel: 4 },
+  10: { forcePowersKnown: 22, maxPowerLevel: 4 },
+  11: { forcePowersKnown: 24, maxPowerLevel: 5 },
+  12: { forcePowersKnown: 25, maxPowerLevel: 5 },
+  13: { forcePowersKnown: 26, maxPowerLevel: 5 },
+  14: { forcePowersKnown: 28, maxPowerLevel: 6 },
+  15: { forcePowersKnown: 29, maxPowerLevel: 6 },
+  16: { forcePowersKnown: 30, maxPowerLevel: 6 },
+  17: { forcePowersKnown: 32, maxPowerLevel: 7 },
+  18: { forcePowersKnown: 33, maxPowerLevel: 7 },
+  19: { forcePowersKnown: 34, maxPowerLevel: 7 },
+  20: { forcePowersKnown: 35, maxPowerLevel: 7 }
+};
+
+const TECH_MAX_POWER_LEVEL_TABLES = {
+  engineer: {
+    1: 1, 2: 1, 3: 2, 4: 2, 5: 3,
+    6: 3, 7: 4, 8: 4, 9: 5, 10: 5,
+    11: 6, 12: 6, 13: 7, 14: 7, 15: 8,
+    16: 8, 17: 9, 18: 9, 19: 9, 20: 9
+  },
+  scout: {
+    1: 0, 2: 1, 3: 1, 4: 1, 5: 2,
+    6: 2, 7: 2, 8: 2, 9: 3, 10: 3,
+    11: 3, 12: 3, 13: 4, 14: 4, 15: 4,
+    16: 4, 17: 5, 18: 5, 19: 5, 20: 5
+  }
+};
+
+const PLACEHOLDER_CLASS = 'Select Class';
+
 const CLASS_OPTIONS = [
+  PLACEHOLDER_CLASS,
   'Berserker',
   'Consular',
   'Engineer',
@@ -224,6 +293,77 @@ function clampLevel(level) {
 function getAsiSlots(level) {
   const thresholds = [4, 8, 12, 16, 19];
   return thresholds.filter((threshold) => level >= threshold).length;
+}
+
+function normalizeFeatureLookupKey(text) {
+  return String(text || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
+
+function getClassProgressionData(className) {
+  const normalized = String(className || '').trim().toLowerCase();
+  return classProgressionCatalog[normalized] || null;
+}
+
+function createFeatureEntry(name, level = null, description = '', className = '') {
+  return {
+    name,
+    level,
+    className,
+    description,
+    displayName: level != null ? `Level ${level}: ${name}` : name
+  };
+}
+
+function getCatalogClassFeaturesByLevel(className, level) {
+  const classData = getClassProgressionData(className);
+  if (!classData?.progression) {
+    return [];
+  }
+
+  const maxLevel = Math.max(1, Number(level) || 1);
+  const features = [];
+  for (let currentLevel = 1; currentLevel <= maxLevel; currentLevel += 1) {
+    const row = classData.progression[String(currentLevel)];
+    if (!row?.features?.length) {
+      continue;
+    }
+
+    row.features.forEach((featureName) => {
+      features.push(createFeatureEntry(
+        featureName,
+        currentLevel,
+        classData.featureDescriptions?.[normalizeFeatureLookupKey(featureName)] || '',
+        classData.name
+      ));
+    });
+  }
+
+  return features;
+}
+
+function getAsiSlotsForClass(className, level) {
+  const classData = getClassProgressionData(className);
+  if (!classData?.progression) {
+    return getAsiSlots(level);
+  }
+
+  let total = 0;
+  for (let currentLevel = 1; currentLevel <= Math.max(1, Number(level) || 1); currentLevel += 1) {
+    const row = classData.progression[String(currentLevel)];
+    if (row?.features?.includes('Ability Score Improvement')) {
+      total += 1;
+    }
+  }
+  return total;
+}
+
+function syncClassChoiceRulesFromCatalog() {
+  Object.entries(CLASS_CHOICE_RULES).forEach(([classKey, rule]) => {
+    const classData = classProgressionCatalog[classKey];
+    if (classData?.subclasses?.length) {
+      rule.options = classData.subclasses.map((entry) => entry.name);
+    }
+  });
 }
 
 function getAbilityModifier(score) {
@@ -539,23 +679,31 @@ function mapBuilderCharacterToSheet(data) {
   const firstClass = classes[0] || {};
   const classConfig = classes.length
     ? classes.map((entry) => ({
-      name: String(entry?.name || 'Consular'),
+      name: String(entry?.name || PLACEHOLDER_CLASS),
       level: Math.max(1, coerceNumber(entry?.levels, 1)),
       archetype: String(entry?.archetype?.name || '')
     }))
-    : [{ name: 'Consular', level: 1, archetype: '' }];
+    : [{ name: PLACEHOLDER_CLASS, level: 1, archetype: '' }];
 
   const importedSkills = (data?.skills && typeof data.skills === 'object')
     ? data.skills
     : buildSkillsFromTweaks(data?.tweaks);
 
   const forcePowers = extractClassForcePowers(classes);
+  const techPowers = Array.isArray(data?.customTechPowers)
+    ? data.customTechPowers.map((power) => ({
+      name: String(power?.name || '').trim(),
+      level: Math.max(0, coerceNumber(power?.level, 0)),
+      description: String(power?.description || ''),
+      powerType: 'tech'
+    })).filter((power) => power.name)
+    : [];
   const conditions = normalizeConditionList(data?.currentStats?.conditions);
 
   return {
     name: String(data?.name || 'Unnamed Character'),
     species: String(data?.species?.name || ''),
-    class: String(firstClass?.name || 'Consular'),
+    class: String(firstClass?.name || ''),
     level: Math.max(1, coerceNumber(firstClass?.levels, 1)),
     experiencePoints: Math.max(0, coerceNumber(data?.experiencePoints, 0)),
     background: String(data?.background?.name || ''),
@@ -612,7 +760,77 @@ function mapBuilderCharacterToSheet(data) {
     },
     classes: classConfig,
     skills: importedSkills,
-    forcePowers
+    forcePowers,
+    techPowers
+  };
+}
+
+function getBlankCharacterTemplate() {
+  const emptySkills = {};
+  SKILLS.forEach((skill) => {
+    emptySkills[skill.id] = { prof: false, expertise: false };
+  });
+
+  return {
+    name: '',
+    species: '',
+    class: '',
+    level: 1,
+    experiencePoints: 0,
+    background: '',
+    archetype: '',
+    attributes: {
+      str: 0,
+      dex: 0,
+      con: 0,
+      int: 0,
+      wis: 0,
+      cha: 0
+    },
+    characteristics: {
+      alignment: '',
+      gender: '',
+      age: '',
+      height: '',
+      weight: '',
+      hair: '',
+      eyes: '',
+      skin: '',
+      appearance: '',
+      backstory: '',
+      personality: '',
+      ideal: '',
+      bond: '',
+      flaw: ''
+    },
+    combatStats: {
+      maxHitPoints: 0,
+      hitPointsLost: 0,
+      temporaryHitPoints: 0,
+      forcePointsUsed: 0,
+      forceShieldUsed: 0,
+      techPointsUsed: 0,
+      techPointsMax: 0,
+      credits: 0
+    },
+    status: {
+      inspiration: false,
+      exhaustion: 0,
+      conditions: '',
+      notes: ''
+    },
+    forceConfig: {
+      castingAbility: 'wis',
+      forceAffinity: 'none',
+      fecChosen: []
+    },
+    abilityScoreConfig: {
+      asiHistory: []
+    },
+    classes: [{ name: PLACEHOLDER_CLASS, level: 1, archetype: '' }],
+    skills: emptySkills,
+    forcePowers: [],
+    techPowers: []
   };
 }
 
@@ -680,9 +898,53 @@ function getClassFeaturesByLevel(level) {
   return classFeatures;
 }
 
+function getGenericClassFeaturesByLevel(className, level, archetype) {
+  const features = [];
+  const normalizedName = String(className || '').trim();
+  if (!normalizedName || normalizedName === PLACEHOLDER_CLASS) {
+    return features;
+  }
+
+  const classKey = normalizedName.toLowerCase();
+  const choiceRule = CLASS_CHOICE_RULES[classKey];
+  const classLevel = Math.max(1, Number(level) || 1);
+
+  if (classLevel >= 1) {
+    features.push(`Level 1: ${normalizedName} core features`);
+  }
+  if (classLevel >= 2) {
+    features.push(`Level 2: ${normalizedName} class feature`);
+  }
+
+  if (choiceRule && classLevel >= choiceRule.unlockLevel) {
+    const chosenText = archetype
+      ? `${choiceRule.label} chosen (${archetype})`
+      : `${choiceRule.label} choice available`;
+    features.push(`Level ${choiceRule.unlockLevel}: ${normalizedName} ${chosenText}`);
+
+    [6, 10, 14, 18].forEach((featureLevel) => {
+      if (classLevel >= featureLevel) {
+        features.push(`Level ${featureLevel}: ${normalizedName} ${choiceRule.label} feature`);
+      }
+    });
+  }
+
+  [4, 8, 12, 16, 19].forEach((asiLevel) => {
+    if (classLevel >= asiLevel) {
+      features.push(`Level ${asiLevel}: ${normalizedName} Ability Score Improvement`);
+    }
+  });
+
+  if (classLevel >= 20) {
+    features.push(`Level 20: ${normalizedName} capstone feature`);
+  }
+
+  return features;
+}
+
 function getDefaultClassEntry() {
   return {
-    name: 'Consular',
+    name: PLACEHOLDER_CLASS,
     level: 1,
     archetype: ''
   };
@@ -706,7 +968,12 @@ function normalizeClassConfig(config) {
 }
 
 function getTotalCharacterLevel(classConfig) {
-  return normalizeClassConfig(classConfig).reduce((total, entry) => total + Math.max(0, Number(entry.level) || 0), 0);
+  return normalizeClassConfig(classConfig).reduce((total, entry) => {
+    if (entry.name === PLACEHOLDER_CLASS) {
+      return total;
+    }
+    return total + Math.max(0, Number(entry.level) || 0);
+  }, 0);
 }
 
 function getProficiencyBonusForLevel(level) {
@@ -720,7 +987,7 @@ function getClassLevelConfig() {
 
   if (container) {
     const rows = Array.from(container.querySelectorAll('.class-level-row')).map((row) => ({
-      name: row.querySelector('.class-level-select')?.value || 'Consular',
+      name: row.querySelector('.class-level-select')?.value || PLACEHOLDER_CLASS,
       level: parseInt(row.querySelector('.class-level-input')?.value, 10) || 1,
       archetype: row.querySelector('.class-archetype-input')?.value || ''
     }));
@@ -748,15 +1015,16 @@ function syncClassSummaryFields(classConfig) {
   const archetypeEl = document.getElementById('archetype');
   const hiddenInput = document.getElementById('classConfig');
   const totalLevel = getTotalCharacterLevel(normalized);
+  const concreteClasses = normalized.filter((entry) => entry.name !== PLACEHOLDER_CLASS);
 
   if (levelEl) {
     levelEl.value = totalLevel;
   }
   if (classEl) {
-    classEl.value = normalized.map((entry) => `${entry.name} ${entry.level}`).join(' / ');
+    classEl.value = concreteClasses.map((entry) => `${entry.name} ${entry.level}`).join(' / ');
   }
   if (archetypeEl) {
-    archetypeEl.value = normalized.map((entry) => entry.archetype).filter(Boolean).join(' / ');
+    archetypeEl.value = concreteClasses.map((entry) => entry.archetype).filter(Boolean).join(' / ');
   }
   if (hiddenInput) {
     hiddenInput.value = JSON.stringify(normalized);
@@ -864,15 +1132,126 @@ function renderLevelChoicePanel(classConfig) {
   }).join('');
 }
 
+function renderCharacterInfoArchetypeTabs(classConfig) {
+  const container = document.getElementById('basicInfoArchetypeTabs');
+  if (!container) {
+    return;
+  }
+
+  const concreteClasses = normalizeClassConfig(classConfig)
+    .map((entry, index) => ({ ...entry, index }))
+    .filter((entry) => entry.name !== PLACEHOLDER_CLASS);
+
+  if (!concreteClasses.length) {
+    activeCharacterArchetypeTab = '';
+    container.innerHTML = '<p class="features-empty">Add a class to choose an archetype.</p>';
+    return;
+  }
+
+  const tabKeys = concreteClasses.map((entry) => `${entry.name}-${entry.index}`);
+  if (!tabKeys.includes(activeCharacterArchetypeTab)) {
+    activeCharacterArchetypeTab = tabKeys[0];
+  }
+
+  container.innerHTML = '';
+
+  if (concreteClasses.length > 1) {
+    const tabs = document.createElement('div');
+    tabs.className = 'character-archetype-tabs';
+
+    concreteClasses.forEach((entry) => {
+      const key = `${entry.name}-${entry.index}`;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `character-archetype-tab${key === activeCharacterArchetypeTab ? ' active' : ''}`;
+      btn.textContent = entry.name;
+      btn.onclick = () => {
+        activeCharacterArchetypeTab = key;
+        renderCharacterInfoArchetypeTabs(classConfig);
+      };
+      tabs.appendChild(btn);
+    });
+
+    container.appendChild(tabs);
+  }
+
+  const selectedEntry = concreteClasses.find((entry) => `${entry.name}-${entry.index}` === activeCharacterArchetypeTab) || concreteClasses[0];
+  const classRule = CLASS_CHOICE_RULES[String(selectedEntry.name || '').toLowerCase()];
+  const panel = document.createElement('div');
+  panel.className = 'character-archetype-panel';
+
+  const title = document.createElement('div');
+  title.className = 'character-archetype-title';
+  title.textContent = `${selectedEntry.name} Level ${selectedEntry.level}`;
+  panel.appendChild(title);
+
+  const label = document.createElement('label');
+  label.className = 'fp-label';
+  label.textContent = 'Archetype / Tradition';
+  panel.appendChild(label);
+
+  if (!classRule) {
+    const input = document.createElement('input');
+    input.className = 'character-archetype-input';
+    input.value = selectedEntry.archetype;
+    input.placeholder = 'Enter archetype';
+    input.onchange = () => updateClassLevelRow(selectedEntry.index, 'archetype', input.value);
+    panel.appendChild(input);
+
+    const hint = document.createElement('p');
+    hint.className = 'character-archetype-help';
+    hint.textContent = 'No predefined options loaded for this class yet; enter your archetype manually.';
+    panel.appendChild(hint);
+  } else {
+    const select = document.createElement('select');
+    select.className = 'character-archetype-select';
+
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = `Choose ${classRule.label}`;
+    select.appendChild(defaultOption);
+
+    classRule.options.forEach((optionName) => {
+      const option = document.createElement('option');
+      option.value = optionName;
+      option.textContent = optionName;
+      select.appendChild(option);
+    });
+
+    const currentValue = String(selectedEntry.archetype || '');
+    if (currentValue && !classRule.options.includes(currentValue)) {
+      const customOption = document.createElement('option');
+      customOption.value = currentValue;
+      customOption.textContent = `${currentValue} (custom)`;
+      select.appendChild(customOption);
+    }
+
+    select.value = currentValue;
+    select.onchange = () => updateClassLevelRow(selectedEntry.index, 'archetype', select.value);
+    panel.appendChild(select);
+
+    const hint = document.createElement('p');
+    hint.className = 'character-archetype-help';
+    hint.textContent = selectedEntry.level < classRule.unlockLevel
+      ? `${classRule.label} usually unlocks at level ${classRule.unlockLevel}.`
+      : `Choose the ${classRule.label.toLowerCase()} for this class.`;
+    panel.appendChild(hint);
+  }
+
+  container.appendChild(panel);
+}
+
 function setClassLevelConfig(classConfig) {
   const normalized = normalizeClassConfig(classConfig);
   renderClassLevelRows(normalized);
   renderLevelChoicePanel(normalized);
+  renderCharacterInfoArchetypeTabs(normalized);
 }
 
 function addClassLevelRow() {
   const current = getClassLevelConfig();
-  const nextClass = CLASS_OPTIONS.find((option) => !current.some((entry) => entry.name === option)) || 'Consular';
+  const selectableClasses = CLASS_OPTIONS.filter((option) => option !== PLACEHOLDER_CLASS);
+  const nextClass = selectableClasses.find((option) => !current.some((entry) => entry.name === option)) || 'Consular';
   current.push({ name: nextClass, level: 1, archetype: '' });
   setClassLevelConfig(current);
   applyLevelProgression();
@@ -924,6 +1303,67 @@ function getTechPowersKnownForClass(className, level) {
   return TECH_POWERS_KNOWN_TABLES[classKey][clampLevel(level)] || 0;
 }
 
+function getTechMaxPowerLevelForClass(className, level) {
+  const normalized = String(className || '').toLowerCase();
+  const classKey = Object.keys(TECH_MAX_POWER_LEVEL_TABLES).find((key) => normalized.includes(key));
+  if (!classKey) {
+    return 0;
+  }
+  return TECH_MAX_POWER_LEVEL_TABLES[classKey][clampLevel(level)] || 0;
+}
+
+function getTechCastingBasePointsForClass(className, level) {
+  const normalized = String(className || '').toLowerCase();
+  const clamped = clampLevel(level);
+  if (normalized.includes('engineer')) {
+    return clamped * 2;
+  }
+  if (normalized.includes('scout')) {
+    return clamped >= 2 ? clamped : 0;
+  }
+  return 0;
+}
+
+function getForceCastingRowForClass(className, level) {
+  const normalized = String(className || '').toLowerCase();
+  const clamped = clampLevel(level);
+
+  if (normalized.includes('consular')) {
+    const row = CONSULAR_TABLE[clamped];
+    return row
+      ? {
+        forcePowersKnown: row.forcePowersKnown,
+        forcePointsBase: row.forcePoints,
+        maxPowerLevel: row.maxPowerLevel
+      }
+      : null;
+  }
+
+  if (normalized.includes('guardian')) {
+    const row = GUARDIAN_FORCE_TABLE[clamped];
+    return row
+      ? {
+        forcePowersKnown: row.forcePowersKnown,
+        forcePointsBase: clamped * 2,
+        maxPowerLevel: row.maxPowerLevel
+      }
+      : null;
+  }
+
+  if (normalized.includes('sentinel')) {
+    const row = SENTINEL_FORCE_TABLE[clamped];
+    return row
+      ? {
+        forcePowersKnown: row.forcePowersKnown,
+        forcePointsBase: clamped * 3,
+        maxPowerLevel: row.maxPowerLevel
+      }
+      : null;
+  }
+
+  return null;
+}
+
 function buildProgression(character) {
   const classConfig = normalizeClassConfig(character.classes || [{ name: character.class, level: character.level, archetype: character.archetype }]);
   const totalLevel = getTotalCharacterLevel(classConfig);
@@ -935,33 +1375,82 @@ function buildProgression(character) {
   const castingAbility = character.forceConfig?.castingAbility || 'wis';
   const affinity = character.forceConfig?.forceAffinity || 'none';
   const wisMod = getAbilityModifier(character.attributes?.wis);
+  const intMod = getAbilityModifier(character.attributes?.int);
   const chaMod = getAbilityModifier(character.attributes?.cha);
   const activeCastingMod = castingAbility === 'cha' ? chaMod : wisMod;
   const primaryConsularArchetype = classConfig.find((entry) => String(entry.name || '').toLowerCase().includes('consular'))?.archetype || character.archetype;
 
-  let forcePointsMax = consularLevel > 0 ? row.forcePoints : 0;
-  if (consularLevel >= 3 && affinity === 'bendu') {
+  let forcePowersKnown = 0;
+  let forcePointsBase = 0;
+  let maxPowerLevel = 0;
+  classConfig.forEach((entry) => {
+    const forceRow = getForceCastingRowForClass(entry.name, entry.level);
+    if (!forceRow) {
+      return;
+    }
+    forcePowersKnown += forceRow.forcePowersKnown;
+    forcePointsBase += forceRow.forcePointsBase;
+    maxPowerLevel = Math.max(maxPowerLevel, forceRow.maxPowerLevel);
+  });
+
+  const techPowersKnown = classConfig.reduce((sum, entry) => sum + getTechPowersKnownForClass(entry.name, entry.level), 0);
+  const techPointsBase = classConfig.reduce((sum, entry) => sum + getTechCastingBasePointsForClass(entry.name, entry.level), 0);
+  const techMaxPowerLevel = classConfig.reduce((max, entry) => Math.max(max, getTechMaxPowerLevelForClass(entry.name, entry.level)), 0);
+
+  let forcePointsMax = forcePointsBase;
+  if (forcePointsBase > 0 && consularLevel >= 3 && affinity === 'bendu') {
     forcePointsMax += wisMod + chaMod;
-  } else if (consularLevel > 0) {
+  } else if (forcePointsBase > 0) {
     forcePointsMax += activeCastingMod;
   }
 
+  const techPointsMax = techPointsBase > 0
+    ? Math.max(0, techPointsBase + intMod)
+    : 0;
+
   const forceShieldUses = consularLevel < 2 ? 0 : 2 + (consularLevel >= 5 ? 1 : 0) + (consularLevel >= 9 ? 1 : 0) + (consularLevel >= 13 ? 1 : 0) + (consularLevel >= 17 ? 1 : 0);
   const forceRecoveryAmount = consularLevel < 1 ? 0 : Math.max(1, Math.floor(consularLevel / 2) + activeCastingMod);
-  const techPowersKnown = classConfig.reduce((sum, entry) => sum + getTechPowersKnownForClass(entry.name, entry.level), 0);
-  const classFeatures = consularLevel > 0 ? getClassFeaturesByLevel(consularLevel) : [];
+  const classFeatures = classConfig.flatMap((entry) => {
+    const className = String(entry.name || '');
+    if (!className || className === PLACEHOLDER_CLASS) {
+      return [];
+    }
+
+    const catalogFeatures = getCatalogClassFeaturesByLevel(className, entry.level);
+    if (catalogFeatures.length) {
+      return catalogFeatures;
+    }
+
+    if (className.toLowerCase().includes('consular')) {
+      return getClassFeaturesByLevel(Math.max(1, Number(entry.level) || 1)).map((feature) => {
+        const withoutLevelPrefix = String(feature).replace(/^Level\s+\d+:\s*/, '');
+        const featureLevelMatch = String(feature).match(/^Level\s+(\d+):/);
+        return createFeatureEntry(
+          withoutLevelPrefix,
+          featureLevelMatch ? Number(featureLevelMatch[1]) : null,
+          FEATURE_DETAILS[withoutLevelPrefix] || '',
+          'Consular'
+        );
+      });
+    }
+    return getGenericClassFeaturesByLevel(className, entry.level, entry.archetype).map((feature) => {
+      const withoutLevelPrefix = String(feature).replace(/^Level\s+\d+:\s*/, '');
+      const featureLevelMatch = String(feature).match(/^Level\s+(\d+):/);
+      return createFeatureEntry(withoutLevelPrefix, featureLevelMatch ? Number(featureLevelMatch[1]) : null, '', className);
+    });
+  });
   const telekinetics = isTelekineticsArchetype(primaryConsularArchetype)
     ? getTelekineticsFeatures(consularLevel)
     : { features: [], telekineticStats: { mightyBlastTargets: 0, repulsingWaveUses: 0 } };
 
-  const allFeatures = classFeatures.concat(telekinetics.features);
+  const allFeatures = classFeatures.concat(telekinetics.features.map((feature) => createFeatureEntry(feature, null, FEATURE_DETAILS[feature] || '', 'Consular')));
   const warnings = [];
   const selectedFec = character.forceConfig?.fecChosen || [];
   const asiSpent = character.abilityScoreConfig?.asiHistory?.length || 0;
-  const asiAllowed = classConfig.reduce((sum, entry) => sum + getAsiSlots(entry.level), 0);
+  const asiAllowed = classConfig.reduce((sum, entry) => sum + getAsiSlotsForClass(entry.name, entry.level), 0);
   const unsupportedClasses = Array.from(new Set(classConfig
     .map((entry) => String(entry.name || ''))
-    .filter((name) => name && !SUPPORTED_PROGRESSION_CLASSES.includes(name.toLowerCase()))));
+    .filter((name) => name && name !== PLACEHOLDER_CLASS && !getClassProgressionData(name) && !SUPPORTED_PROGRESSION_CLASSES.includes(name.toLowerCase()))));
 
   if (consularLevel >= 2 && selectedFec.length > row.fecOptions) {
     warnings.push(`You selected ${selectedFec.length} Force-Empowered options, but only ${row.fecOptions} are allowed at Consular level ${consularLevel}.`);
@@ -976,7 +1465,7 @@ function buildProgression(character) {
   }
 
   if (unsupportedClasses.length) {
-    warnings.push(`Detailed progression tables are not yet implemented for: ${unsupportedClasses.join(', ')}. Those classes still count toward total level and proficiency bonus.`);
+    warnings.push(`Class feature data is not yet loaded for: ${unsupportedClasses.join(', ')}.`);
   }
 
   if (totalLevel > 20) {
@@ -990,10 +1479,12 @@ function buildProgression(character) {
   return {
     level,
     pb: getProficiencyBonusForLevel(level),
-    forcePowersKnown: consularLevel > 0 ? row.forcePowersKnown : 0,
+    forcePowersKnown,
     techPowersKnown,
     forcePointsMax,
-    maxPowerLevel: consularLevel > 0 ? row.maxPowerLevel : 0,
+    maxPowerLevel,
+    techMaxPowerLevel,
+    techPointsMax,
     fecOptionsAllowed: consularLevel > 0 ? row.fecOptions : 0,
     forceRecoveryAmount,
     forceShieldUses,
@@ -1026,17 +1517,25 @@ function updateForceCounter() {
 
   // Colour remaining red when low
   remainingEl.style.color = remaining === 0 ? '#c0392b' : remaining <= Math.ceil(max * 0.25) ? '#e67e22' : '#1a6e1a';
-  refreshForcePowerCastButtons(remaining);
+  refreshPowerCastButtons();
   updateForceRecoveryButtonState(getCurrentForceRecoveryAmount());
 }
 
-function refreshForcePowerCastButtons(remainingPoints) {
-  const castButtons = document.querySelectorAll('.power-cast');
+function refreshPowerCastButtons() {
+  const forceRemaining = Math.max(0, parseInt(document.getElementById('fpRemaining')?.textContent, 10) || 0);
+  const techRemaining = Math.max(0, parseInt(document.getElementById('tpRemaining')?.textContent, 10) || 0);
+  const castButtons = document.querySelectorAll('.power-cast[data-power-type]');
+
   castButtons.forEach((button) => {
     const cost = parseInt(button.dataset.cost, 10) || 0;
-    const disabled = cost > remainingPoints;
+    const powerType = button.dataset.powerType === 'tech' ? 'tech' : 'force';
+    const remaining = powerType === 'tech' ? techRemaining : forceRemaining;
+    const disabled = cost > remaining;
+
     button.disabled = disabled;
-    button.title = disabled ? `Requires ${cost} Force Points` : `Cast for ${cost} Force Points`;
+    button.title = disabled
+      ? `Requires ${cost} ${powerType === 'tech' ? 'Tech' : 'Force'} Points`
+      : `Cast for ${cost} ${powerType === 'tech' ? 'Tech' : 'Force'} Points`;
   });
 }
 
@@ -1068,6 +1567,7 @@ function updateTechCounter() {
   if (usedLabelEl) { usedLabelEl.textContent = used; }
 
   remainingEl.style.color = remaining === 0 ? '#c0392b' : remaining <= Math.ceil(max * 0.25) ? '#e67e22' : '#1a6e1a';
+  refreshPowerCastButtons();
 }
 
 function adjustTechPoints(delta) {
@@ -1177,6 +1677,69 @@ function renderForceAffinityInfo(affinity) {
   panelEl.classList.add(`affinity-${selectedAffinity in FORCE_AFFINITY_DETAILS ? selectedAffinity : 'none'}`);
 }
 
+function getConsularLevelFromCharacter(character) {
+  const classConfig = normalizeClassConfig(character?.classes || []);
+  return classConfig
+    .filter((entry) => String(entry.name || '').toLowerCase().includes('consular'))
+    .reduce((total, entry) => total + (parseInt(entry.level, 10) || 0), 0);
+}
+
+function updateForceAffinityState(character) {
+  const affinitySelect = document.getElementById('forceAffinity');
+  const titleEl = document.getElementById('affinityInfoTitle');
+  const descEl = document.getElementById('affinityInfoDesc');
+  const panelEl = document.getElementById('affinityInfo');
+  const consularConfigSection = document.getElementById('consularConfigSection');
+  const consularFecOptionsSection = document.getElementById('consularFecOptionsSection');
+  const consularFecDisplaySection = document.getElementById('consularFecDisplaySection');
+  const consularAffinityDisplaySection = document.getElementById('consularAffinityDisplaySection');
+  if (!affinitySelect || !titleEl || !descEl || !panelEl) {
+    return;
+  }
+
+  const hasConsularLevels = getConsularLevelFromCharacter(character) > 0;
+  if (consularConfigSection) {
+    consularConfigSection.hidden = !hasConsularLevels;
+  }
+  if (consularFecOptionsSection) {
+    consularFecOptionsSection.hidden = !hasConsularLevels;
+  }
+  if (consularFecDisplaySection) {
+    consularFecDisplaySection.hidden = !hasConsularLevels;
+  }
+  if (consularAffinityDisplaySection) {
+    consularAffinityDisplaySection.hidden = !hasConsularLevels;
+  }
+
+  affinitySelect.disabled = !hasConsularLevels;
+  affinitySelect.title = hasConsularLevels
+    ? 'Force Affinity applies to Consular progression.'
+    : 'Force Affinity becomes available when a Consular class is added.';
+
+  if (!hasConsularLevels) {
+    const hiddenFec = document.getElementById('fecChosen');
+    if (hiddenFec) {
+      hiddenFec.value = '';
+    }
+    document.querySelectorAll('.fec-checkbox').forEach((checkbox) => {
+      checkbox.checked = false;
+      checkbox.disabled = true;
+    });
+    renderFecDisplay([]);
+
+    if (affinitySelect.value !== 'none') {
+      affinitySelect.value = 'none';
+    }
+    panelEl.classList.remove('affinity-ashla', 'affinity-bendu', 'affinity-bogan');
+    panelEl.classList.add('affinity-none');
+    titleEl.textContent = 'Force Affinity Unavailable';
+    descEl.textContent = 'Force Affinity is specific to Consular progression and is disabled until you add at least one Consular level.';
+  } else {
+    enforceFecCheckboxLimit(getNumericReadonlyFieldValue('fecOptionsAllowed'));
+    renderForceAffinityInfo(affinitySelect.value || 'none');
+  }
+}
+
 function enforceFecCheckboxLimit(limit) {
   const checkboxes = document.querySelectorAll('.fec-checkbox');
   const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
@@ -1190,8 +1753,15 @@ function enforceFecCheckboxLimit(limit) {
 }
 
 function getFeatureDescription(feature) {
-  const withoutLevelPrefix = String(feature || '').replace(/^Level\s+\d+:\s*/, '');
-  return FEATURE_DETAILS[withoutLevelPrefix] || FEATURE_DETAILS[feature] || 'Feature description not yet added to the sheet. Add this text to FEATURE_DETAILS in renderer.js if you want custom wording.';
+  if (feature && typeof feature === 'object' && feature.description) {
+    return feature.description;
+  }
+
+  const featureName = typeof feature === 'object' ? feature.name : feature;
+  const withoutLevelPrefix = String(featureName || '').replace(/^Level\s+\d+:\s*/, '');
+  const directKey = normalizeFeatureLookupKey(withoutLevelPrefix);
+  const catalogDescription = Object.values(classProgressionCatalog).find((classData) => classData?.featureDescriptions?.[directKey])?.featureDescriptions?.[directKey];
+  return catalogDescription || FEATURE_DETAILS[withoutLevelPrefix] || FEATURE_DETAILS[featureName] || 'Feature description not yet added to the sheet.';
 }
 
 function getCurrentForceShieldMaxUses() {
@@ -1208,8 +1778,69 @@ function getCurrentMaxForcePowerLevel() {
   return getNumericReadonlyFieldValue('maxPowerLevel');
 }
 
+function getCurrentMaxTechPowerLevel() {
+  return getNumericReadonlyFieldValue('techMaxPowerLevel');
+}
+
 function getCurrentForcePowersKnown() {
   return getNumericReadonlyFieldValue('forcePowersKnown');
+}
+
+function getCurrentTechPowersKnown() {
+  return getNumericReadonlyFieldValue('techPowersKnown');
+}
+
+function updatePowerCatalogTabAvailability(progression = null) {
+  const forceBtn = document.getElementById('powerCatalogTabForce');
+  const techBtn = document.getElementById('powerCatalogTabTech');
+  if (!forceBtn || !techBtn) {
+    return;
+  }
+
+  const forceKnown = progression?.forcePowersKnown ?? getCurrentForcePowersKnown();
+  const techKnown = progression?.techPowersKnown ?? getCurrentTechPowersKnown();
+  const forceEnabled = forceKnown > 0;
+  const techEnabled = techKnown > 0;
+
+  forceBtn.disabled = !forceEnabled;
+  techBtn.disabled = !techEnabled;
+  forceBtn.title = forceEnabled ? 'Browse Force powers' : 'Requires Forcecasting class levels';
+  techBtn.title = techEnabled ? 'Browse Tech powers' : 'Requires Techcasting class levels';
+
+  if (activePowerCatalogTab === 'force' && !forceEnabled && techEnabled) {
+    activePowerCatalogTab = 'tech';
+  }
+  if (activePowerCatalogTab === 'tech' && !techEnabled && forceEnabled) {
+    activePowerCatalogTab = 'force';
+  }
+  if (!forceEnabled && !techEnabled) {
+    activePowerCatalogTab = 'force';
+  }
+
+  switchPowerCatalogTab(activePowerCatalogTab);
+}
+
+function switchPowerCatalogTab(tabName) {
+  const nextTab = tabName === 'tech' ? 'tech' : 'force';
+  activePowerCatalogTab = nextTab;
+
+  const forceBtn = document.getElementById('powerCatalogTabForce');
+  const techBtn = document.getElementById('powerCatalogTabTech');
+  const forcePanel = document.getElementById('forcePowerCatalogPanel');
+  const techPanel = document.getElementById('techPowerCatalogPanel');
+
+  if (forceBtn) {
+    forceBtn.classList.toggle('active', nextTab === 'force');
+  }
+  if (techBtn) {
+    techBtn.classList.toggle('active', nextTab === 'tech');
+  }
+  if (forcePanel) {
+    forcePanel.classList.toggle('active', nextTab === 'force');
+  }
+  if (techPanel) {
+    techPanel.classList.toggle('active', nextTab === 'tech');
+  }
 }
 
 function getCurrentForceRecoveryAmount() {
@@ -1315,16 +1946,72 @@ function renderFeatureList(features, progression = null) {
   listElement.innerHTML = '';
 
   if (!features || features.length === 0) {
+    activeFeatureClassTab = '';
     listElement.innerHTML = '<p class="features-empty">No features unlocked yet.</p>';
     return;
   }
+
+  const normalizedFeatures = features.map((feature) => {
+    if (feature && typeof feature === 'object') {
+      return {
+        ...feature,
+        className: String(feature.className || 'General')
+      };
+    }
+
+    const plainName = String(feature || '');
+    return createFeatureEntry(
+      plainName.replace(/^Level\s+\d+:\s*/, ''),
+      null,
+      '',
+      'General'
+    );
+  });
+
+  const featuresByClass = normalizedFeatures.reduce((acc, feature) => {
+    const className = String(feature.className || 'General').trim() || 'General';
+    if (!acc[className]) {
+      acc[className] = [];
+    }
+    acc[className].push(feature);
+    return acc;
+  }, {});
+
+  const classTabs = Object.keys(featuresByClass);
+  if (!classTabs.includes(activeFeatureClassTab)) {
+    activeFeatureClassTab = classTabs[0] || '';
+  }
+
+  if (classTabs.length > 1) {
+    const tabsContainer = document.createElement('div');
+    tabsContainer.className = 'feature-class-tabs';
+
+    classTabs.forEach((className) => {
+      const tab = document.createElement('button');
+      tab.type = 'button';
+      tab.className = `feature-class-tab${className === activeFeatureClassTab ? ' active' : ''}`;
+      tab.textContent = className;
+      tab.setAttribute('aria-pressed', className === activeFeatureClassTab ? 'true' : 'false');
+      tab.onclick = () => {
+        activeFeatureClassTab = className;
+        renderFeatureList(features, progression);
+      };
+      tabsContainer.appendChild(tab);
+    });
+
+    listElement.appendChild(tabsContainer);
+  }
+
+  const visibleFeatures = featuresByClass[activeFeatureClassTab] || normalizedFeatures;
 
   const forceShieldMaxUses = progression?.forceShieldUses ?? getCurrentForceShieldMaxUses();
   const forceRecoveryAmount = progression?.forceRecoveryAmount ?? getCurrentForceRecoveryAmount();
   let hasForceShield = false;
   let hasForceRecovery = false;
 
-  features.forEach((feature) => {
+  visibleFeatures.forEach((feature) => {
+    const featureName = typeof feature === 'object' ? feature.name : feature;
+    const featureDisplayName = typeof feature === 'object' ? feature.displayName : feature;
     const item = document.createElement('div');
     item.className = 'feature-item';
 
@@ -1339,13 +2026,13 @@ function renderFeatureList(features, progression = null) {
 
     const name = document.createElement('span');
     name.className = 'feature-name';
-    name.textContent = feature;
+    name.textContent = featureDisplayName;
 
     const desc = document.createElement('div');
     desc.className = 'feature-description hidden';
     desc.textContent = getFeatureDescription(feature);
 
-    const baseFeature = String(feature || '').replace(/^Level\s+\d+:\s*/, '');
+    const baseFeature = String(featureName || '').replace(/^Level\s+\d+:\s*/, '');
     if (baseFeature === 'Force Recovery') {
       hasForceRecovery = true;
       const recoveryInfoRow = document.createElement('div');
@@ -1431,8 +2118,16 @@ function setProgressionOutputs(progression) {
   if (techPowersKnownEl) {
     techPowersKnownEl.value = `Tech Powers Known: ${progression.techPowersKnown}`;
   }
+  const techPointsMaxEl = document.getElementById('techPointsMax');
+  if (techPointsMaxEl) {
+    techPointsMaxEl.value = progression.techPointsMax;
+  }
   document.getElementById('forcePointsMax').value = `Maximum Force Points: ${progression.forcePointsMax}`;
   document.getElementById('maxPowerLevel').value = `Max Power Level: ${progression.maxPowerLevel}`;
+  const techMaxPowerLevelEl = document.getElementById('techMaxPowerLevel');
+  if (techMaxPowerLevelEl) {
+    techMaxPowerLevelEl.value = `Tech Max Power Level: ${progression.techMaxPowerLevel}`;
+  }
   document.getElementById('fecOptionsAllowed').value = `FEC Options Allowed: ${progression.fecOptionsAllowed}`;
   document.getElementById('forceRecoveryAmount').value = `Force Recovery: ${progression.forceRecoveryAmount}`;
   document.getElementById('forceShieldUses').value = `Force Shield Uses: ${progression.forceShieldUses}`;
@@ -1442,7 +2137,10 @@ function setProgressionOutputs(progression) {
   updateSkills();
   updateXpProgress();
   updateForceCounter();
+  updateTechCounter();
+  updatePowerCatalogTabAvailability(progression);
   renderForcePowerCatalog();
+  renderTechPowerCatalog();
 
   // Update FEC slots label and enforce checkbox limit
   const slotsLabel = document.getElementById('fecSlotsLabel');
@@ -1450,8 +2148,6 @@ function setProgressionOutputs(progression) {
     slotsLabel.textContent = progression.fecOptionsAllowed;
   }
   enforceFecCheckboxLimit(progression.fecOptionsAllowed);
-
-  renderForceAffinityInfo(document.getElementById('forceAffinity')?.value || 'none');
 
   const validation = document.getElementById('levelValidation');
   validation.textContent = progression.warnings.length
@@ -1467,6 +2163,7 @@ function applyLevelProgression(options = {}) {
 
   document.getElementById('level').value = progression.level;
   setProgressionOutputs(progression);
+  updateForceAffinityState(character);
 
   if (options.announce) {
     alert(`Level rules applied for level ${progression.level}.`);
@@ -1582,7 +2279,8 @@ function getCharacterData() {
       asiHistory
     },
     skills,
-    forcePowers: getForcePowersList()
+    forcePowers: getForcePowersList(),
+    techPowers: getTechPowersList()
   };
 }
 
@@ -1677,13 +2375,16 @@ function setCharacterData(data) {
 
   setAsiHistoryToUi(data.abilityScoreConfig?.asiHistory || []);
 
-  // Force powers - ensure they render properly
-  const powersList = data.forcePowers || [];
+  // Known powers - merge force + tech lists for unified render/cast controls
+  const forcePowers = Array.isArray(data.forcePowers) ? data.forcePowers.map((power) => ({ ...power, powerType: 'force' })) : [];
+  const techPowers = Array.isArray(data.techPowers) ? data.techPowers.map((power) => ({ ...power, powerType: 'tech', alignment: 'tech' })) : [];
+  const powersList = [...forcePowers, ...techPowers];
+
   if (Array.isArray(powersList)) {
-    renderForcePowers(powersList);
+    renderKnownPowers(powersList);
   } else {
-    console.warn('Force powers is not an array:', powersList);
-    renderForcePowers([]);
+    console.warn('Known powers are not arrays:', { forcePowers: data.forcePowers, techPowers: data.techPowers });
+    renderKnownPowers([]);
   }
 
   // Apply level progression to update all calculated fields
@@ -1695,7 +2396,8 @@ function setCharacterData(data) {
   }
 }
 
-function saveCharacter() {
+function saveCharacter(options = {}) {
+  const silent = Boolean(options.silent);
   try {
     const data = getCharacterData();
     
@@ -1712,16 +2414,22 @@ function saveCharacter() {
       const charPath = path.join(dataPath, 'character.json');
       fs.writeFileSync(charPath, JSON.stringify(data, null, 2));
       console.log('Character saved to:', charPath);
-      alert(`Character "${data.name}" saved successfully to desktop file!`);
+      if (!silent) {
+        alert(`Character "${data.name}" saved successfully to desktop file!`);
+      }
       return;
     }
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
     console.log('Character saved to localStorage key:', LOCAL_STORAGE_KEY);
-    alert(`Character "${data.name}" saved successfully to browser local storage!`);
+    if (!silent) {
+      alert(`Character "${data.name}" saved successfully to browser local storage!`);
+    }
   } catch (err) {
     console.error('Error saving character:', err);
-    alert('Error saving character: ' + err.message);
+    if (!silent) {
+      alert('Error saving character: ' + err.message);
+    }
   }
 }
 
@@ -1821,6 +2529,19 @@ function loadTemplate() {
   }
 }
 
+function normalizePowerCatalogRows(rawRows, defaultType = 'force', descriptions = null) {
+  return (Array.isArray(rawRows) ? rawRows : [])
+    .map((power) => ({
+      name: String(power?.name || '').trim(),
+      level: Number(power?.level) || 0,
+      description: String(power?.description || descriptions?.[power?.name] || ''),
+      alignment: defaultType === 'force' ? resolveForcePowerAlignment(power) : 'tech',
+      powerType: defaultType
+    }))
+    .filter((power) => power.name)
+    .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name));
+}
+
 function loadForcePowerCatalog() {
   const statusEl = document.getElementById('forcePowerCatalogStatus');
 
@@ -1835,19 +2556,8 @@ function loadForcePowerCatalog() {
     const descriptions = fs.existsSync(descriptionsPath)
       ? JSON.parse(fs.readFileSync(descriptionsPath, 'utf-8'))
       : {};
-    forcePowerCatalog = JSON.parse(fileData)
-      .map((power) => ({
-        name: power.name,
-        level: Number(power.level) || 0,
-        description: power.description || descriptions[power.name] || ''
-      }))
-      .map((power) => ({
-        ...power,
-        alignment: resolveForcePowerAlignment(power)
-      }))
-      .filter((power) => power.name)
-      .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name));
 
+    forcePowerCatalog = normalizePowerCatalogRows(JSON.parse(fileData), 'force', descriptions);
     renderForcePowerCatalog();
   } catch (err) {
     console.error('Error loading force power catalog:', err);
@@ -1862,14 +2572,73 @@ function loadForcePowerCatalog() {
   }
 }
 
-function getForcePowersList() {
+function loadTechPowerCatalog() {
+  const statusEl = document.getElementById('techPowerCatalogStatus');
+
+  try {
+    if (!fs || !path) {
+      throw new Error('fs/path unavailable in renderer');
+    }
+
+    const filePath = path.join(__dirname, 'data', 'tech-powers.json');
+    const fileData = fs.readFileSync(filePath, 'utf-8');
+    techPowerCatalog = normalizePowerCatalogRows(JSON.parse(fileData), 'tech');
+    renderTechPowerCatalog();
+  } catch (err) {
+    console.error('Error loading tech power catalog:', err);
+    techPowerCatalog = [];
+    if (statusEl) {
+      statusEl.textContent = 'Tech power catalog unavailable.';
+    }
+    const listEl = document.getElementById('techPowerCatalogList');
+    if (listEl) {
+      listEl.innerHTML = '<p class="features-empty">Unable to load tech power catalog.</p>';
+    }
+  }
+}
+
+function loadClassProgressionCatalog() {
+  try {
+    let data;
+
+    if (fs && path) {
+      const filePath = path.join(__dirname, 'data', 'class-progressions.json');
+      data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    } else {
+      const request = new XMLHttpRequest();
+      request.open('GET', './data/class-progressions.json', false);
+      request.send(null);
+      if (request.status !== 200 && request.status !== 0) {
+        throw new Error('Class progression catalog request failed with status ' + request.status);
+      }
+      data = JSON.parse(request.responseText);
+    }
+
+    classProgressionCatalog = data?.classes || {};
+    syncClassChoiceRulesFromCatalog();
+  } catch (err) {
+    console.error('Error loading class progression catalog:', err);
+    classProgressionCatalog = {};
+  }
+}
+
+function getKnownPowersList() {
   const items = document.querySelectorAll('#powersLeft .power-item, #powersRight .power-item');
-  return Array.from(items).map(el => ({
+  return Array.from(items).map((el) => ({
     name: el.dataset.power,
     level: parseInt(el.dataset.level, 10),
     alignment: el.dataset.alignment || 'universal',
-    description: el.dataset.description || ''
+    description: el.dataset.description || '',
+    powerType: el.dataset.powerType === 'tech' ? 'tech' : 'force'
   }));
+}
+
+function getForcePowersList() {
+  return getKnownPowersList().filter((power) => power.powerType !== 'tech');
+}
+
+function getTechPowersList() {
+  return getKnownPowersList().filter((power) => power.powerType === 'tech');
 }
 
 function normalizeForcePowerName(name) {
@@ -1987,49 +2756,63 @@ function closePowerDescriptionModal() {
   }
 }
 
-function renderForcePowerCatalog() {
-  const listEl = document.getElementById('forcePowerCatalogList');
-  const statusEl = document.getElementById('forcePowerCatalogStatus');
+function renderPowerCatalog(options) {
+  const {
+    listElementId,
+    statusElementId,
+    emptyCatalogText,
+    noMatchText,
+    catalog,
+    knownPowers,
+    canLearn,
+    maxPowerLevel,
+    powerType,
+    filterValue,
+    searchValue,
+    alignmentFilter = 'all',
+    onAdd
+  } = options;
+
+  const listEl = document.getElementById(listElementId);
+  const statusEl = document.getElementById(statusElementId);
   if (!listEl || !statusEl) {
     return;
   }
 
-  if (!forcePowerCatalog.length) {
-    statusEl.textContent = 'Force power catalog unavailable.';
-    listEl.innerHTML = '<p class="features-empty">Unable to load force power catalog.</p>';
+  if (!catalog.length) {
+    statusEl.textContent = emptyCatalogText;
+    listEl.innerHTML = `<p class="features-empty">${emptyCatalogText}</p>`;
     return;
   }
 
-  const filterValue = document.getElementById('forcePowerFilter')?.value || 'all';
-  const alignmentFilter = document.getElementById('forcePowerAlignmentFilter')?.value || 'all';
-  const searchValue = normalizeForcePowerName(document.getElementById('forcePowerSearch')?.value || '');
-  const knownPowers = new Set(getForcePowersList().map((power) => normalizeForcePowerName(power.name)));
-  const maxPowerLevel = getCurrentMaxForcePowerLevel();
-  const canLearnForcePowers = getCurrentForcePowersKnown() > 0;
-  const filteredPowers = forcePowerCatalog.filter((power) => {
-    const isKnown = knownPowers.has(normalizeForcePowerName(power.name));
-    if (isKnown) {
+  const knownSet = new Set((knownPowers || []).map((power) => normalizeForcePowerName(power.name)));
+  const normalizedSearch = normalizeForcePowerName(searchValue || '');
+  const filteredPowers = catalog.filter((power) => {
+    if (knownSet.has(normalizeForcePowerName(power.name))) {
       return false;
     }
+
     const matchesLevel = filterValue === 'all' || String(power.level) === filterValue;
+    const matchesSearch = !normalizedSearch || normalizeForcePowerName(power.name).includes(normalizedSearch);
     const matchesAlignment = alignmentFilter === 'all' || (power.alignment || 'universal') === alignmentFilter;
-    const matchesSearch = !searchValue || normalizeForcePowerName(power.name).includes(searchValue);
-    return matchesLevel && matchesAlignment && matchesSearch;
+
+    return matchesLevel && matchesSearch && matchesAlignment;
   });
 
-  const availabilityLabel = canLearnForcePowers
+  const typeLabel = powerType === 'tech' ? 'tech' : 'force';
+  const availabilityLabel = canLearn
     ? `Current max usable level: ${powerLevelLabel(maxPowerLevel)}.`
-    : 'Forcecasting progression is not active for this character yet.';
-  statusEl.textContent = `Showing ${filteredPowers.length} of ${forcePowerCatalog.length} force powers. ${availabilityLabel}`;
+    : `${typeLabel.charAt(0).toUpperCase()}${typeLabel.slice(1)}casting progression is not active for this character yet.`;
+  statusEl.textContent = `Showing ${filteredPowers.length} of ${catalog.length} ${typeLabel} powers. ${availabilityLabel}`;
 
   if (!filteredPowers.length) {
-    listEl.innerHTML = '<p class="features-empty">No force powers match the current filters.</p>';
+    listEl.innerHTML = `<p class="features-empty">${noMatchText}</p>`;
     return;
   }
 
   listEl.innerHTML = '';
   filteredPowers.forEach((power) => {
-    const isLocked = !canLearnForcePowers || power.level > maxPowerLevel;
+    const isLocked = !canLearn || power.level > maxPowerLevel;
     const hasDescription = Boolean(power.description);
 
     const row = document.createElement('div');
@@ -2074,9 +2857,9 @@ function renderForcePowerCatalog() {
     addBtn.textContent = isLocked ? 'Locked' : 'Add';
     addBtn.disabled = isLocked;
     addBtn.title = isLocked
-        ? `Requires ${powerLevelLabel(power.level)} access.`
-        : `Add ${power.name}`;
-    addBtn.onclick = () => addCatalogForcePower(power.name);
+      ? `Requires ${powerLevelLabel(power.level)} access.`
+      : `Add ${power.name}`;
+    addBtn.onclick = () => onAdd(power.name);
 
     row.appendChild(info);
     row.appendChild(addBtn);
@@ -2090,30 +2873,96 @@ function renderForcePowerCatalog() {
   });
 }
 
-function renderForcePowers(powers) {
+function renderForcePowerCatalog() {
+  renderPowerCatalog({
+    listElementId: 'forcePowerCatalogList',
+    statusElementId: 'forcePowerCatalogStatus',
+    emptyCatalogText: 'Force power catalog unavailable.',
+    noMatchText: 'No force powers match the current filters.',
+    catalog: forcePowerCatalog,
+    knownPowers: getForcePowersList(),
+    canLearn: getCurrentForcePowersKnown() > 0,
+    maxPowerLevel: getCurrentMaxForcePowerLevel(),
+    powerType: 'force',
+    filterValue: document.getElementById('forcePowerFilter')?.value || 'all',
+    searchValue: document.getElementById('forcePowerSearch')?.value || '',
+    alignmentFilter: document.getElementById('forcePowerAlignmentFilter')?.value || 'all',
+    onAdd: addCatalogForcePower
+  });
+}
+
+function renderTechPowerCatalog() {
+  renderPowerCatalog({
+    listElementId: 'techPowerCatalogList',
+    statusElementId: 'techPowerCatalogStatus',
+    emptyCatalogText: 'Tech power catalog unavailable.',
+    noMatchText: 'No tech powers match the current filters.',
+    catalog: techPowerCatalog,
+    knownPowers: getTechPowersList(),
+    canLearn: getCurrentTechPowersKnown() > 0,
+    maxPowerLevel: getCurrentMaxTechPowerLevel(),
+    powerType: 'tech',
+    filterValue: document.getElementById('techPowerFilter')?.value || 'all',
+    searchValue: document.getElementById('techPowerSearch')?.value || '',
+    onAdd: addCatalogTechPower
+  });
+}
+
+function castTechPower(level, powerName) {
+  const usedEl = document.getElementById('techPointsUsed');
+  const maxEl = document.getElementById('techPointsMax');
+  if (!usedEl || !maxEl) {
+    return;
+  }
+
+  const max = parseInt(maxEl.value, 10) || 0;
+  const used = parseInt(usedEl.value, 10) || 0;
+  const remaining = Math.max(0, max - used);
+  const cost = getForcePowerCost(level);
+
+  if (cost > remaining) {
+    alert(`Not enough Tech Points to cast ${powerName}. Need ${cost}, have ${remaining}.`);
+    return;
+  }
+
+  usedEl.value = used + cost;
+  updateTechCounter();
+}
+
+function renderKnownPowers(powers) {
   const leftCol = document.getElementById('powersLeft');
   const rightCol = document.getElementById('powersRight');
-  if (!leftCol || !rightCol) return;
+  if (!leftCol || !rightCol) {
+    return;
+  }
   leftCol.innerHTML = '';
   rightCol.innerHTML = '';
 
-  // Normalize: accept both { name, level, alignment } objects and legacy strings
-  const normalized = powers.map(p =>
-    typeof p === 'string'
-      ? { name: p.trim(), level: 0, alignment: 'universal', description: '' }
-      : { name: p.name, level: p.level ?? 0, alignment: p.alignment || 'universal', description: p.description || '' }
-  ).filter(p => p.name);
+  const normalized = powers.map((power) => {
+    if (typeof power === 'string') {
+      return { name: power.trim(), level: 0, alignment: 'universal', description: '', powerType: 'force' };
+    }
 
-  // Group by level
+    const nextType = power.powerType === 'tech' ? 'tech' : 'force';
+    return {
+      name: String(power.name || '').trim(),
+      level: power.level ?? 0,
+      alignment: power.alignment || (nextType === 'tech' ? 'tech' : 'universal'),
+      description: power.description || '',
+      powerType: nextType
+    };
+  }).filter((power) => power.name);
+
   const groups = {};
-  normalized.forEach(p => {
-    if (!groups[p.level]) groups[p.level] = [];
-    groups[p.level].push(p);
+  normalized.forEach((power) => {
+    if (!groups[power.level]) {
+      groups[power.level] = [];
+    }
+    groups[power.level].push(power);
   });
 
   const sortedLevels = Object.keys(groups).map(Number).sort((a, b) => a - b);
 
-  // Even-index levels go left, odd-index go right
   sortedLevels.forEach((lvl, idx) => {
     const col = idx % 2 === 0 ? leftCol : rightCol;
     const section = document.createElement('div');
@@ -2126,27 +2975,25 @@ function renderForcePowers(powers) {
 
     const tagsRow = document.createElement('div');
     tagsRow.className = 'powers-tags-row';
-    groups[lvl].forEach(p => {
+    groups[lvl].forEach((power) => {
       const powerContainer = document.createElement('div');
       powerContainer.className = 'power-item';
 
-      // Header row with expand button, name, cost, and actions
       const headerRow = document.createElement('div');
       headerRow.className = 'power-header';
 
-      let expandBtn = null;
-      if (p.description) {
-        expandBtn = document.createElement('button');
+      if (power.description) {
+        const expandBtn = document.createElement('button');
         expandBtn.type = 'button';
         expandBtn.className = 'power-expand';
-        expandBtn.setAttribute('aria-label', `Show ${p.name} description`);
+        expandBtn.setAttribute('aria-label', `Show ${power.name} description`);
         expandBtn.innerHTML = '▼';
-        expandBtn.onclick = (e) => {
-          e.stopPropagation();
+        expandBtn.onclick = (event) => {
+          event.stopPropagation();
           openPowerDescriptionModal({
-            name: p.name,
+            name: power.name,
             level: lvl,
-            description: p.description
+            description: power.description
           });
         };
         headerRow.appendChild(expandBtn);
@@ -2160,13 +3007,13 @@ function renderForcePowers(powers) {
       nameAndCost.className = 'power-name-cost';
 
       const name = document.createElement('span');
-      name.className = `power-name power-name--${p.alignment}`;
-      name.textContent = p.name;
+      name.className = `power-name power-name--${power.alignment}`;
+      name.textContent = power.name;
       nameAndCost.appendChild(name);
 
       const cost = document.createElement('span');
       cost.className = 'power-cost';
-      cost.textContent = `${getForcePowerCost(lvl)} FP`;
+      cost.textContent = `${getForcePowerCost(lvl)} ${power.powerType === 'tech' ? 'TP' : 'FP'}`;
       nameAndCost.appendChild(cost);
 
       headerRow.appendChild(nameAndCost);
@@ -2179,8 +3026,15 @@ function renderForcePowers(powers) {
       castBtn.className = 'power-cast';
       castBtn.textContent = 'Cast';
       castBtn.dataset.cost = getForcePowerCost(lvl);
-      castBtn.setAttribute('aria-label', `Cast ${p.name}`);
-      castBtn.onclick = () => castForcePower(lvl, p.name);
+      castBtn.dataset.powerType = power.powerType;
+      castBtn.setAttribute('aria-label', `Cast ${power.name}`);
+      castBtn.onclick = () => {
+        if (power.powerType === 'tech') {
+          castTechPower(lvl, power.name);
+        } else {
+          castForcePower(lvl, power.name);
+        }
+      };
       actionsDiv.appendChild(castBtn);
 
       const removeBtn = document.createElement('button');
@@ -2188,16 +3042,17 @@ function renderForcePowers(powers) {
       removeBtn.className = 'power-remove';
       removeBtn.setAttribute('aria-label', 'Remove');
       removeBtn.innerHTML = '✕';
-      removeBtn.onclick = () => removeForcePower(removeBtn);
+      removeBtn.onclick = () => removeKnownPower(removeBtn);
       actionsDiv.appendChild(removeBtn);
 
       headerRow.appendChild(actionsDiv);
       powerContainer.appendChild(headerRow);
 
-      powerContainer.dataset.power = p.name;
+      powerContainer.dataset.power = power.name;
       powerContainer.dataset.level = lvl;
-      powerContainer.dataset.alignment = p.alignment;
-      powerContainer.dataset.description = p.description || '';
+      powerContainer.dataset.alignment = power.alignment;
+      powerContainer.dataset.description = power.description || '';
+      powerContainer.dataset.powerType = power.powerType;
 
       tagsRow.appendChild(powerContainer);
     });
@@ -2205,9 +3060,13 @@ function renderForcePowers(powers) {
     col.appendChild(section);
   });
 
-  const remaining = parseInt(document.getElementById('fpRemaining')?.textContent, 10) || 0;
-  refreshForcePowerCastButtons(remaining);
+  refreshPowerCastButtons();
   renderForcePowerCatalog();
+  renderTechPowerCatalog();
+}
+
+function renderForcePowers(powers) {
+  renderKnownPowers(powers);
 }
 
 function addCatalogForcePower(powerName) {
@@ -2221,16 +3080,36 @@ function addCatalogForcePower(powerName) {
     return;
   }
 
-  const current = getForcePowersList();
-  if (!current.some((power) => normalizeForcePowerName(power.name) === normalizeForcePowerName(selectedPower.name))) {
-    renderForcePowers([...current, selectedPower]);
+  const current = getKnownPowersList();
+  if (!current.some((power) => normalizeForcePowerName(power.name) === normalizeForcePowerName(selectedPower.name) && power.powerType !== 'tech')) {
+    renderKnownPowers([...current, { ...selectedPower, powerType: 'force', alignment: selectedPower.alignment || 'universal' }]);
   }
 }
 
-function removeForcePower(btn) {
+function addCatalogTechPower(powerName) {
+  const selectedPower = techPowerCatalog.find((power) => power.name === powerName);
+  if (!selectedPower) {
+    return;
+  }
+
+  if (getCurrentTechPowersKnown() <= 0 || selectedPower.level > getCurrentMaxTechPowerLevel()) {
+    renderTechPowerCatalog();
+    return;
+  }
+
+  const current = getKnownPowersList();
+  if (!current.some((power) => normalizeForcePowerName(power.name) === normalizeForcePowerName(selectedPower.name) && power.powerType === 'tech')) {
+    renderKnownPowers([...current, { ...selectedPower, powerType: 'tech', alignment: 'tech' }]);
+  }
+}
+
+function removeKnownPower(btn) {
   btn.closest('.power-item')?.remove();
-  // Re-render to clean up empty level groups
-  renderForcePowers(getForcePowersList());
+  renderKnownPowers(getKnownPowersList());
+}
+
+function removeForcePower(btn) {
+  removeKnownPower(btn);
 }
 
 function resetCharacter() {
@@ -2294,7 +3173,8 @@ function handleCharacterFileSelected(event) {
       const parsed = JSON.parse(rawText);
       const mapped = mapBuilderCharacterToSheet(parsed);
       setCharacterData(mapped);
-      alert(`Imported character "${mapped.name}" from ${selectedFile.name}.`);
+      saveCharacter({ silent: true });
+      alert(`Imported and saved character "${mapped.name}" from ${selectedFile.name}.`);
     } catch (err) {
       console.error('Error importing character file:', err);
       alert('Unable to import that file. Make sure it is a valid SW5E builder JSON export.');
@@ -2310,7 +3190,9 @@ function handleCharacterFileSelected(event) {
 
 // Load default character template from bundled data on page load
 window.addEventListener('DOMContentLoaded', () => {
+  loadClassProgressionCatalog();
   loadForcePowerCatalog();
+  loadTechPowerCatalog();
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
@@ -2318,17 +3200,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const loadedSaved = loadCharacter({ silent: true });
-  if (loadedSaved) {
-    console.log('DOMContentLoaded - loaded saved character');
-  } else {
-    console.log('DOMContentLoaded - loading netahl.json template');
-    const characterData = loadTemplate();
-    if (characterData) {
-      setCharacterData(characterData);
-      console.log('Character template populated successfully');
-    }
-  }
+  setCharacterData(getBlankCharacterTemplate());
+  console.log('DOMContentLoaded - initialized blank character template');
 
   document.getElementById('level').addEventListener('change', () => applyLevelProgression());
   document.getElementById('experiencePoints').addEventListener('input', () => updateXpProgress());
@@ -2360,6 +3233,7 @@ window.addEventListener('DOMContentLoaded', () => {
   window.updateClassLevelRow = updateClassLevelRow;
   window.changeClassLevelBy = changeClassLevelBy;
   window.removeClassLevelRow = removeClassLevelRow;
+  window.switchPowerCatalogTab = switchPowerCatalogTab;
   window.importCharacterFromFile = importCharacterFromFile;
 
   const importInput = document.getElementById('characterImportInput');

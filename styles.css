@@ -436,6 +436,72 @@ textarea {
   font-weight: 600;
 }
 
+.character-archetype-tabs-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.character-archetype-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.character-archetype-tab {
+  width: auto;
+  margin: 0;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid #8B6F47;
+  background: #4A3028;
+  color: #E8DCC8;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+}
+
+.character-archetype-tab:hover {
+  background: #5C4033;
+  border-color: #DAA520;
+}
+
+.character-archetype-tab.active {
+  background: #DAA520;
+  color: #3E2723;
+  border-color: #DAA520;
+}
+
+.character-archetype-panel {
+  border: 1px solid #6B5344;
+  border-radius: 10px;
+  background: rgba(20, 12, 10, 0.25);
+  padding: 10px;
+}
+
+.character-archetype-title {
+  color: #F5E6D3;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.character-archetype-select,
+.character-archetype-input {
+  margin-bottom: 0;
+  border-radius: 999px;
+  background: #f2e0c8;
+  font-weight: 600;
+}
+
+.character-archetype-help {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: #D2B48C;
+  line-height: 1.4;
+}
+
 /* ── Force Powers Section ── */
 
 .powers-add-section {
@@ -451,6 +517,50 @@ textarea {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.power-catalog-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.power-catalog-tab {
+  width: auto;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #8B6F47;
+  background: #4A3028;
+  color: #E8DCC8;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.power-catalog-tab:hover {
+  background: #5C4033;
+  border-color: #DAA520;
+}
+
+.power-catalog-tab.active {
+  background: #DAA520;
+  border-color: #DAA520;
+  color: #3E2723;
+}
+
+.power-catalog-tab:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.power-catalog-panel {
+  display: none;
+}
+
+.power-catalog-panel.active {
+  display: block;
 }
 
 /* Three-column layout: powers | counters | powers */
@@ -485,6 +595,38 @@ textarea {
   flex-direction: column;
   gap: 8px;
   margin-top: 8px;
+}
+
+.feature-class-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.feature-class-tab {
+  width: auto;
+  margin: 0;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid #8B6F47;
+  background: #4A3028;
+  color: #E8DCC8;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.feature-class-tab:hover {
+  background: #5C4033;
+  border-color: #DAA520;
+}
+
+.feature-class-tab.active {
+  background: #DAA520;
+  border-color: #DAA520;
+  color: #3E2723;
 }
 
 .features-empty {
@@ -967,6 +1109,10 @@ textarea {
 
 .power-name--universal {
   color: #F5E6D3;
+}
+
+.power-name--tech {
+  color: #8fe3ff;
 }
 
 .power-cost {
