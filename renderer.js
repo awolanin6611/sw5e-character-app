@@ -8,6 +8,10 @@ let activeFeatureClassTab = '';
 let activeCharacterArchetypeTab = '';
 let activePowerCatalogTab = 'force';
 const LOCAL_STORAGE_KEY = 'sw5e.character';
+const ROSTER_STORAGE_KEY = 'sw5e.roster';
+
+// The filename (without .json) of the currently active character
+let activeCharacterId = null;
 
 const CONSULAR_TABLE = {
   1: { pb: 2, features: ['Forcecasting', 'Force Recovery'], forcePowersKnown: 9, forcePoints: 4, maxPowerLevel: 1, fecOptions: 0 },
@@ -2164,9 +2168,15 @@ function applyLevelProgression(options = {}) {
   document.getElementById('level').value = progression.level;
   setProgressionOutputs(progression);
   updateForceAffinityState(character);
+  ensureIdentityFieldsEditable();
+  ensureCoreTextInputsEditable();
+  ensureRosterOverlayClosed();
 
   if (options.announce) {
-    alert(`Level rules applied for level ${progression.level}.`);
+    const validation = document.getElementById('levelValidation');
+    if (validation) {
+      validation.textContent = `Level rules applied for level ${progression.level}.`;
+    }
   }
 
   return progression;
@@ -2208,6 +2218,65 @@ try {
 
 function getStorageModeLabel() {
   return storageBackend === 'electron' ? 'desktop file' : 'browser local storage';
+}
+
+function ensureIdentityFieldsEditable() {
+  ['name', 'species', 'background'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) {
+      return;
+    }
+    el.disabled = false;
+    el.readOnly = false;
+    el.style.pointerEvents = 'auto';
+  });
+}
+
+function ensureCoreTextInputsEditable() {
+  const selectors = [
+    '#name', '#species', '#background', '#credits', '#maxHitPoints', '#temporaryHitPoints',
+    '#conditions', '#notes', '#experiencePoints', '#gender', '#age', '#height', '#weight',
+    '#hair', '#eyes', '#skin', '#appearance', '#backstory', '#personality', '#ideal', '#bond', '#flaw',
+    '.class-level-input', '.class-archetype-input', '.class-level-select'
+  ];
+
+  document.querySelectorAll(selectors.join(',')).forEach((el) => {
+    if (!el) {
+      return;
+    }
+    el.disabled = false;
+    if ('readOnly' in el) {
+      el.readOnly = false;
+    }
+    el.style.pointerEvents = 'auto';
+  });
+}
+
+function ensureRosterOverlayClosed() {
+  const overlay = document.getElementById('rosterOverlay');
+  if (overlay) {
+    overlay.classList.remove('open');
+    overlay.style.pointerEvents = 'none';
+    overlay.style.zIndex = '-1';
+  }
+}
+
+function bindIdentityFieldGuards() {
+  ['name', 'species', 'background'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) {
+      return;
+    }
+
+    const unlock = () => {
+      el.disabled = false;
+      el.readOnly = false;
+      ensureRosterOverlayClosed();
+    };
+
+    el.addEventListener('focus', unlock);
+    el.addEventListener('click', unlock);
+  });
 }
 
 function getCharacterData() {
@@ -2389,6 +2458,9 @@ function setCharacterData(data) {
 
   // Apply level progression to update all calculated fields
   applyLevelProgression({ characterData: data });
+  ensureIdentityFieldsEditable();
+  ensureCoreTextInputsEditable();
+  ensureRosterOverlayClosed();
   
   console.log('Character data loaded successfully:', data.name);
   } catch (err) {
@@ -2411,19 +2483,31 @@ function saveCharacter(options = {}) {
     data.progression = progression;
 
     if (storageBackend === 'electron' && dataPath && fs && path) {
-      const charPath = path.join(dataPath, 'character.json');
+      // Assign an ID if this character doesn't have one yet
+      if (!activeCharacterId) {
+        activeCharacterId = slugifyCharName(data.name);
+      }
+      const charPath = path.join(dataPath, activeCharacterId + '.json');
       fs.writeFileSync(charPath, JSON.stringify(data, null, 2));
       console.log('Character saved to:', charPath);
       if (!silent) {
-        alert(`Character "${data.name}" saved successfully to desktop file!`);
+        alert(`Character "${data.name}" saved successfully!`);
       }
       return;
     }
 
+    // localStorage fallback — store roster as an object keyed by id
+    if (!activeCharacterId) {
+      activeCharacterId = slugifyCharName(data.name);
+    }
+    const roster = getRosterFromLocalStorage();
+    roster[activeCharacterId] = data;
+    localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(roster));
+    // Legacy single-char key for backward compat
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
-    console.log('Character saved to localStorage key:', LOCAL_STORAGE_KEY);
+    console.log('Character saved to localStorage roster key:', activeCharacterId);
     if (!silent) {
-      alert(`Character "${data.name}" saved successfully to browser local storage!`);
+      alert(`Character "${data.name}" saved successfully!`);
     }
   } catch (err) {
     console.error('Error saving character:', err);
@@ -2435,14 +2519,19 @@ function saveCharacter(options = {}) {
 
 function loadCharacter(options = {}) {
   const silent = Boolean(options.silent);
+  const targetId = options.id || activeCharacterId;
   try {
     let data;
 
     if (storageBackend === 'electron' && dataPath && fs && path) {
-      const charPath = path.join(dataPath, 'character.json');
+      // Try the specific id first, then fall back to legacy character.json
+      let charPath = targetId ? path.join(dataPath, targetId + '.json') : null;
+      if (!charPath || !fs.existsSync(charPath)) {
+        charPath = path.join(dataPath, 'character.json');
+      }
       if (!fs.existsSync(charPath)) {
         if (!silent) {
-          alert('No saved character file found at: ' + charPath);
+          alert('No saved character file found.');
         }
         return false;
       }
@@ -2450,18 +2539,25 @@ function loadCharacter(options = {}) {
       data = JSON.parse(fileData);
       console.log('Character loaded from:', charPath);
     } else {
-      const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (!raw) {
-        if (!silent) {
-          alert('No saved character found in browser local storage.');
-        }
-        return false;
+      // localStorage fallback
+      if (targetId) {
+        const roster = getRosterFromLocalStorage();
+        data = roster[targetId] || null;
       }
-      data = JSON.parse(raw);
-      console.log('Character loaded from localStorage key:', LOCAL_STORAGE_KEY);
+      if (!data) {
+        const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (!raw) {
+          if (!silent) {
+            alert('No saved character found.');
+          }
+          return false;
+        }
+        data = JSON.parse(raw);
+      }
+      console.log('Character loaded from localStorage');
     }
     
-    if (!data.name) {
+    if (!data || !data.name) {
       if (!silent) {
         alert('Invalid character file: missing name');
       }
@@ -2476,9 +2572,16 @@ function loadCharacter(options = {}) {
       data.combatStats.forceShieldUsed = 0;
     }
     
+    // Track which character is active
+    if (targetId) {
+      activeCharacterId = targetId;
+    } else if (data.name) {
+      activeCharacterId = slugifyCharName(data.name);
+    }
+    
     setCharacterData(data);
     if (!silent) {
-      alert(`Character "${data.name}" loaded successfully from ${getStorageModeLabel()}!`);
+      alert(`Character "${data.name}" loaded successfully!`);
     }
     return true;
   } catch (err) {
@@ -3150,6 +3253,207 @@ function resetCharacter() {
   }
 }
 
+// ── Character Roster ─────────────────────────────────────────────────
+
+/**
+ * Turn a character name into a safe filename (no extension).
+ * Falls back to a timestamp if name is empty/blank.
+ */
+function slugifyCharName(name) {
+  const base = (name || '').trim().toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return base || ('character-' + Date.now());
+}
+
+function getRosterFromLocalStorage() {
+  try {
+    return JSON.parse(localStorage.getItem(ROSTER_STORAGE_KEY) || '{}');
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Returns array of { id, name, classLabel, level } for all saved characters.
+ */
+function listRosterCharacters() {
+  const entries = [];
+
+  if (storageBackend === 'electron' && dataPath && fs && path) {
+    try {
+      const files = fs.readdirSync(dataPath).filter(f => f.endsWith('.json'));
+      for (const file of files) {
+        try {
+          const raw = fs.readFileSync(path.join(dataPath, file), 'utf-8');
+          const data = JSON.parse(raw);
+          if (!data.name) continue;
+          const id = file.replace(/\.json$/, '');
+          const classLabel = buildClassLabel(data);
+          entries.push({ id, name: data.name, classLabel });
+        } catch { /* skip corrupt files */ }
+      }
+    } catch { /* dataPath unreadable */ }
+  } else {
+    const roster = getRosterFromLocalStorage();
+    for (const [id, data] of Object.entries(roster)) {
+      if (!data.name) continue;
+      const classLabel = buildClassLabel(data);
+      entries.push({ id, name: data.name, classLabel });
+    }
+  }
+
+  // Sort alphabetically by name
+  entries.sort((a, b) => a.name.localeCompare(b.name));
+  return entries;
+}
+
+function buildClassLabel(data) {
+  // Build a short "Class X / Class Y" summary from the classes array
+  const classes = data.classes;
+  if (Array.isArray(classes) && classes.length > 0) {
+    return classes
+      .filter(c => c.name && c.name !== 'Select Class')
+      .map(c => `${c.name} ${c.level || ''}`.trim())
+      .join(' / ') || 'Unknown';
+  }
+  // Fallback for flat format
+  const cls = data.class || '';
+  const lvl = data.level || '';
+  return cls ? `${cls} ${lvl}`.trim() : 'Unknown';
+}
+
+function openRosterPanel() {
+  renderRosterPanel();
+  const overlay = document.getElementById('rosterOverlay');
+  if (overlay) {
+    overlay.style.zIndex = '500';
+    overlay.style.pointerEvents = 'auto';
+    overlay.classList.add('open');
+  }
+}
+
+function closeRosterPanel(event) {
+  // If called from overlay click, only close if the overlay itself was clicked (not the panel)
+  if (event && event.target !== document.getElementById('rosterOverlay')) return;
+  const overlay = document.getElementById('rosterOverlay');
+  if (overlay) {
+    overlay.classList.remove('open');
+    overlay.style.pointerEvents = 'none';
+    overlay.style.zIndex = '-1';
+  }
+}
+
+function renderRosterPanel() {
+  const listEl = document.getElementById('rosterList');
+  const currentSection = document.getElementById('rosterCurrentSection');
+  if (!listEl) return;
+
+  // ── Pinned "Currently Loaded" block ──────────────────────────────
+  if (currentSection) {
+    const currentName = (document.getElementById('name')?.value || '').trim();
+    if (currentName) {
+      const currentData = getCharacterData();
+      const subLabel = buildClassLabel(currentData);
+      currentSection.innerHTML = `
+        <div class="roster-current-label">Currently Loaded</div>
+        <div class="roster-current-row">
+          <div class="roster-current-info">
+            <div class="roster-current-name">${escHtml(currentName)}</div>
+            <div class="roster-current-sub">${escHtml(subLabel)}</div>
+          </div>
+          <button class="roster-save-current-btn" onclick="saveAndRefreshRoster()">Save</button>
+        </div>`;
+    } else {
+      currentSection.innerHTML = `
+        <div class="roster-current-label">Currently Loaded</div>
+        <div class="roster-current-name roster-current-unnamed">No character loaded</div>`;
+    }
+  }
+
+  // ── Saved characters list ─────────────────────────────────────────
+  const chars = listRosterCharacters();
+  if (chars.length === 0) {
+    listEl.innerHTML = '<p class="roster-empty">No saved characters yet.<br>Click <strong>Save</strong> above to add the current character.</p>';
+    return;
+  }
+
+  listEl.innerHTML = chars.map(({ id, name, classLabel }) => {
+    const isActive = id === activeCharacterId;
+    return `<div class="roster-item${isActive ? ' active-char' : ''}">
+      <div class="roster-item-info" onclick="switchToCharacter('${escHtml(id)}')">
+        <div class="roster-item-name">${escHtml(name)}</div>
+        <div class="roster-item-sub">${escHtml(classLabel)}</div>
+      </div>
+      <button class="roster-item-load-btn" onclick="switchToCharacter('${escHtml(id)}')">Load</button>
+      <button class="roster-item-delete-btn" title="Delete character" onclick="deleteRosterCharacter('${escHtml(id)}', '${escHtml(name)}')">&#x2715;</button>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function switchToCharacter(id) {
+  // Save current character first (silently)
+  if (activeCharacterId) {
+    saveCharacter({ silent: true });
+  }
+  // Load the selected character
+  const loaded = loadCharacter({ id, silent: true });
+  if (loaded) {
+    closeRosterPanel();
+  } else {
+    alert('Could not load character.');
+  }
+}
+
+function deleteRosterCharacter(id, name) {
+  if (!confirm(`Delete character "${name}"? This cannot be undone.`)) return;
+
+  if (storageBackend === 'electron' && dataPath && fs && path) {
+    const charPath = path.join(dataPath, id + '.json');
+    try {
+      if (fs.existsSync(charPath)) fs.unlinkSync(charPath);
+    } catch (err) {
+      alert('Could not delete file: ' + err.message);
+      return;
+    }
+  } else {
+    const roster = getRosterFromLocalStorage();
+    delete roster[id];
+    localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(roster));
+  }
+
+  // If we deleted the active character, clear it and reset the sheet
+  if (id === activeCharacterId) {
+    activeCharacterId = null;
+    setCharacterData(getBlankCharacterTemplate());
+  }
+
+  renderRosterPanel();
+}
+
+function newBlankCharacter() {
+  // Save current before switching
+  if (activeCharacterId) {
+    saveCharacter({ silent: true });
+  }
+  activeCharacterId = null;
+  setCharacterData(getBlankCharacterTemplate());
+  ensureIdentityFieldsEditable();
+  closeRosterPanel();
+}
+
+function saveAndRefreshRoster() {
+  saveCharacter({ silent: true });
+  renderRosterPanel();
+  alert('Character saved to roster!');
+}
+
+// ── End Character Roster ──────────────────────────────────────────────
+
 function importCharacterFromFile() {
   const fileInput = document.getElementById('characterImportInput');
   if (!fileInput) {
@@ -3172,6 +3476,8 @@ function handleCharacterFileSelected(event) {
       const rawText = String(reader.result || '');
       const parsed = JSON.parse(rawText);
       const mapped = mapBuilderCharacterToSheet(parsed);
+      // Assign a new roster ID for this imported character
+      activeCharacterId = slugifyCharName(mapped.name);
       setCharacterData(mapped);
       saveCharacter({ silent: true });
       alert(`Imported and saved character "${mapped.name}" from ${selectedFile.name}.`);
@@ -3193,6 +3499,7 @@ window.addEventListener('DOMContentLoaded', () => {
   loadClassProgressionCatalog();
   loadForcePowerCatalog();
   loadTechPowerCatalog();
+  bindIdentityFieldGuards();
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
@@ -3233,8 +3540,15 @@ window.addEventListener('DOMContentLoaded', () => {
   window.updateClassLevelRow = updateClassLevelRow;
   window.changeClassLevelBy = changeClassLevelBy;
   window.removeClassLevelRow = removeClassLevelRow;
+  window.applyLevelProgression = applyLevelProgression;
   window.switchPowerCatalogTab = switchPowerCatalogTab;
   window.importCharacterFromFile = importCharacterFromFile;
+  window.openRosterPanel = openRosterPanel;
+  window.closeRosterPanel = closeRosterPanel;
+  window.switchToCharacter = switchToCharacter;
+  window.deleteRosterCharacter = deleteRosterCharacter;
+  window.newBlankCharacter = newBlankCharacter;
+  window.saveAndRefreshRoster = saveAndRefreshRoster;
 
   const importInput = document.getElementById('characterImportInput');
   if (importInput) {

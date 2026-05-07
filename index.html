@@ -9,13 +9,13 @@
   <header class="app-header">
     <h1>Star Wars 5e Character Sheet</h1>
     <nav class="tab-nav">
-      <button class="tab-btn active" onclick="showTab('basic-info')">Character Info</button>
-      <button class="tab-btn" onclick="showTab('level-progression')">Powers and Feats</button>
-      <button class="tab-btn" onclick="showTab('attributes')">Attributes</button>
-      <button class="tab-btn" onclick="showTab('asi')">Leveling</button>
-      <button class="tab-btn" onclick="showTab('characteristics')">Characteristics</button>
-      <button class="tab-btn" onclick="showTab('combat-stats')">Combat Stats</button>
-      <button class="tab-btn" onclick="showTab('status')">Status</button>
+      <button class="tab-btn active" onclick="showTab('basic-info', this)">Character Info</button>
+      <button class="tab-btn" onclick="showTab('level-progression', this)">Powers and Feats</button>
+      <button class="tab-btn" onclick="showTab('attributes', this)">Attributes</button>
+      <button class="tab-btn" onclick="showTab('asi', this)">Leveling</button>
+      <button class="tab-btn" onclick="showTab('characteristics', this)">Characteristics</button>
+      <button class="tab-btn" onclick="showTab('combat-stats', this)">Combat Stats</button>
+      <button class="tab-btn" onclick="showTab('status', this)">Status</button>
     </nav>
   </header>
 
@@ -446,7 +446,7 @@
           </div>
           <div class="leveling-summary-actions">
             <button type="button" class="fp-btn fp-btn-apply" onclick="addClassLevelRow()">Add Class</button>
-            <button type="button" class="fp-btn fp-btn-apply" onclick="applyLevelProgression({ announce: true })">Apply Levels</button>
+            <button type="button" class="fp-btn fp-btn-apply" onclick="applyLevelProgression()">Apply Levels</button>
           </div>
         </div>
         <div id="classLevelList" class="class-level-list"></div>
@@ -636,20 +636,52 @@
 
   </main>
 
+  <!-- Character Roster Panel -->
+  <div id="rosterOverlay" class="roster-overlay" onclick="closeRosterPanel(event)">
+    <div class="roster-panel">
+      <div class="roster-header">
+        <h2>Characters</h2>
+        <button class="roster-close-btn" onclick="closeRosterPanel()">&#10005;</button>
+      </div>
+      <div id="rosterCurrentSection" class="roster-current-section">
+        <!-- Populated by renderRosterPanel() -->
+      </div>
+      <div id="rosterList" class="roster-list">
+        <!-- Populated by renderRosterPanel() -->
+      </div>
+      <div class="roster-footer">
+        <button class="roster-new-btn" onclick="newBlankCharacter()">+ New Character</button>
+      </div>
+    </div>
+  </div>
+
   <footer class="app-footer">
+    <button class="footer-btn roster-open-btn" onclick="openRosterPanel()">&#9776; Characters</button>
     <button class="footer-btn" onclick="saveCharacter()">Save Character</button>
-    <button class="footer-btn" onclick="loadCharacter()">Load Character</button>
     <button class="footer-btn" onclick="importCharacterFromFile()">Import Builder JSON</button>
     <button class="footer-btn" onclick="resetCharacter()">Reset to Template</button>
     <input id="characterImportInput" type="file" accept=".json,application/json" hidden>
   </footer>
 
   <script>
-    function showTab(tabId) {
+    function showTab(tabId, clickedBtn) {
       document.querySelectorAll('.tab-page').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
-      event.currentTarget.classList.add('active');
+
+      if (clickedBtn) {
+        clickedBtn.classList.add('active');
+      }
+
+      // Keep identity fields editable when returning to Character Info.
+      if (tabId === 'basic-info') {
+        ['name', 'species', 'background'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.disabled = false;
+          el.readOnly = false;
+        });
+      }
     }
   </script>
   <script src="renderer.js"></script>

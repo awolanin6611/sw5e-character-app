@@ -1356,6 +1356,265 @@ main {
   color: var(--sw-text);
 }
 
+.roster-open-btn {
+  flex: 0 0 auto;
+  min-width: 120px;
+  background: #4A3728;
+  border-color: #C8A96A;
+  color: #C8A96A;
+  font-weight: 700;
+}
+
+.roster-open-btn:hover {
+  background: #5A4738;
+  color: #F5E6D3;
+}
+
+/* Roster Overlay */
+.roster-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: -1;
+  align-items: flex-start;
+  justify-content: flex-start;
+  pointer-events: none;
+}
+
+.roster-overlay.open {
+  display: flex;
+  z-index: 500;
+  pointer-events: auto;
+}
+
+.roster-panel {
+  background: #2A1F1A;
+  border-right: 2px solid #6B5344;
+  width: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+}
+
+.roster-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #6B5344;
+  background: #1E1510;
+}
+
+.roster-header h2 {
+  color: #C8A96A;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.roster-close-btn {
+  background: none;
+  border: none;
+  color: #A0847A;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.roster-close-btn:hover {
+  color: #F5E6D3;
+  background: #6B5344;
+}
+
+.roster-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.roster-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #3A2B22;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.roster-item:hover {
+  background: #3A2B22;
+}
+
+.roster-item.active-char {
+  background: #3D2C1E;
+  border-left: 3px solid #C8A96A;
+}
+
+.roster-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.roster-item-name {
+  color: #F5E6D3;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.roster-item-sub {
+  color: #A0847A;
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+.roster-item-load-btn {
+  background: #6B5344;
+  color: #F5E6D3;
+  border: 1px solid #8B6F47;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.roster-item-load-btn:hover {
+  background: #8B6F47;
+}
+
+.roster-item-delete-btn {
+  background: none;
+  border: none;
+  color: #804040;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+  line-height: 1;
+}
+
+.roster-item-delete-btn:hover {
+  color: #F05050;
+  background: #3A1010;
+}
+
+.roster-empty {
+  color: #A0847A;
+  font-size: 0.88rem;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.roster-footer {
+  padding: 12px 14px;
+  border-top: 1px solid #6B5344;
+}
+
+.roster-new-btn {
+  width: 100%;
+  background: #4A3728;
+  color: #C8A96A;
+  border: 1px solid #C8A96A;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.roster-new-btn:hover {
+  background: #5A4738;
+  color: #F5E6D3;
+}
+
+/* Current character section at top of roster */
+.roster-current-section {
+  padding: 12px 14px 10px;
+  background: #1A1008;
+  border-bottom: 2px solid #6B5344;
+  flex-shrink: 0;
+}
+
+.roster-current-label {
+  font-size: 0.72rem;
+  color: #C8A96A;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.roster-current-name {
+  color: #F5E6D3;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.roster-current-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.roster-current-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.roster-current-sub {
+  color: #A0847A;
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+.roster-current-unnamed {
+  color: #7A6A60;
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+.roster-save-current-btn {
+  background: #C8A96A;
+  color: #1A1008;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.roster-save-current-btn:hover {
+  background: #E0C080;
+}
+
+.roster-divider {
+  padding: 6px 14px;
+  font-size: 0.72rem;
+  color: #7A6A60;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #221810;
+  border-bottom: 1px solid #3A2B22;
+}
+
 /* ── Attributes & Skills ── */
 
 .attributes-layout {
