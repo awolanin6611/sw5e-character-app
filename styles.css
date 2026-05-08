@@ -538,6 +538,42 @@ textarea {
   font-weight: 600;
 }
 
+.hidden {
+  display: none !important;
+}
+
+#basic-info .background-choice-card {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid #7A5B3F;
+  border-radius: 8px;
+  background: rgba(20, 12, 10, 0.22);
+}
+
+#basic-info .background-choice-title {
+  margin: 0 0 4px;
+  color: #E8DCC8;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#basic-info .background-choice-help {
+  margin: 0 0 6px;
+  color: #C7B6A2;
+  font-size: 0.72rem;
+}
+
+#basic-info .background-choice-fields {
+  display: grid;
+  gap: 6px;
+}
+
+#basic-info .background-choice-select {
+  width: 100%;
+}
+
 .character-archetype-tabs-wrap {
   display: flex;
   flex-direction: column;
@@ -1490,7 +1526,7 @@ main {
 .roster-panel {
   background: #2A1F1A;
   border-right: 2px solid #6B5344;
-  width: 320px;
+  width: min(360px, 92vw);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -1533,25 +1569,32 @@ main {
 .roster-list {
   flex: 1;
   overflow-y: auto;
+  padding: 8px 10px 12px;
 }
 
 .roster-item {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-bottom: 1px solid #3A2B22;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: 1px solid #4A3A30;
+  border-radius: 8px;
+  background: #241914;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
 }
 
 .roster-item:hover {
-  background: #3A2B22;
+  background: #30231C;
+  border-color: #8B6F47;
+  transform: translateY(-1px);
 }
 
 .roster-item.active-char {
   background: #3D2C1E;
-  border-left: 3px solid #C8A96A;
+  border-color: #C8A96A;
+  box-shadow: inset 0 0 0 1px rgba(200, 169, 106, 0.22);
 }
 
 .roster-item-info {
@@ -1561,56 +1604,67 @@ main {
 
 .roster-item-name {
   color: #F5E6D3;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
+  line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .roster-item-sub {
-  color: #A0847A;
-  font-size: 0.78rem;
-  margin-top: 2px;
+  color: #C9B3A6;
+  font-size: 0.84rem;
+  margin-top: 4px;
+  line-height: 1.3;
 }
 
 .roster-item-load-btn {
-  background: #6B5344;
+  background: #7A624D;
   color: #F5E6D3;
-  border: 1px solid #8B6F47;
-  border-radius: 4px;
-  padding: 4px 10px;
-  font-size: 0.8rem;
+  border: 1px solid #B99869;
+  border-radius: 6px;
+  padding: 6px 12px;
+  width: auto;
+  margin-bottom: 0;
+  font-size: 0.83rem;
+  font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s;
+  flex: 0 0 auto;
+  transition: background 0.15s, border-color 0.15s;
 }
 
 .roster-item-load-btn:hover {
-  background: #8B6F47;
+  background: #9A7B56;
+  border-color: #D6B984;
 }
 
 .roster-item-delete-btn {
   background: none;
   border: none;
-  color: #804040;
+  color: #B46F6F;
   font-size: 1rem;
   cursor: pointer;
-  padding: 4px 6px;
-  border-radius: 4px;
+  padding: 6px 7px;
+  width: auto;
+  margin-bottom: 0;
+  border-radius: 6px;
   transition: color 0.15s, background 0.15s;
   line-height: 1;
+  flex: 0 0 auto;
 }
 
 .roster-item-delete-btn:hover {
-  color: #F05050;
-  background: #3A1010;
+  color: #FF7C7C;
+  background: #4A1717;
 }
 
 .roster-empty {
-  color: #A0847A;
-  font-size: 0.88rem;
-  padding: 20px 16px;
+  color: #D2BBA8;
+  font-size: 0.92rem;
+  padding: 24px 16px;
+  line-height: 1.4;
   text-align: center;
 }
 
@@ -1639,7 +1693,7 @@ main {
 
 /* Current character section at top of roster */
 .roster-current-section {
-  padding: 12px 14px 10px;
+  padding: 14px;
   background: #1A1008;
   border-bottom: 2px solid #6B5344;
   flex-shrink: 0;
@@ -1655,9 +1709,10 @@ main {
 
 .roster-current-name {
   color: #F5E6D3;
-  font-size: 1rem;
+  font-size: 1.06rem;
   font-weight: 700;
   margin-bottom: 8px;
+  line-height: 1.25;
   word-break: break-word;
 }
 
@@ -1674,8 +1729,8 @@ main {
 }
 
 .roster-current-sub {
-  color: #A0847A;
-  font-size: 0.78rem;
+  color: #C9B3A6;
+  font-size: 0.84rem;
   margin-top: 2px;
 }
 
@@ -1690,11 +1745,13 @@ main {
   background: #C8A96A;
   color: #1A1008;
   border: none;
-  border-radius: 4px;
-  padding: 5px 12px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  font-size: 0.8rem;
+  border-radius: 6px;
+  padding: 7px 12px;
+  width: auto;
+  margin-bottom: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.83rem;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s;
@@ -1705,13 +1762,22 @@ main {
 }
 
 .roster-divider {
-  padding: 6px 14px;
+  padding: 7px 14px;
   font-size: 0.72rem;
-  color: #7A6A60;
+  color: #A89282;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  background: #221810;
+  background: #2A1D15;
   border-bottom: 1px solid #3A2B22;
+}
+
+.roster-item-load-btn:focus-visible,
+.roster-item-delete-btn:focus-visible,
+.roster-save-current-btn:focus-visible,
+.roster-new-btn:focus-visible,
+.roster-close-btn:focus-visible {
+  outline: 2px solid #D7B77B;
+  outline-offset: 2px;
 }
 
 /* ── Attributes & Skills ── */
@@ -2550,6 +2616,10 @@ main {
   align-items: start;
 }
 
+.tab-page.active#combat-stats {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 #characteristics h2,
 #status h2,
 #combat-stats h2 {
@@ -2597,15 +2667,203 @@ main {
   accent-color: var(--sw-gold);
 }
 
-#combat-stats::after {
-  content: 'Combat tracking is handled in Class Information and Basic Info counters.';
-  grid-column: 1 / -1;
+#combat-stats {
+  grid-template-columns: 1fr;
+}
+
+.equipment-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+}
+
+.equipment-card {
   background: var(--sw-panel-alt);
   border: 1px solid #6B5344;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.equipment-primary-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.equipment-secondary-grid,
+.equipment-results-grid {
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+}
+
+.equipment-apply-btn {
+  width: auto;
+  margin-bottom: 0;
+  border: 1px solid #C8A96A;
+  background: #4A3728;
+  color: #F5E6D3;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 6px;
+}
+
+.equipment-apply-btn:hover {
+  background: #5A4738;
+}
+
+.applied-weapon-panel {
+  background: var(--sw-panel-alt);
+  border: 1px solid #6B5344;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.applied-weapon-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.applied-weapon-card {
+  background: #2b1f18;
+  border: 1px solid #7A614F;
   border-radius: 8px;
-  padding: 12px 14px;
-  color: var(--sw-muted);
-  font-size: 0.9rem;
+  padding: 10px;
+}
+
+.applied-weapon-card h4 {
+  margin: 0 0 6px;
+  color: #F5E6D3;
+}
+
+.applied-weapon-line {
+  color: #D9C6B8;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.equipment-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.equipment-card-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.equipment-card h3 {
+  margin: 0;
+  color: #F5E6D3;
+  font-size: 1rem;
+}
+
+.equipment-card-subtitle {
+  color: #C9B3A6;
+  font-size: 0.8rem;
+}
+
+.equipment-tier-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.equipment-tier-row .fp-label {
+  margin: 0;
+  min-width: 94px;
+}
+
+.equipment-tier-row select {
+  width: auto;
+  min-width: 132px;
+  margin-bottom: 0;
+}
+
+.equipment-bonus-picker {
+  background: #2f221b;
+  border: 1px solid #7A614F;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.equipment-bonus-header {
+  color: #F5E6D3;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.equipment-bonus-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 8px;
+}
+
+.equipment-bonus-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #E7D7CB;
+  font-size: 0.83rem;
+  line-height: 1.35;
+}
+
+.equipment-bonus-item input[type="checkbox"] {
+  width: auto;
+  margin: 2px 0 0;
+  accent-color: var(--sw-gold);
+}
+
+.equipment-bonus-note {
+  color: #BFA793;
+  font-style: italic;
+}
+
+.equipment-grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 8px 10px;
+}
+
+.equipment-grid-two input,
+.equipment-grid-two select {
+  margin-bottom: 0;
+}
+
+.equipment-output-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.equipment-output-grid input[readonly] {
+  background: #2c2019;
+  border: 1px solid #7A614F;
+  color: #F5E6D3;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+@media (max-width: 1180px) {
+  .equipment-primary-grid {
+    grid-template-columns: repeat(4, minmax(130px, 1fr));
+  }
+
+  .equipment-secondary-grid,
+  .equipment-results-grid {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
 }
 
 @media (max-width: 980px) {
@@ -2630,6 +2888,30 @@ main {
   #status,
   #combat-stats {
     grid-template-columns: 1fr;
+  }
+
+  .equipment-layout,
+  .applied-weapon-list,
+  .equipment-card {
+    grid-template-columns: 1fr;
+  }
+
+  .equipment-card-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .equipment-bonus-list {
+    grid-template-columns: 1fr;
+  }
+
+  .equipment-primary-grid {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
+
+  .equipment-secondary-grid,
+  .equipment-results-grid {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
   }
 
   .leveling-summary-row {
@@ -2673,6 +2955,14 @@ main {
 
   .level-choice-list {
     display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .equipment-primary-grid,
+  .equipment-secondary-grid,
+  .equipment-results-grid {
     grid-template-columns: 1fr;
   }
 }

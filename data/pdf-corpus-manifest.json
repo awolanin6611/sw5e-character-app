@@ -1,8 +1,14 @@
 {
   "sourceDir": "data",
-  "pdfCount": 11,
-  "recordCount": 1368,
+  "pdfCount": 13,
+  "recordCount": 1380,
   "files": [
+    {
+      "fileName": "blaster_modular_system_complete (1).pdf",
+      "relativePath": "data/blaster_modular_system_complete (1).pdf",
+      "pageCount": 6,
+      "nonEmptyPages": 6
+    },
     {
       "fileName": "EC 02 - Species _ GM Binder.pdf",
       "relativePath": "data/EC 02 - Species _ GM Binder.pdf",
@@ -38,6 +44,12 @@
       "relativePath": "data/Heretic's Guide to the Galaxy _ GM Binder.pdf",
       "pageCount": 130,
       "nonEmptyPages": 130
+    },
+    {
+      "fileName": "lightsaber_modular_system_full_player_v3 (2).pdf",
+      "relativePath": "data/lightsaber_modular_system_full_player_v3 (2).pdf",
+      "pageCount": 6,
+      "nonEmptyPages": 6
     },
     {
       "fileName": "Shipyards of the Galaxy _ GM Binder.pdf",

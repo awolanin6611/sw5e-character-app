@@ -14,7 +14,7 @@
       <button class="tab-btn" onclick="showTab('attributes', this)">Attributes</button>
       <button class="tab-btn" onclick="showTab('asi', this)">Leveling</button>
       <button class="tab-btn" onclick="showTab('characteristics', this)">Characteristics</button>
-      <button class="tab-btn" onclick="showTab('combat-stats', this)">Combat Stats</button>
+      <button class="tab-btn" onclick="showTab('combat-stats', this)">Equipment</button>
       <button class="tab-btn" onclick="showTab('status', this)">Status</button>
     </nav>
   </header>
@@ -37,6 +37,12 @@
           <select id="species">
             <option value="">Choose Species</option>
           </select>
+          <input id="speciesChoiceState" type="hidden" value="{\"ability\":\"\",\"skills\":[]}">
+          <div id="speciesChoiceCard" class="background-choice-card hidden" aria-live="polite">
+            <p class="background-choice-title">Species Choices</p>
+            <p class="background-choice-help">Select your species option choices.</p>
+            <div id="speciesChoiceFields" class="background-choice-fields"></div>
+          </div>
         </div>
         <div class="basic-card">
           <label class="fp-label" for="class">Class</label>
@@ -94,6 +100,12 @@
           <select id="background">
             <option value="">Choose Background</option>
           </select>
+          <input id="backgroundChoiceState" type="hidden" value="{\"skills\":[]}">
+          <div id="backgroundChoiceCard" class="background-choice-card hidden" aria-live="polite">
+            <p class="background-choice-title">Background Choices</p>
+            <p class="background-choice-help">Select your background skill options.</p>
+            <div id="backgroundSkillChoiceFields" class="background-choice-fields"></div>
+          </div>
         </div>
         <div class="basic-card">
           <label class="fp-label" for="credits">Credits</label>
@@ -158,6 +170,12 @@
         </div>
       </div>
       <div id="powersRight" class="powers-col"></div>
+    </div>
+    <div id="appliedWeaponLoadout" class="applied-weapon-panel">
+      <h3>Applied Weapon Loadout</h3>
+      <div id="appliedWeaponList" class="applied-weapon-list">
+        <p class="features-empty">No applied equipment yet. Build your weapons in Equipment and apply each builder.</p>
+      </div>
     </div>
     <input id="fecChosen" type="hidden" value="">
 
@@ -478,7 +496,7 @@
             <p class="features-empty">Add a class to view feature unlocks.</p>
           </div>
         </div>
-        <p class="leveling-help-text">Set one or more classes here for multiclassing. Supported progression math is currently implemented for Consular, Engineer, and Scout; other classes still contribute to total level and proficiency bonus.</p>
+        <p class="leveling-help-text">Set one or more classes here for multiclassing. Class features and archetype options are driven by the class progression catalog, while Force/Tech point calculations apply where relevant.</p>
       </div>
     </div>
     <div id="consularConfigSection">
@@ -642,7 +660,327 @@
   </section>
 
   <section id="combat-stats" class="tab-page">
-    <h2>Combat Stats</h2>
+    <h2>Equipment</h2>
+    <input id="appliedEquipmentState" type="hidden" value='{"lightsaber":null,"blaster":null}'>
+    <div class="equipment-layout">
+      <article class="equipment-card" aria-labelledby="lightsaberBuilderTitle">
+        <div class="equipment-card-header">
+          <div class="equipment-card-header-top">
+            <h3 id="lightsaberBuilderTitle">Lightsaber Builder</h3>
+            <button class="equipment-apply-btn" type="button" onclick="applyEquipmentLoadout('lightsaber')">Apply Lightsaber</button>
+          </div>
+          <span class="equipment-card-subtitle">Rules sourced from lightsaber_modular_system_full_player_v3 (2).pdf</span>
+          <div class="equipment-tier-row">
+            <label class="fp-label" for="lightsaberTier">Modular Tier</label>
+            <select id="lightsaberTier">
+              <option value="1">Tier 1</option>
+              <option value="2">Tier 2</option>
+              <option value="3">Tier 3</option>
+            </select>
+          </div>
+          <span id="lightsaberApplyStatus" class="fp-used-label">Not applied yet.</span>
+        </div>
+        <div class="equipment-grid-two equipment-primary-grid">
+          <div>
+            <label class="fp-label" for="lightsaberName">Name</label>
+            <input id="lightsaberName" placeholder="e.g., Dawnbreaker">
+          </div>
+          <div>
+            <label class="fp-label" for="lightsaberStyle">Build Style</label>
+            <select id="lightsaberStyle">
+              <option value="standard">Standard Saber</option>
+              <option value="shoto">Shoto</option>
+              <option value="double">Double-Bladed</option>
+              <option value="great">Greatsaber</option>
+              <option value="crossguard">Crossguard</option>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="lightsaberAttackAbility">Attack Ability</label>
+            <select id="lightsaberAttackAbility">
+              <option value="str">Strength</option>
+              <option value="dex">Dexterity</option>
+              <option value="int">Intelligence</option>
+              <option value="wis">Wisdom</option>
+              <option value="cha">Charisma</option>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="lightsaberProficiencyMode">Weapon Training</label>
+            <select id="lightsaberProficiencyMode">
+              <option value="none">No Proficiency</option>
+              <option value="proficient">Proficient</option>
+              <option value="expertise">Expertise</option>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="lightsaberEmitter">Emitter</label>
+            <select id="lightsaberEmitter">
+              <optgroup label="Tier 1 Emitters">
+                <option value="standard_t1">Emitter Guard (T1) - +1 AC vs melee</option>
+                <option value="focused_t1">Focusing Lens (T1) - 1 advantaged attack / SR</option>
+                <option value="unstable_t1">Micro-Servo Actuator (T1) - +1 to hit dual-wielding</option>
+                <option value="adaptive_t1">Counterweight (T1) - Advantage on Acrobatics</option>
+              </optgroup>
+              <optgroup label="Tier 2 Emitters">
+                <option value="standard_t2">Crossguard Stabilizer (T2) - +1d6 reaction damage</option>
+                <option value="focused_t2">Ocular Scope (T2) - precision strike targeting</option>
+                <option value="unstable_t2">Kinetic Loop (T2) - +2 damage after deflect/parry</option>
+                <option value="adaptive_t2">Phase Lens (T2) - adaptive profile switching</option>
+              </optgroup>
+              <optgroup label="Tier 3 Emitters">
+                <option value="standard_t3">Perfected Guard (T3) - defensive mastery</option>
+                <option value="focused_t3">Hyper-Refined Lens (T3) - superior strike focus</option>
+                <option value="unstable_t3">Rage Matrix (T3) - high-output edge</option>
+                <option value="adaptive_t3">Omni-Phase Emitter (T3) - full profile adaptation</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="lightsaberCrystal">Crystal Core</label>
+            <select id="lightsaberCrystal">
+              <optgroup label="Tier 1 Crystals">
+                <option value="blue_t1">Blue (T1) - Reroll 1 missed attack (SR)</option>
+                <option value="green_t1">Green (T1) - +2 first Concentration check</option>
+                <option value="yellow_t1">Yellow (T1) - Advantage vs hidden/invisible</option>
+                <option value="orange_t1">Orange (T1) - Advantage on social Insight</option>
+                <option value="red_t1">Red (T1) - +10 damage (LR)</option>
+                <option value="purple_t1">Purple (T1) - Adv Insight vs Force-users</option>
+              </optgroup>
+              <optgroup label="Tier 2 Crystals">
+                <option value="blue_t2">Blue (T2) - +1d6 first hit/turn</option>
+                <option value="green_t2">Green (T2) - +1d4 force/turn</option>
+                <option value="yellow_t2">Yellow (T2) - +2 initiative; radiant crits</option>
+                <option value="orange_t2">Orange (T2) - +1d4 Persuasion; min 10</option>
+                <option value="red_t2">Red (T2) - +1d6 necrotic/turn; heal 2</option>
+                <option value="purple_t2">Purple (T2) - +1d8 force (SR)</option>
+              </optgroup>
+              <optgroup label="Tier 3 Crystals">
+                <option value="blue_t3">Blue (T3) - +1d10 crit; +1 AC</option>
+                <option value="green_t3">Green (T3) - PB to Concentration</option>
+                <option value="yellow_t3">Yellow (T3) - Cannot be surprised</option>
+                <option value="orange_t3">Orange (T3) - Persuasion expertise rider</option>
+                <option value="red_t3">Red (T3) - +2d6 necrotic/turn; restore FP</option>
+                <option value="purple_t3">Purple (T3) - Ignore resistance</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="lightsaberHilt">Hilt Assembly</label>
+            <select id="lightsaberHilt">
+              <optgroup label="Tier 1 Hilts">
+                <option value="balanced_t1">Standard Hilt (T1) - Balanced</option>
+                <option value="duelist_t1">Shoto Hilt (T1) - +1 off-hand damage</option>
+                <option value="reinforced_t1">Guarded Emitter Hilt (T1) - +1 AC two-handed</option>
+                <option value="chain_t1">Extended Grip Hilt (T1) - +5 ft shove reach</option>
+              </optgroup>
+              <optgroup label="Tier 2 Hilts">
+                <option value="balanced_t2">Balance-Core Hilt (T2) - +2 initiative</option>
+                <option value="duelist_t2">Curved Makashi Hilt (T2) - duelist precision</option>
+                <option value="reinforced_t2">Defender Hilt (T2) - reactive guard stance</option>
+                <option value="chain_t2">Dual-Emitter Hilt (T2) - expanded strike control</option>
+              </optgroup>
+              <optgroup label="Tier 3 Hilts">
+                <option value="balanced_t3">Masterwork Balance Hilt (T3) - elite control</option>
+                <option value="duelist_t3">Grandmaster Duelist Hilt (T3) - superior off-hand flow</option>
+                <option value="reinforced_t3">Fortress Guard Hilt (T3) - high defense posture</option>
+                <option value="chain_t3">Whip-Link Hilt (T3) - extended leverage profile</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="lightsaberDamageType">Damage Type</label>
+            <select id="lightsaberDamageType">
+              <option value="energy">Energy</option>
+              <option value="ion">Ion</option>
+              <option value="fire">Fire</option>
+              <option value="acid">Acid</option>
+            </select>
+          </div>
+        </div>
+        <div class="equipment-bonus-picker" id="lightsaberBonusOptions">
+          <p class="features-empty">Choose a tier and modules to view selectable bonuses.</p>
+        </div>
+        <div class="equipment-grid-two equipment-secondary-grid">
+          <div>
+            <label class="fp-label" for="lightsaberLinkedSkill">Apply to Skill</label>
+            <select id="lightsaberLinkedSkill"></select>
+          </div>
+          <div>
+            <label class="fp-label" for="lightsaberLinkedSave">Apply to Save</label>
+            <select id="lightsaberLinkedSave"></select>
+          </div>
+        </div>
+        <div class="equipment-output-grid equipment-results-grid">
+          <input id="lightsaberAttackBonus" readonly placeholder="Attack Bonus">
+          <input id="lightsaberDamageFormula" readonly placeholder="Damage Formula">
+          <input id="lightsaberProperties" readonly placeholder="Properties">
+          <input id="lightsaberSummary" readonly placeholder="Build Summary">
+        </div>
+      </article>
+
+      <article class="equipment-card" aria-labelledby="blasterBuilderTitle">
+        <div class="equipment-card-header">
+          <div class="equipment-card-header-top">
+            <h3 id="blasterBuilderTitle">Blaster Builder</h3>
+            <button class="equipment-apply-btn" type="button" onclick="applyEquipmentLoadout('blaster')">Apply Blaster</button>
+          </div>
+          <span class="equipment-card-subtitle">Rules sourced from blaster_modular_system_complete (1).pdf</span>
+          <div class="equipment-tier-row">
+            <label class="fp-label" for="blasterTier">Modular Tier</label>
+            <select id="blasterTier">
+              <option value="1">Tier 1</option>
+              <option value="2">Tier 2</option>
+              <option value="3">Tier 3</option>
+            </select>
+          </div>
+          <span id="blasterApplyStatus" class="fp-used-label">Not applied yet.</span>
+        </div>
+        <div class="equipment-grid-two equipment-primary-grid">
+          <div>
+            <label class="fp-label" for="blasterName">Name</label>
+            <input id="blasterName" placeholder="e.g., Starlance-9">
+          </div>
+          <div>
+            <label class="fp-label" for="blasterFrame">Frame</label>
+            <select id="blasterFrame">
+              <optgroup label="Tier 1 Frames">
+                <option value="pistol_t1">Ancient Marksman Frame - +2 damage</option>
+                <option value="rifle_t1">Hunter-Killer Grip - +PB first hit each combat</option>
+                <option value="carbine_t1">Echo Stabilizer Grip - +2 hit if stationary</option>
+                <option value="sniper_t1">Apex Gunner Grip - crits restore 1d4 HP</option>
+              </optgroup>
+              <optgroup label="Tier 2 Frames">
+                <option value="pistol_t2">Ancient Marksman Frame (T2) - upgraded striker frame</option>
+                <option value="rifle_t2">Hunter-Killer Grip (T2) - enhanced opening burst</option>
+                <option value="carbine_t2">Echo Stabilizer Grip (T2) - refined recoil control</option>
+                <option value="sniper_t2">Apex Gunner Grip (T2) - precision sustain profile</option>
+              </optgroup>
+              <optgroup label="Tier 3 Frames">
+                <option value="pistol_t3">Ancient Marksman Frame (T3) - perfected damage frame</option>
+                <option value="rifle_t3">Hunter-Killer Grip (T3) - lethal opening profile</option>
+                <option value="carbine_t3">Echo Stabilizer Grip (T3) - elite stable-fire profile</option>
+                <option value="sniper_t3">Apex Gunner Grip (T3) - apex critical profile</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="blasterBarrel">Barrel Kit</label>
+            <select id="blasterBarrel">
+              <optgroup label="Tier 1 Barrel Kits">
+                <option value="standard_t1">Low-Recoil Chamber - +1 AC after firing</option>
+                <option value="precision_t1">Piercing Beam Matrix - +2 hit at long range</option>
+                <option value="heavy_t1">Shatter-Cycle Module - +1d6 vs shields/droids</option>
+                <option value="scatter_t1">Burst-Fire Module - 10 ft cone / SR</option>
+              </optgroup>
+              <optgroup label="Tier 2 Barrel Kits">
+                <option value="standard_t2">Low-Recoil Chamber (T2) - reinforced recoil system</option>
+                <option value="precision_t2">Piercing Beam Matrix (T2) - improved long-range lock</option>
+                <option value="heavy_t2">Shatter-Cycle Module (T2) - amplified anti-armor cycle</option>
+                <option value="scatter_t2">Burst-Fire Module (T2) - improved cone suppression</option>
+              </optgroup>
+              <optgroup label="Tier 3 Barrel Kits">
+                <option value="standard_t3">Low-Recoil Chamber (T3) - perfected recoil mitigation</option>
+                <option value="precision_t3">Piercing Beam Matrix (T3) - elite range penetration</option>
+                <option value="heavy_t3">Shatter-Cycle Module (T3) - maximum anti-shield output</option>
+                <option value="scatter_t3">Burst-Fire Module (T3) - apex cone discharge</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="blasterPowerCell">Power Cell</label>
+            <select id="blasterPowerCell">
+              <optgroup label="Tier 1 Power Cells">
+                <option value="standard_t1">Balanced Power Cell - +1 to hit</option>
+                <option value="highYield_t1">Compact Efficiency Cell - +1 first-hit damage/turn</option>
+                <option value="ionized_t1">Ion-Shift Capacitor - ignore energy/ion resistance</option>
+                <option value="rapidCycle_t1">Cycling Surge Cell - +2 dice on one attack / SR</option>
+              </optgroup>
+              <optgroup label="Tier 2 Power Cells">
+                <option value="standard_t2">Balanced Power Cell (T2) - stabilized output profile</option>
+                <option value="highYield_t2">Compact Efficiency Cell (T2) - stronger first-hit burst</option>
+                <option value="ionized_t2">Ion-Shift Capacitor (T2) - advanced resistance bypass</option>
+                <option value="rapidCycle_t2">Cycling Surge Cell (T2) - improved surge cadence</option>
+              </optgroup>
+              <optgroup label="Tier 3 Power Cells">
+                <option value="standard_t3">Balanced Power Cell (T3) - perfected output control</option>
+                <option value="highYield_t3">Compact Efficiency Cell (T3) - apex first-hit spike</option>
+                <option value="ionized_t3">Ion-Shift Capacitor (T3) - elite penetration profile</option>
+                <option value="rapidCycle_t3">Cycling Surge Cell (T3) - peak-cycle barrage</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="blasterScope">Targeting Package</label>
+            <select id="blasterScope">
+              <optgroup label="Tier 1 Targeting Packages">
+                <option value="iron_t1">Auto-Lock Sequence - +1 crit range</option>
+                <option value="optic_t1">Motion-Track Array - +2 hit vs moving targets</option>
+                <option value="smart_t1">Quantum Sight Processor - add PB to hit once/turn</option>
+                <option value="tactical_t1">Multi-Spectrum Targeter - ignore light obscurement</option>
+              </optgroup>
+              <optgroup label="Tier 2 Targeting Packages">
+                <option value="iron_t2">Auto-Lock Sequence (T2) - expanded crit lock</option>
+                <option value="optic_t2">Motion-Track Array (T2) - improved predictive tracking</option>
+                <option value="smart_t2">Quantum Sight Processor (T2) - upgraded tactical assist</option>
+                <option value="tactical_t2">Multi-Spectrum Targeter (T2) - advanced visibility suite</option>
+              </optgroup>
+              <optgroup label="Tier 3 Targeting Packages">
+                <option value="iron_t3">Auto-Lock Sequence (T3) - apex crit profile</option>
+                <option value="optic_t3">Motion-Track Array (T3) - elite movement targeting</option>
+                <option value="smart_t3">Quantum Sight Processor (T3) - perfected hit guidance</option>
+                <option value="tactical_t3">Multi-Spectrum Targeter (T3) - omni-spectrum targeting</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="blasterDamageType">Damage Type</label>
+            <select id="blasterDamageType">
+              <option value="energy">Energy</option>
+              <option value="ion">Ion</option>
+              <option value="kinetic">Kinetic</option>
+              <option value="fire">Fire</option>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="blasterAttackAbility">Attack Ability</label>
+            <select id="blasterAttackAbility">
+              <option value="dex">Dexterity</option>
+              <option value="int">Intelligence</option>
+              <option value="wis">Wisdom</option>
+              <option value="cha">Charisma</option>
+            </select>
+          </div>
+          <div>
+            <label class="fp-label" for="blasterProficiencyMode">Weapon Training</label>
+            <select id="blasterProficiencyMode">
+              <option value="none">No Proficiency</option>
+              <option value="proficient">Proficient</option>
+              <option value="expertise">Expertise</option>
+            </select>
+          </div>
+        </div>
+        <div class="equipment-bonus-picker" id="blasterBonusOptions">
+          <p class="features-empty">Choose a tier and modules to view selectable bonuses.</p>
+        </div>
+        <div class="equipment-grid-two equipment-secondary-grid">
+          <div>
+            <label class="fp-label" for="blasterLinkedSkill">Apply to Skill</label>
+            <select id="blasterLinkedSkill"></select>
+          </div>
+          <div>
+            <label class="fp-label" for="blasterLinkedSave">Apply to Save</label>
+            <select id="blasterLinkedSave"></select>
+          </div>
+        </div>
+        <div class="equipment-output-grid equipment-results-grid">
+          <input id="blasterAttackBonus" readonly placeholder="Attack Bonus">
+          <input id="blasterDamageFormula" readonly placeholder="Damage Formula">
+          <input id="blasterProperties" readonly placeholder="Properties">
+          <input id="blasterSummary" readonly placeholder="Build Summary">
+        </div>
+      </article>
+    </div>
   </section>
 
   <section id="status" class="tab-page">
