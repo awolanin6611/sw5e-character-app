@@ -1,0 +1,778 @@
+{
+  "generatedFrom": [
+    "EC 02 - Species _ GM Binder.pdf"
+  ],
+  "count": 110,
+  "species": [
+    {
+      "name": "Abyssin",
+      "description": "The hulking abyssin have long limbs and a single large eye that dominates their foreheads. Typically well- muscled, the abyssin's stooping gait results in a slightly hunched appearance. A distinctive trait of the abyssin is their ability to heal quickly; their fast regeneration is believed to have been an adaptation to prevent fluid loss via bleeding on their desert homeworld. All cells in the abyssin body are replaced every 80 hours, and organs which typically were paired in other species appear singularly.",
+      "benefits": "Distinctions: Single eye, regenerative abilities\nHomeworld: Byss",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 2
+    },
+    {
+      "name": "Advozse",
+      "description": "Advozsec evolved from herbivorous reptile-analogs which fed on the vegetation known to form around Riflor's hot springs. Evolving into a class of reptomammal, advozsec have a single horn at the crown of their heads, four digits on each hand and foot, pointed ears, and large eyes. Advozsec are strictly vegetarian, unable to properly digest meat. The geothermal hot springs that appear on their homeworld forced the species to evolve thick skin in order to survive. The large eyes of the advozsec are adaptations to the clouds of volcanic ash which darken Riflor's skies.",
+      "benefits": "Distinctions: Large eyes, single horn on head, pointed ears\nHomeworld: Riflor",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 3
+    },
+    {
+      "name": "Aing-Tii",
+      "description": "The aing-tii are a species of sentient, toothless mammals who stand on two clawed feet with two spindly arms, each with three large digits. Their bodies are covered in jointed white, bony plates covered in unique painted motifs. The aing-tii head is small and juts out perpendicularly from their chest, featuring two large eyes and six long, thin, green tongues extending from their mouths. They have a long, prehensile tail. The species is incapable of producing sound and conveys information via tasting, smelling and touching each other with their tongues.",
+      "benefits": "Distinctions: Force-sensitivity, unique technology, six green tongues\nHomeworld: Aing-Tii homeworld in the Kathol Rift",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 4
+    },
+    {
+      "name": "Aleena",
+      "description": "Aleena are short, reptilian bipeds with large eyes and wide mouths full of small, sharp teeth. Aleena's bodies are long compared to their short arms and stubby legs. Warm-blooded reptiles, they possess exceptional reflexes as well as a fast metabolism which allow them to convert food into energy very rapidly in order to escape predators on their harsh home planet.",
+      "benefits": "Distinctions: Short stature, scaly skin, crested head\nHomeworld: Aleen",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 5
+    },
+    {
+      "name": "Anomid",
+      "description": "Anomid are a species of humanoids with translucent, purple-hued skin that is smooth but wrinkles with age. They have large, slender hands with six fingers on each: two end fingers, two center fingers and two thumbs, with a sharp claw on each. The fingers are paired in twos and slightly spaced apart from the others. The eyes of the anomids are solid, with no visible irises or pupils and have been seen in varying shades of yellow or blue. The anomids have pointed, fin-like ears that protrude from the sides of their heads. Anomid hair is often long and well kept, and is always found in shades of black, gray or white.",
+      "benefits": "Distinctions: No vocal cords, six-fingered hands\nLanguage: Anomid Sign\nHomeworld: Yablari",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 6
+    },
+    {
+      "name": "Anx",
+      "description": "The anx are a bipedal, reptilian species discernible by their height, their tall crests, and their tails. Originating from a world with higher-than-average gravity, the anx possess a stooped stature. Their heads are tall and blade-shaped, with a soaring crest which acts as a sinus cavity. While their crests change color to reflect their moods, its primary function gives anx a low rumbling voice. An anx's large, muscular tail serves as a counterbalance for running. Anx have long necks and limbs, and would appear taller if they didn't walk with their shoulders stooped and their crested heads held out in front of them.",
+      "benefits": "Distinctions: Hunched stature, mood sensitive crests, tails\nHomeworld: Gravlex Med",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 7
+    },
+    {
+      "name": "Anzellan",
+      "description": "The anzellans are a diminutive species hailing from the secluded planet Anzella. Their eyes have floating corneal micro-lenses that allow them to see microscopic details. Anzellans are a bubbly and receptive people. They are a jovial and trusting people that tend to welcome strangers with open arms. Due to their volcanic homeworld, anzellans are also adapted towards heat. This, coupled with their small size, make them well-suited to working in compact places.",
+      "benefits": "Distinctions: Diminutive size, wispy eyebrows\nHomeworld: Anzella",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 8
+    },
+    {
+      "name": "Aqualish",
+      "description": "An amphibious species native to the planet Ando, the Aqualish people have two facial tusks which curve down over their mouths; a trait which added to their appearance as arachnids. These facial tusks are highly sensitive to heat and cold and are used for cracking open the hard shells of shellfish or burrowing through the swampy loam of their homeworld. Having finned hands and two bulbous black eyes, Aqualish are unable to manipulate most machinery or equipment developed by the galaxy's many species which designed these tools for beings with digits. As a result, Aqualish tend to remain on their homeworld. Aqualish are well known for their hair-trigger tempers that flare without reason. While Force-sensitive Aqualish are rare, members of the species have trained as both Sith and Jedi, though they typically gravitate toward the former.",
+      "benefits": "Distinctions: Tusks, belligerent personalities, brawny stature\nHomeworld: Ando",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 9
+    },
+    {
+      "name": "Arcona",
+      "description": "Arcona have anvil-shaped heads, claws, marble-like eyes, and protective skin. Cona is always hot, and has very little water, but the atmosphere is filled with ammonia vapor. Arcona adapted to this environment by eating the ammonia-converting roots of flora as a source of water. Arcona depended on the ammonia to live and, as a result, arcona living offworld have to take ammonia supplements. Despite their large eyes, arcona have very poor eyesight. Their eyes, made up of thousands of photoreceptors, can not detect fine shapes, only seeing blurry objects. To aid this, they have a small sensory organ between their eyes. Often mistaken for their nose, this organ detects heat patterns from living beings. Thus, arcona can recognize things by its heat pattern. Arcona are highly susceptible to addiction to spice and common salt, which serves as a hallucinogen with effects resembling that of intoxication. Their eyes shift to gold after prolonged addiction.",
+      "benefits": "Distinctions: Flat heads, easily addicted\nHomeworld: Cona",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 10
+    },
+    {
+      "name": "Ardennian",
+      "description": "Ardennians are sentient humanoid simians hailing from the tropical paradise of Ardennia. They are covered in fur from head to their wrists and ankles, with brown and grey being the most common fur colors. Ardennians sport four arms and prehensile feet. All six of their limbs are equally dexterous.",
+      "benefits": "Distinctions: Four arms, fur-covered, prehensile feet\nHomeworld: Ardennia",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 11
+    },
+    {
+      "name": "Arkanian",
+      "description": "Arkanians are a robust near-human species with solid white eyes and clawed, four-fingered hands. Arkanians are capable of seeing into the infrared spectrum, and their eyes are sensitive to sources of extreme heat. This proved helpful on their dark and frigid homeworld, but when traveling offworld, many must wear blinders on planets with hotter, younger suns. It is not unheard of for arkanians to undergo genetic or cybernetic manipulation of their own bodies, enhancing themselves so as to be better than \"lesser\" species.",
+      "benefits": "Distinctions: Four clawed digits, extreme intelligence, infrared vision\nHomeworld: Arkania",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 12
+    },
+    {
+      "name": "Balosar",
+      "description": "Physically similar to humans, balosars appear to be sickly and gaunt when compared with the galaxy's most common species due to the heavy pollution of their homeworld. The most striking difference between balosars and humanity is a pair of antennapalps which sprouts from underneath the thick, coarse hair on their skulls. Retractable, these atennapalps allow them to listen into the subsonic range and give the species physical intuition and preternatural reflexes, which members of the Jedi Order sometimes mistook for Force-sensitivity. Balosars also possess an acute tolerance for poisonous substances, a byproduct of life on their toxic homeworld.",
+      "benefits": "Distinctions: Antennapalps, resistance to toxins\nHomeworld: Balosar",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 13
+    },
+    {
+      "name": "Barabel",
+      "description": "Barabel are a bipedal species of reptilians who are covered in very tough dark colored scales. Evolved from nocturnal lizards, the Barabel adapted a thick layer of fat which allowed them to remain active and not sluggish when temperatures dropped. A blaster set on stun would not damage them at all or slow them down, as it would merely bounce off their scales. Barabel are able to shed their tails if necessary, an ability that proved the undoing of many startled foes. They also possess heavy retractable claws along with needle sharp teeth which can grow to be 2 inches in length. A carnivorous species, Barabel possess two stomachs in order to process the massive amount of food they required to survive.",
+      "benefits": "Distinctions: Four-fingered hands, two inch long teeth\nHomeworld: Barab I",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 14
+    },
+    {
+      "name": "Baragwin",
+      "description": "A hunchbacked species of sentient reptilians, the bipedal baragwin are easily recognized across the galaxy. Noted for their thick, wrinkled skin which can resist most physical attacks and their shuffling gait, the large-headed race have no obvious differences between male and female baragwin. An acute sense of smell give the species enough sensitivity to detect another being's mood and feelings. This leads some of them into careers as big-game hunters, or even as bounty hunters. Due to their ponderous movement, many non-baragwin believe the race to be a dull-witted people while, in fact, they are quite intelligent. Despite this fact, the baragwin frequently keep this intelligence hidden, using the misconceptions of others to their own advantage.",
+      "benefits": "Distinctions: Hunchback, large heads, strong sense of smell\nHomeworld: Old Barag",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 15
+    },
+    {
+      "name": "Besalisk",
+      "description": "Male Besalisks' heads sported prominent crests and four arms hung at their sides; females of the species could have as many as eight arms, but like Humans had a primary hand and a limited range of functionality with the others. The addition of the extra appendages required a hearty metabolism, and these bulky beings were able to store food and water for many days, and if the need arose, they could survive for long periods without either. Scruffy sensory whiskers lined the area below their noses, just above the robust wattle most adult Besalisks possessed.",
+      "benefits": "Distinctions: Bony headcrest, four arms, inflatable wattle\nHomeworld: Ojom",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 16
+    },
+    {
+      "name": "Caamasi",
+      "description": "A species of furry mammalians, the caamasi are covered in dense fur and have a spicy, woody body scent that is similar to that of Corellian whiskey. They have long arms with three-fingered hands, and pointed ears which stick out from the sides of their heads. They also have extremely acute senses of smell, with their nose positioned at the end of a tooth-filled snout. Caamasi have the interesting ability to share vivid memories called memnii with their near relatives and Force-sensitives. A memnis is as vivid to one who receives it as it was to the one who participated in the event remembered. Their peace-loving natures are in part due to memnii, as having a memory of killing or harming will be particularly strong, becoming unbearable in time, and something caamasi will seek to avoid except in defense of themselves or others, for which case they would accept their burden.",
+      "benefits": "Distinctions: Snouts, memnii, distinct scent\nHomeworld: Caamas",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 17
+    },
+    {
+      "name": "Chadra-Fan",
+      "description": "Chadra-Fan are covered from head to foot in fur. Their species evolved from small, arboreal rodents. The two different sexes of Chadra-Fan are indistinguishable to other species, though the Chadra-Fan could readily tell the difference using their powerful sense of smell. Chadra-Fan also have involuntary pheromones that conveyed information about their family line and created an aura of attractiveness. Other voluntary pheromones often conveyed a Chadra-Fan's state of emotion-anger, fear, or joy. Chadra-Fan even create more complex messages using their pheromones, though the pheromones when mixed sometimes caused confusion. They are unique in the fact that they had clear blood.",
+      "benefits": "Distinctions: Large ears, flat noses with four nostrils\nHomeworld: Chad",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 18
+    },
+    {
+      "name": "Chagrian",
+      "description": "Chagrians are born as tadpoles in clutches of three or more and raised in tubs of water in a family's private home. During this time, their arms, legs, and air- breathing lungs develop. Adult Chagrians are truly amphibious, retaining their ability to breathe underwater while also able to function without difficulty in air. They also possess acute low-light vision. The average Chagrian stands taller than a Human. They are distinguished by two fleshy growths protruding from the sides of their heads, which they call lethorns. As they age, the lethorns thicken. Males also sport two horns growing from the top of their skulls. These were once used in underwater duels to attract a mate, and are seen as a sign of the males' strength and virility. Females lack the superior cranial horns, but had more pronounced and longer posterior head plates; these can reach halfway down their back. Chagrians also have very long black forked tongues.",
+      "benefits": "Distinctions: Horns (male), lethorns, black forked tongues\nHomeworld: Champala",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 19
+    },
+    {
+      "name": "Chevin",
+      "description": "Chevin have long snouts which hang down nearly to their ankles. Combined with their intellect, this makes them skilled hunters of animals such as backshin, because they can smell out their prey or feed while keeping their eyes on the horizon. It is also their hunting prowess which allowed them to dominate their homeworld and conquer the Chevs. Chevin have thick legs, massive wide bodies, thin rope-like tails, and arms so long their three-fingered hands often brushed the ground.",
+      "benefits": "Distinctions: Stocky build, large heads, long snouts, long arms, three-fingered hands, four- toed feet\nHomeworld: Vinsoth",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 20
+    },
+    {
+      "name": "Chironian",
+      "description": "The chironian lower body has four legs, similar to that of a horse, and each ends in a dainty, cloven hoof. A chironian can sit down by folding his or her horse-like legs underneath the body. Chironians can also kick backward with both hind legs; this strong kick is sufficient to knock over other beings. A chironian's pace can vary between a walk, a canter, and a gallop. Each year, chironian heads grows two horns above the temples. These horns start as small knobs covered by red-furred velvet: a vascular tissue. Once the knobs have grown sufficiently, they break through the velvet naturally, emerging as transparent horns, as bright as diamond, cool to the touch and with smooth ridges. However, if the velvet is cut artificially, chironians can die from the injury. Over time, the horns grow long and sharp enough that adolescent chironians can use them to gore opponents.",
+      "benefits": "Distinctions: Two transparent horns, centauriform\nHomeworld: Chiron",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 21
+    },
+    {
+      "name": "Clawdite",
+      "description": "In their natural form, clawdites resemble reptilian humanoids, having evolved from reptomammals. They have sunken cheeks with a narrow nose, a small mouth, large eyes with slit-like pupils, and a thin line that runs down their foreheads, creasing their nose. Clawdites possess an extremely rare ability to change their appearance. They can change the color and texture of their skin and eyes, and even grow hair, to mimic other species, though they cannot add significant physical mass to their bodies.",
+      "benefits": "Distinctions: Shapechanging capabilities\nHomeworld: Zolan",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 22
+    },
+    {
+      "name": "Codru-Ji",
+      "description": "Codru-Ji are humanoids generally near-human in their adult appearances, save for their four arms. While their hair, eye, and skin pigmentations tend towards earthen hues, brighter colorations such as blonde hair or blue eyes, though uncommon, also exist. Rarer still, some adults maintain a light coat of fur or elongated, pointed ears. These eccentric attributes result from their unusual childhood forms. Codru-Ji children are actually sapient, six-legged canid creatures that cannot speak. Codru-Ji in this stage of their lives are called Wyrwulves: they mature to their more recognizable figures after reaching puberty. At that point, a blue, rubbery substance cocoons a Wyrwulf for several weeks before it emerges as a humanoid adolescent. They do, however, retain both the natural resilience and the enhanced hearing of their previous selves.",
+      "benefits": "Distinctions: Four arms\nHomeworld: Munto Codru",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 23
+    },
+    {
+      "name": "Colicoid",
+      "description": "Colicoids are tall insectoids that held multiple appendages. Their bodies are chitinous and include a powerful stinging tail. A colicoid's physiology allows them to curl up into a protective ball and unfurl suddenly which allow them to catch their prey unaware. This rolling method of locomotion is second nature to the colicoids. Their insectoid minds provide them a natural defense against mind tricks. Some members are colicoid queens that are different as they are more than twice the size of even the largest warrior breeds. This makes them extremely dangerous and are the only colicoids that possess a unique poisonous stinger. This combined with their strength and size makes them deadly combatants, especially when within their nests. However, a queen tends to only fight when her young are being threatened.",
+      "benefits": "Distinctions: Carnivorous insectoids, four legs, defensive \"ball mode\"\nHomeworld: Colla IV",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 24
+    },
+    {
+      "name": "Culisetto",
+      "description": "The culisetto are an insectoid species, with a close resemblance to the common fly. Their long snouts are not truly proboscises, but function much the same, allowing them to drain blood with the aid of two tendrils, one on either side of the snout. They move by crawling about on their hands and feet, and are adept at leaping and climbing. Despite their appearance, culisetto are an exceptionally hygenic species, with an evolved habit of rubbing their hands and legs to rid them of germs from the ground.",
+      "benefits": "Distinctions: Thoracic carapace\nHomeworld: Culiset",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 25
+    },
+    {
+      "name": "Dashade",
+      "description": "Dashade are a hulking reptillian species known for their strength and aggression. They have three fingers on each hand, each tipped with a long, curving claw. Their most notable feature is their natural resistance to the power of the Force. Along with their resistance to the Force, Dashade possess a high tolerance for radioactive energy, able to withstand contact with radioactive materials much longer than other species. Despite the thick skin Dashade possess, they have the uncanny ability to control the rate that heat dissipates from their skin. This allows them to regulate their body temperature at will.",
+      "benefits": "Distinctions: Heat dissipation, Force-resistance, radiation resistance\nHomeworld: Urkupp",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 26
+    },
+    {
+      "name": "Defel",
+      "description": "While defel appear to be visually similar to the shistavanen, they are very different on a biological level. Defel have the ability to bend waves of light in such a manner that it renders them practically invisible to the human eye. Despite this ability, they could be still be spotted by force-users and keen-eyed individuals. Defel have extremely high perceptive ability because of their large ears, sensitive noses, and keen eyes. Because of the heightened levels of visual stimuli their eyes experience, defel are nearly blinded by sunlight but can see rather well in the dark.",
+      "benefits": "Distinctions: Ability to absorb light, light blindness, claws\nHomeworld: Af'El",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 27
+    },
+    {
+      "name": "Diathim",
+      "description": "Diathim are a mysterious species of winged sentients famed for their radiance and beauty. They often make appearances as angelic figures in the folklore of numerous species. Their bodies naturally give off an intense light, obfuscating their physical forms to the naked eye. They have three pairs of thin, translucent wings that appear fragile, but are more than capable of flight. Diathim have been known to survive in the vacuum of space without the need for protective gear, and have a mild hypnotic effect on others in their presence, adding to the legends surrounding them.",
+      "benefits": "Distinctions: Six wings, yellow aura, hypnotic abilities\nHomeworld: Iego",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 28
+    },
+    {
+      "name": "Dowutin",
+      "description": "",
+      "benefits": "",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 1
+    },
+    {
+      "name": "Draethos",
+      "description": "Draethos possess large teeth, which grow outside of their mouths. Coupled with their lack of lips, this leads to the appearance of an overbite. Their scaly skin ranged in color from blue to purple to black. Their hands retain an interstitial web between the fingers. Their fingers end in narrow tips which resemble claws. They possess low-light vision, springing from their cave-dwelling ancestors. Draethos possess a limited telepathy, granting the ability to communicate with any sentient being. The ability is limited to communication; a Draethos can not invade the thoughts of others.",
+      "benefits": "Distinctions: Four fingers, large teeth, telepathy, long life spans\nHomeworld: Draethos",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 30
+    },
+    {
+      "name": "Dug",
+      "description": "Dugs are slender, powerfully built beings with a somewhat humanoid build and a unique method of walking that hailed from the high gravity world Malastare. Their primary means of locomotion is their strong arms, and their lower limbs and feet were used for grappling and other fine motor manipulation. They hardly ever walk on their lower limbs. Although most Dugs may walk on all four limbs, others like to use their strong arms as legs and their feet as hands like they would normally do.",
+      "benefits": "Distinctions: Arms used as legs and legs used as arms\nHomeworld: Malastare",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 31
+    },
+    {
+      "name": "Echani",
+      "description": "Echani are characterized by their white skin, hair, and eyes, and their remarkable tendency to look very much alike one another to outside observers, particularly amongst family members. It is thought that their origins stem from Arkanian experimentation on the human genome, a hypothesis that could explain their physical conformity.",
+      "benefits": "Distinctions: Fair skin, white hair and eyes, remarkable familial similarity.\nHomeworld: Eshan",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 32
+    },
+    {
+      "name": "Esh-Kha",
+      "description": "Esh-kha are a gray-skinned humanoid species with equine features, including muzzles and digitigrade legs. They also have small black eyes.",
+      "benefits": "Distinctions: Horizontal head protrusions\nHomeworld: Unknown, Belsavis (adopted)",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 33
+    },
+    {
+      "name": "Falleen",
+      "description": "The Falleen are distinguished by their mottled green or red skin, ridged skulls, and their long, black hair which they typically wear in ponytails. The sleek symmetry of their features, calculating and cold demeanors, their exotic looks, and their ability to alter their skin pigmentation make the Falleen often considered to be among the most aesthetically pleasing beings in the galaxy. In addition to their strikingly beautiful appearance, the Falleen exude pheromones which makes them all but irresistible to both sexes. The Falleen are semi-aquatic, being able to hold their breath underwater for an extended period of time. Fallen are one of few species that are resistant to manipulation by the Force.",
+      "benefits": "Distinctions: Ridged skulls, dorsal spine\nHomeworld: Falleen",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 34
+    },
+    {
+      "name": "Felucian",
+      "description": "Felucians are a tall, bipedal species. Both their arms and legs end in four, large webbed digits with suction- cup fingertips. Springing from the underside of each forearm is a second short arm, ending in three large and agile fingers. A Felucian's head is a thick mass of long flexible tendrils featuring illuminated tips. The eyes and mouth appear as black holes or openings within this mass.",
+      "benefits": "Distinctions: Extra limb at elbow, innate Force- sensitivity\nHomeworld: Felucia",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 35
+    },
+    {
+      "name": "Flesh Raider",
+      "description": "Flesh raiders are a more primitive, and more physically imposing subspecies of rakata that mutated prior to the end of the Infinite Empire. A life above ground and in caves has led the flesh raiders to lose their more amphibian traits, and are now more humanoid in their biological needs, though they seem to only be able to digest meats and flesh. Flesh raiders keep many of their ancestral rakatan features, though they have experienced a form of gigantism that has lead to their interesting appearance, that of a flat topped, spade shaped head, with blade- like eye stalks coming off the side ends of the spade. Their body structure also more closely matches that of a trandoshan or dashade, being bulky and imposing in stature, towering over most other sentient creatures. Unlike contemporary rakata, flesh raiders did not lose their ability to tap into the Force.",
+      "benefits": "Distinctions: Horizontal eye stalks, horizontal spade- shaped head, tridactyl hands\nHomeworld: Tython",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 36
+    },
+    {
+      "name": "Gand",
+      "description": "Gand are sentient, stocky humanoids whose insectoid bodies are covered in a chitinous exoskeleton. The natural armor allow the Gand to shrug off injuries that would cripple most other species. The exoskeleton provides extra protection in the clavicle region, which prevented most nerve or pressure-point strikes to the neck and shoulders. In addition, Gands have the remarkable ability to regrow lost limbs. If a Gand is dismembered, it can regrow a lost limb in a few days.",
+      "benefits": "Distinctions: Exoskeletons, three-fingered hands\nHomeworld: Gand",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 37
+    },
+    {
+      "name": "Gank",
+      "description": "The ganks are a species of fur-covered carnivores. The typical member of the species has a face that is squared-off and yellow in color, the expression trapped in a perpetual snarl that non-ganks find unattractive. Small, mean-looking eyes peer from above the maw, their head sitting atop a thick neck between broad, strong shoulders. These cap two thickset, powerful arms, which terminate in hands with five fingers each. Their heavy build affords ganks great strength, yet they are also spry runners. They augment their bodies with cybernetics, making them a species of cyborgs.",
+      "benefits": "Distinctions: Always armored, cybernetic communication\nHomeworld: Nar Shaddaa (possibly)",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 38
+    },
+    {
+      "name": "Geonosian",
+      "description": "Geonosians have a hard chitin exoskeleton that provided protection from physical impacts and bouts of radiation that occasionally shower their world. Geonosians are strong despite their thin builds, and are capable of constructing massive hives and factories in concert. The head of a Geonosian is elongated and large with their skulls ridged on the top and by the side where they have bulbous, thick-lidded eyes. Both are physically strong and covered with bony ridges which protected their arms, legs, and vital organs.",
+      "benefits": "Distinctions: Hive-based, winged semi-insectoids\nHomeworld: Geonosis",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 39
+    },
+    {
+      "name": "Givin",
+      "description": "The Givin are a species of white-skinned, hairless humanoids who are quite frequently likened to animated skeletons. Their facial features include many sharp downward angles, large triangular eye sockets, and sloped-up brows that meet together in the middle, lending them an appearance of permanent anguish. Because of the harsh environment of their homeworld, the Givins' organs are sealed against atmospheric exposure; thanks to this complex system, they can survive for about a day in a vacuum.",
+      "benefits": "Distinctions: Skeletal appearance, able to survive in a vacuum for short periods Physical Characteristics Height 5'5\" +2d8\" Weight 105 lb. x2d4 lb. Sociocultural Characteristics\nHomeworld: Yag'Dhul",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 40
+    },
+    {
+      "name": "Gormak",
+      "description": "The gormak are green humanoids with flat, noseless faces adorned with frills, collecting in whorls on the sides of their heads. They have clawed, three-fingered, frilled hands, and tend to possess a muscular build. Females are slightly shorter than males and lacked a whorl located above their nose.",
+      "benefits": "Distinctions: Frills on the face and body\nHomeworld: Voss",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 41
+    },
+    {
+      "name": "Gotal",
+      "description": "Gotals possess cranial horns as receptors to sense electromagnetism and other energy emissions. These nerve-ending filled cones can sense the natural electromagnetic fields produced by Antar 4's magnetite-rich crust, allowing the species to operate even in total darkness. Their senses also pick up the electromagnetic auras from other life forms. When close to their hunting targets, they can ascertain information on its mood, awareness, and state of mind. Electronic devices can also be sensed by Gotals; in fact, most droids give off enough electromagnetic emissions to at least annoy a Gotal, and at worst to seriously disorient the horned beings, making them notoriously distrustful of droids. Gotals rely heavily on their cones, with their eyesight and hearing being quite weak, and their sense of smell almost completely absent.",
+      "benefits": "Distinctions: Full body fur, flat noses, head cones\nHomeworld: Antar 4",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 42
+    },
+    {
+      "name": "Gran",
+      "description": "Gran can easily be identified by their three eyes and their goat-like snout. Female Gran also have three breasts. They have excellent vision, able to resolve more colors than most species, and even able to see into the infrared, thus they are able to sense one another's emotions and disposition by noting subtle changes in body heat and skin color. Gran have two stomachs, having evolved from herbivorous grazing animals who lived in herds on the mountains and highlands of Kinyen. A single meal can take almost an entire day to finish, after that a Gran does not often need to eat for several days.",
+      "benefits": "Distinctions: Three eyes and goat-like snout\nHomeworld: Kinyen",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 43
+    },
+    {
+      "name": "Half-Human",
+      "description": "",
+      "benefits": "",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 1
+    },
+    {
+      "name": "Harch",
+      "description": "The Harch possess a large-fanged mouth between two prominent chelicerae, above which they have six red eyes arranged in a semicircle. The two lowest eyes are larger and roughly twice the size of the four smaller eyes. Harch walk on two legs and have six arms, with the second and third set of arm protruding from behind the first pair rather than directly above or below them. These arms are covered in thick hair and end in three-fingered hands. The Harch are distantly related to the Aqualish species and there is much debate among geneticists regarding the relationship between the Harch and the Aqualish Ualaq subspecies. However, the Harch themselves considered such discussions to be obscene.",
+      "benefits": "Distinctions: Spider-like with six eyes, eight limbs and chelicerae\nHomeworld: Secundus Ando",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 46
+    },
+    {
+      "name": "Herglic",
+      "description": "The herglic are a massive race of creatures descended from aquatic mammals, breathing though a blowhole on top of their heads. They are tall and wide, and have smooth, hairless skin that ranged in color from pale blue to black, though some rare individuals may appear pink or have white markings on their sides. Their girth tends to leave them feeling out of place among smaller species; herglic tend to take up two chairs or fill the entire doorway of any establishment they enter that does not cater to beings their size.",
+      "benefits": "Distinctions: Aquatic organs, massive size Physical Charicteristics Height 6' +2d12\" Weight 200 lb. x(2d8) lb. Sociocultural Charicteristics\nHomeworld: Giju",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 47
+    },
+    {
+      "name": "Ho'Din",
+      "description": "Ho'dins are tall humanoids with multi-colored skin, naturally webbed and suction cup-tipped fingers and toes, and temperature-sensing red-violet \"snake hair\". Ho'dins are, on average, over nine feet tallnearly a full head taller than wookiees. Renowned throughout the galaxy as botanists and healers, the ho'din claim an ancestry derived from the plants of their home planet, Moltokin fact, \"ho'din\" translates as \"walking flower\" in Galactic Basic. They are, in fact, reptilian, as their natural climbing skills and cold-bloodedness seem to indicate, and boast a second heart to enhance their survivability. Their \"snake hair\" is temperature- sensitive, allowing ho'din to sense changes in ambient temperature.",
+      "benefits": "Distinctions: Snake-like \"hair\", suction-cupped fingers\nHomeworld: Moltok",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 48
+    },
+    {
+      "name": "Houk",
+      "description": "Houk are hulking bipeds with thick skin, hairless heads marked with bony ridges and a pronounced brow, flabby jowls, beady yellow eyes, and no visible ears or nose. They are very powerful due to their large bulk of pure muscle.",
+      "benefits": "Distinctions: Thick skull, large stature, great physical strength\nHomeworld: Lijuter",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 49
+    },
+    {
+      "name": "Hutt",
+      "description": "",
+      "benefits": "",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 1
+    },
+    {
+      "name": "Iktotchi",
+      "description": "Iktotchi do not have hair, but rather they had a very resistant skin which protected them from the violent winds which crossed the satellite. Both males and females have down-curved cranial horns, which gave them an aggressive aspect. The males' horns are generally a little larger, a remnant from their mountain-dwelling, caprinaen ancestors. The horns are able to regenerate if damaged.",
+      "benefits": "Distinctions: Horns, precognition, telepathy, thick pink skin\nHomeworld: Iktotch, moon of Iktotchon",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 51
+    },
+    {
+      "name": "Kage",
+      "description": "The kage are a pale-skinned sentient species native to the caverns in the planet of Quarzite. The kage have a long-time conflict with the belugans, consistently at odds with them. During the Clone Wars, Otua Blank ordered the capture of Pluma Sodi to marry her, she was later given back to the Kage Warriors by Asajj Ventress.",
+      "benefits": "Distinctions: Athleticism, pale skin, piercing eyes\nHomeworld: Quarzite",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 52
+    },
+    {
+      "name": "Kaleesh",
+      "description": "Tusks protrude from a Kaleesh's upper jaw, and shorter ones jut from their chins. Kaleesh have large pointed ears and long nostrils that stretched close to their eyes. They have very keen olfactory sense and were able to produce pheromones. Most of their facial features are obscured behind the traditional masks they wear, and outsiders rarely see Kaleesh unmasked. They are known to practice polygyny, a form of polygamy, where a male courts multiple wives.",
+      "benefits": "Distinctions: Bone masks, elongated ears, flat nose, tusks\nHomeworld: Kalee",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 53
+    },
+    {
+      "name": "Kalloran",
+      "description": "",
+      "benefits": "",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 1
+    },
+    {
+      "name": "Kaminoan",
+      "description": "Kaminoans' evolution from aquatic creatures in the vast oceans of Kamino is reflected in their tall shape, glassy coated eyes, near luminescent skin, and long, thin necks. The almond-shaped eyes of kaminoans are also able to see color in the ultraviolet spectrum. While female kaminoans are bald, males possess headcrests and fin ridges along the rear of their small, bulbous skulls.",
+      "benefits": "Distinctions: Very tall, long limbs, long necks\nHomeworld: Kamino",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 56
+    },
+    {
+      "name": "Karkarodon",
+      "description": "The amphibious Karkarodons have tall, slim bodies with webbed hands and feet. Their shark-like heads have pointed noses, gill slits, and many rows of razor- sharp teeth, which they use when attacking and eating. Karkarodons are skilled and fast swimmers. They attack by grabbing the target and used their jaws for ripping and tearing.",
+      "benefits": "Distinctions: Multiple rows of sharp teeth, powerful jaws, shark-like heads\nHomeworld: Karkaris",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 57
+    },
+    {
+      "name": "Kiffar",
+      "description": "The kiffar are very closely related to humans, enough that they can interbreed, though kiffar typically have darker hair. The biggest visual difference between the two is that the kiffar always wear tattoos, that represent their clan. Kiffar are more likely to be Force- sensitive, which is typically manifested in psychometry, a rare Force power that about one percent of the kiffar population can use. Using psychometry, kiffar can touch objects and receive visions from the Force that show them the objects past.",
+      "benefits": "Distinctions: Near-human, rare psychometry ability\nHomeworld: Kiffu, Kiffex",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 58
+    },
+    {
+      "name": "Killik",
+      "description": "Killiks possess a strong chitinous exoskeleton that is glossy and greenish with their carcasses capable of surviving thousands of years of erosion as seen by the colonists of Alderaan. The exoskeleton also contains a number of spiracles which served as their way of breathing. Typically, these Human-sized hive creatures have four arms with each ending in a powerful three- fingered claw. They stand on two stout legs that are capable of leaping great distances. Killiks can communicate with other Killiks through use of pheromones.",
+      "benefits": "Distinctions: Chitinous armor, mandibles projected from face, four arms ending in long three toed claws protrude from their torsos\nHomeworld: Alderaan",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 59
+    },
+    {
+      "name": "Klatooinian",
+      "description": "Klatooinians are a humanoid species with canine features, having short muzzles over toothy overbites. They are also notable for their heavy brows and ridges along the tops of their heads.",
+      "benefits": "Distinctions: Heavy brows, short canine muzzles\nHomeworld: Klatooine",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 60
+    },
+    {
+      "name": "Kubaz",
+      "description": "Kubaz are distinctive for their short, prehensile facial snouts which were used for reaching insects within their hives. They have adapted to their sun-scorched, vegetation-deprived world by learning to survive off their world's native insect population. Filled with two rows of teeth for gnashing their food, the Kubaz trunk also functions as a highly sensitive nose. Due to living on their homeworld of Kubindia planet which orbits a blue starKubaz are highly sensitive to red wavelengths; when traveling to planets with a red or yellow star, Kubaz are forced to don protective eyewear to avoid damaging their sensitive eyes.",
+      "benefits": "Distinctions: Prehensile snouts, protective eyewear\nHomeworld: Kubindi",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 61
+    },
+    {
+      "name": "Kushiban",
+      "description": "Kushibans are four-limbed lagomorphs native to the planet Kushibah. They are diminutive, unimposing, and typically weaker than most humanoids, but they are also quite difficult to track due to their natural speed and stealth. While Kushibans are quadrupeds, their forepaws are as manipulative as traditional hands. While kushibans can walk on two legs, they typically run around on four feet since they can move significantly faster that way. Kushibans are inherently cute and fuzzy, and more nefarious species often attempt to take them as slaves. Kushibans are social and do not take well to slavery, and they typically don't live long in solitude or captivity.",
+      "benefits": "Distinctions: Lagomorph, nimble, resilient\nHomeworld: Kushibah",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 62
+    },
+    {
+      "name": "Kyuzo",
+      "description": "A lanky, bipedal humanoid species, the Kyuzo originate on the gravity-heavy Outer Rim world of Phatrong. Kyuzo are tall and slender, though their appearance belies their strength and quickness. Due to the uncommon makeup of their homeworld's atmosphere, Kyuzo frequently wear corrective lenses and a highly pressurized filter mask over their faces to protect their sensitive respiratory systems and assist them in coping with uncomfortable climates like galactic standard habitable environments. As well as causing respiratory and vision problems, exposure to such conditions causes a Kyuzo to become ill within in a short period of time, interfering with their ability to concentrate and slowing them down.",
+      "benefits": "Distinctions: Compound or slit-pupiled eyes, dense musculature, suffer from respiratory and vision problems in standard gravity environments\nHomeworld: Phatrong",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 63
+    },
+    {
+      "name": "Lannik",
+      "description": "Lannik are short, bipedal humanoids with droopy, long ears. Males and females are equally tall, although the latter have a considerably less strong complexity. Their species is, however, much more vigorous and resistant than what its size could suggest. A Lannik's skin tends to be of colours similar to his or her eyes and hair. The species has evolved long pointy ears which allow them to hear better than human ears.",
+      "benefits": "Distinctions: Downward-sloping, large ears\nHomeworld: Lannik",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 64
+    },
+    {
+      "name": "Lasat",
+      "description": "A humanoid sentient species, Lasats are notable for their impressive height, strength, and agility, with their muscular digitigrade legs enabling them to run faster, jump higher and farther, and move more quietly than humans. Their large finger pads and prehensile toes assist them in climbing. In addition, their large eyes and ears afford them superior sight and hearing over humans. They had the strength to open a powered- down blast door. A height of two meters tall was considered below-average for a Lasat.",
+      "benefits": "Distinctions: Impressive height, strength, and agility\nHomeworld: Lira San",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 65
+    },
+    {
+      "name": "Lurmen",
+      "description": "Lurmen's bodies are covered entirely in fur, which range in color from a dark brown to a white-gray, though they do wear garments. They can walk either upright on their two legs, and can also use their arms and legs for faster movement. Many lurmen have the ability to roll themselves into a wheeled shape; this allows them to cover distances at great speed. They may have learned this ability from the native amani on Maridun.",
+      "benefits": "Distinctions: Prehensile tail and feet, furred body\nHomeworld: Mygeeto, Maridun",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 66
+    },
+    {
+      "name": "Massassi",
+      "description": "The warrior caste of the sith purebloods, the massassi have genetically turned into the perfect warrior. While some looked like their sith pureblood brothers, others have more extreme physical differences, including fin- like growths, a taller form and tough skin. These imposing figures live much shorter lives than other species. They, like the few other creatures that inhabit Korriban, derive sustenance directly from the dark side of the Force, in part of a natural symbiotic relationship where sithlike the massassifeed on the dark side, and empower it in turn. Thus the massassi have such a high rate of Force-sensitivity that they are considered a naturally Force-sensitive species.",
+      "benefits": "Distinctions: Sharp predatory features, fin-like growths, cheek tendrils, tall stature\nHomeworld: Korriban, Yavin 4 (adopted)",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 67
+    },
+    {
+      "name": "Mikkian",
+      "description": "Mikkians are a species of brightly colored humanoids. The mikkians' most distinctive feature are their motile head-tendrils, with the number, form, and pattern varying between individuals. These head-tendrils primarily serve as sensory organs, particularly detecting sound as a replacement for an ear common in other species. Mikkian head-tendrils also could detect other information, such as humidity, temperature, magnetic direction and radiation. This radiation detection can be detected to the extent that mikkians can \"see\" light and dark, although their eyes are still their primary visual organs.",
+      "benefits": "Distinctions: Numerous head-tendrils, acute senses of sight and hearing\nHomeworld: Mikkia",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 68
+    },
+    {
+      "name": "Miraluka",
+      "description": "The Miraluka are a near-human species that differs from Humans in that they lack eyes, only retaining vestigial eye sockets, and perceive the environment around them through force sight instead of regular vision. This vision is so strong that if a Miraluka looks upon a Jedi or Sith, they can \"see\" Force radiating off them. The strength of a Miraluka's connection to the Force varies by individual.",
+      "benefits": "Distinctions: Lack of physical eyes, inherent force sight\nHomeworld: Alpheridies",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 69
+    },
+    {
+      "name": "Mirialan",
+      "description": "Mirialans are a near-human species native to the planet Mirial. They have green to yellow skin and tattoos on their faces. The Mirialans are known for their spirituality and strong connection with the world around them. Mirialans are very flexible and agile, making them fast and formidable foes.",
+      "benefits": "Distinctions: Facial tattoos, flexible and agile\nHomeworld: Mirial",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 70
+    },
+    {
+      "name": "Mustafarian",
+      "description": "Mustafarians are an insectoid species of sentients native to the volcanic planet of Mustafar. They are divided into two subspecies: the lanky northern mustafarians, and the stocky southern mustafarians. The southern mustafarians were notable for their greater strength, making them more suited to manual labor. Both subspecies shared many traits, particularly their hardened exoskeletons and leathery skin, which acclimated them to the extreme heat of their volcanic environment.",
+      "benefits": "Distinctions: Extremophiles\nHomeworld: Mustafar",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 71
+    },
+    {
+      "name": "Muun",
+      "description": "Muuns are tall, gaunt humanoids with thin bodies, long limbs, and elongated hairless heads. They typically have pale pink or white skin, most likely derived from their propensity for staying indoors. Muuns have tiny ears on the middle of the sides of their heads, flat noses, and slim mouths which leads to a commonly nasally voice.",
+      "benefits": "Distinctions: Three hearts, long limbs, elongated heads\nHomeworld: Scipio",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 72
+    },
+    {
+      "name": "Neimoidian",
+      "description": "Neimoidians are distant genetic relatives of the duros and retain many similarities to them, including basic form, noseless faces, and green-blue skin (though neimoidians tend to be grayer). Their eyes also have pupils that split horizontally, and they are distinguished by small lumps on their foreheads and down-turned mouths. Instead of noses, they have olfactory glands underneath their eyes. These genetic differences are attributed to the distinct features of their homeworld, Neimoidia, including its gravity, which is markedly heavier than duro.",
+      "benefits": "Distinctions: Horizontal pupils, noseless\nHomeworld: Neimoidia",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 73
+    },
+    {
+      "name": "Nikto",
+      "description": "Nikto are reptilian humanoids that are noted for their leathery skin. They hold a limited range of facial expressions because they lack the necessary anatomical infrastructure. Their eyes are covered by a protective membrane, being a thin transparent pellicle that protects their eyes underwater and during windstorms. As a result, they are noted for their \"staring\" eyes and a seemingly blank expression which leads to many underestimating nikto intelligence.",
+      "benefits": "Distinctions: Leathery skin, subspecies\nHomeworld: Kintan",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 74
+    },
+    {
+      "name": "Noghri",
+      "description": "Noghri are a primitive humanoid species hailed from the planet Honoghr with steely gray-blue skin that are renowned assassins. A natural gift for stealth and hand-to-hand combat, Noghri are efficient killing machines with their rending claws and strong olfactory sense that can often determine familial lineage. Their smaller size belies their ruthlessness and potent hunting skills.",
+      "benefits": "Distinctions: Advanced olfactory senses, claws, hunting prowess.\nHomeworld: Honoghr",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 75
+    },
+    {
+      "name": "Nothoiin",
+      "description": "Near-humans possessing golden, flaky skin, nothoiins feature fair to brown hair with brown eyes and typically have physical heights and builds common to humans. Nothoiins' appearance has earned their species the nickname of \"Goldskins.\"",
+      "benefits": "Distinctions: Near-human, flaky golden skin, skilled pilots\nHomeworld: Nothoiin",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 76
+    },
+    {
+      "name": "Ortolan",
+      "description": "Ortolans are squat, heavily-built humanoid bipeds with long, trunklike noses and beady black eyes. They possess floppy ears, which are extremely sensitive to sound waves. They have two hands, each ending in four chubby fingers and a thumb, which is not opposable. A thick, baggy hide covered in fuzz resembling velvet hangs off of the Ortolan body. Ortolans have a keen sense of smell to help them forage for food. In fact, they are handicapped in their business affairs by their attachment to food, sometimes accepting otherwise unfavorable contracts when promised enough to eat. Their twin obsessions are food and music; offworld, many Ortolans find success as chefs or musicians.",
+      "benefits": "Distinctions: Stocky builds, trunklike noses, floppy ears, small mouths, brightly dyed fur\nHomeworld: Orto",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 77
+    },
+    {
+      "name": "Pa'Lowick",
+      "description": "The pa'lowick are a species of humanoid amphibians who live in the coastal salt marshes of Lowick. They have compact but rotund midsections that top a pair of long, spindly legs ending in anisodactylic feetthree toes pointing forward, one back. This configuration, combined with their powerful lungs, enabled them to swim. The most prominent feature of pa'lowick physiology is their prehensile snout, which ends in a pair of pouty, human-like lips. Pa'lowick are also born with sharp tusks, which some lose by middle age.",
+      "benefits": "Distinctions: Long snout, bulbous body on thin legs Physical Charicteristics Height 4'6\" +2d6\" Weight 65 lbs. x(2d4) lb. Sociocultural Charicteristics\nHomeworld: Lowick",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 78
+    },
+    {
+      "name": "Pantoran",
+      "description": "Pantorans are a sentient species native to Pantora, a moon orbiting the planet Orto Plutonia. At first glance, they only differ from the otherwise similar humans in their blue skin and yellow eyes. The pantorans share many traits with other blue-skinned races, especially the wroonians, and, to a lesser extent, the chiss. The pantorans also seem to have a greater resilience to low temperatures than humans, since they only needed light wardrobe even under extreme cold weather conditions.",
+      "benefits": "Distinctions: Blue skin, yellow eyes, cold resilience\nHomeworld: Pantora",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 79
+    },
+    {
+      "name": "Patrolian",
+      "description": "Patrolians are fish-like in appearance, covered in pale, pastel-colored scales and possessing numerous fins on their long limbs and face, as well as a notable dorsal fin which often require modified clothing to accommodate. Thanks to their gills, patrolians are perfectly comfortable breathing underwater as well as on land, and their physiology is also notoriously resistant to electric shocksboth likely throwbacks to evolution on their native homeworld of Patrolia.",
+      "benefits": "Distinctions: Fin-like limbs, pastel-color scales\nHomeworld: Patrolia",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 80
+    },
+    {
+      "name": "Pau'An",
+      "description": "Pau'ans have large, sunken black eyes in red eye sockets and jagged, fang-like teeth used for tearing into raw meat, as they are carnivores. The species has pale, wrinkled skin, due to the fact that they lived in the sinkholes of Utapau, giving them limited access to light. These traits cause some to view them as frightening. However, Pau'ans as a society are generally friendly, and are happy to welcome guests to their often overlooked world. Pau'ans have long lifespans, living up to 700 years, much longer than the Utai. This earned them the nickname of \"Ancients\".",
+      "benefits": "Distinctions: Red eye sockets, pinstriped skin, long lifespan, jagged teeth\nHomeworld: Utapau",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 81
+    },
+    {
+      "name": "Pyke",
+      "description": "A sentient species, the pykes are humanoid, although slimmer and taller than most humans. They have two long, lanky legs, and two arms that end in three- fingered hands. Their heads are large and elongated, with a tapered skull and an undersized face, a feature which some other species find unsettling. Pykes had two narrow, almond-shaped eyes which could be magenta or blue in color.",
+      "benefits": "Distinctions: Elongated, tapered skull with an undersized face\nHomeworld: Oba Diah",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 82
+    },
+    {
+      "name": "Quarren",
+      "description": "The Quarren are squid-like with four facial tentacles which protrude from their lower jaw. They have a pair of deep, turquoise eyes and finned hands with suction- tipped fingers. As an amphibious species, they are strong swimmers. They are also bipedal beings that can walk and sit upright. In the two long protrusions that extended from either side of their faces, Quarren have gill-like structures that are actually hearing organs. The Quarren are also capable of spitting out clouds of ink as a defensive measure.",
+      "benefits": "Distinctions: Four tentacles that protrude from their jaws, finned or suction-cup tipped fingers, able to spit out clouds of ink in defense\nHomeworld: Mon Cala",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 83
+    },
+    {
+      "name": "Quermian",
+      "description": "Created by arkanian scientists from the DNA of the xexto species, the quermians were designed to be taller than their fore-bearers and were left to evolve without any predators on their terraformed garden homeworld. Equipped with long necks for peering over vegetation mats, bulbous heads with a permanently bemused smile, and two sets of spindly arms, they also have two brains, one located in the chest cavity. Their two brains can cause mental problems when each brain developed a different personality, but also gives them a type of \"telepathy\" which they attribute to an ability to better observe and understand body language. Possessing no noses, the olfactory glands of this species are found in the hands.",
+      "benefits": "Distinctions: Long necks, two brains, two pairs of arms\nHomeworld: Quermia",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 84
+    },
+    {
+      "name": "Rakata",
+      "description": "In appearance, rakata are smooth skinned amphibian- like humanoids that had tall craniums along with eyes that protruded from each side of their heads on short stalks. These bipedal beings have three digit hands that are tipped with claws for digging through packed dirt. As a species, they are uniformly lean and tall; while most rakata have a similar height and weight, females tend to be more slender than males, though just as tall. Rakata are primarily carnivorous, likely stemming from the fact that they are cannibalistic, often making a meal of other species. Long term abuse of the Force in their society, exacerbated by a plague, culled the rakata's ability to sense the Force.",
+      "benefits": "Distinctions: Horizontal eye stalks, vertical blade shaped head, tridactyl hands\nHomeworld: Lehon",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 85
+    },
+    {
+      "name": "Rattataki",
+      "description": "The Rattataki are a near-human species characterized by their nimble movements, chalk-white skin and oft- bald heads. Virtually isolated from the rest of the galaxy, the Rattataki developed a violent society on their home planet of Rattatak, which involves extensive gladiatorial combat.",
+      "benefits": "Distinctions: Near-human features, white skin, usually with a bald head, often tattooed\nHomeworld: Rattatak",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 86
+    },
+    {
+      "name": "Rishii",
+      "description": "Rishii are a sentient, avian species of carnivores which possess two legs ending in four-toed feet, two arms, a tail, and a head. The species' two arms consist of feathered wings ending in nimble humanoid hands, capable of manipulating tools. The wings grant the Rishii the ability to fly at great speeds, which is their method of travel equivalent to running in land-based species. A Rishii's head contained a beak between two yellow eyes framed by a large brow. Rishii were capable of mimicking anything said to them perfectly, and also possessed extremely strong senses, particularly hearing and sight.",
+      "benefits": "Distinctions: Sound mimicry, enhanced hearing and sight\nHomeworld: Rishi",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 87
+    },
+    {
+      "name": "Ryn",
+      "description": "Their homeworld long lost from memory and time, the ryn are a humanoid race of musicians, vagabonds and travelers. The ryn's bodies are covered in soft, short fur, with a head of white hair which is matched by a tuft of hair at the end of their long prehensile tails, excellent for grasping things. Very uniquely ryn in nature, are their beak-like noses that contain fluted holes. These holes allow the ryn to play their 'beaks' like flutes. This talent has been used to communicate between ryn and has uniquely been observed in communication with droids.",
+      "benefits": "Distinctions: Long tails, beak-like noses\nHomeworld: Unknown",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 88
+    },
+    {
+      "name": "Selkath",
+      "description": "",
+      "benefits": "Distinctions: Venom-tipped claws, artificial misting vents, cephalic lobes, three-digit hands, two-toed feet\nHomeworld: Manaan",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 1
+    },
+    {
+      "name": "Selonian",
+      "description": "The selonians are carnivores who are believed to have descended from aquatic mammals. Their bodies are covered by a sleek fur and they normally do not wear clothing. However, when working or visiting offworld, they wear appropriate outfits. Their long bodies are equally comfortable walking on either two or four legs. Their long tails serve as a counterbalance for their bodies when standing upright. These tails are equally capable of being used as potent bludgeoning weapons in combat. At the end of their paw-like hands are retractable claws which not only gives them the capacity to dig but also makes them excellent climbers. They have long pointed faces with bristly whiskers as well as long teeth. Most selonians born are infertile females. One in every hundred are male, and one in every five hundred are fertile females.",
+      "benefits": "Distinctions: Long pointed faces with whiskers\nHomeworld: Selonia",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 90
+    },
+    {
+      "name": "Shistavanen",
+      "description": "Shistavanen have pronounced muzzles, sharp claws, long pointed teeth, and pointed ears set on top of their heads. Shistavanen also possess large glowing eyes, and can also run at high speeds for long periods without getting tired, alternately using two or four limbs. As predators, they possess keen hearing and smell and excellent night vision.",
+      "benefits": "Distinctions: Lupine appearance, enhanced senses, increased speed, increased strength, healing ability\nHomeworld: Uvena Prime",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 91
+    },
+    {
+      "name": "Squib",
+      "description": "Squibs are small, sentient, humanoid mammals with both rodent and canine characteristics. Their pink skin is covered in fur that offers some protection from cold weather, but, more importantly, it serves as an olfactory organ, able to pick up scents at a distance and ascertain intrinsic detailssuch as penetrating through a disguise or identifying a forgerywhen rubbed against. The species has both male and female sexes, although non-Squibs often have difficulty determining the sex of a Squib based on appearance alone. Their mouths are full of forbidding, sharp, white teeth, and their flexible cheeks were capable of storing items.",
+      "benefits": "Distinctions: Curious, overconfident, hagglers\nHomeworld: Skor II",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 92
+    },
+    {
+      "name": "Ssi-Ruu",
+      "description": "Ssi-ruuk are a predatory, warm-blooded saurian species gifted with ferocious strength, remarkable speed, and sharp fangs and claws, traits that serve them well in the volcanic jungles of their homeworld of Lwhekk. Their muscular forms combined with their powerful tails make them very agile hunters, and their colorfully-scaled hides have been proven to be resistant even to blaster bolts. From their nostrils, two scent-tongues protrude that grant them enhanced olfactory senses, compensating for the poor vision afforded them by their dark, three-lidded eyes. No Ssi- ruu has ever been known to be Force-sensitive.",
+      "benefits": "Distinctions: Reptilian, tails, scent-tongues\nHomeworld: Lwhekk",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 93
+    },
+    {
+      "name": "Sullustan",
+      "description": "A diminutive species of near-humans, Sullustans bear round, tapered skulls. Sullustans are distinguishable for their almond-shaped black eyes, facial jowls called dewflaps and large, round ears. Their wide earlobes provide excellent hearing, and their large eyes provide exceptional low-light vision. Due to their relative lack of exposure to natural light, Sullustans begin to suffer from corneal defects after 30 standard years. Many choose to wear special visors to prevent further damage. Some Sullustans tattoo their heads as a form of individual expression.",
+      "benefits": "Distinctions: Large ears, scarns, ultra-sensitive hearing, jet-black eyes, two flaps of jowls around their cheeks\nHomeworld: Sullust",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 94
+    },
+    {
+      "name": "Talz",
+      "description": "Talz are large, bulky, bipedal creatures, that are covered head to toe in thick white fur, which provides exceptional insulation against their frozen world. Talz have four eyes, which are also adaptations to their native environment. The larger set of eyes are shut during the day, when sunlight reflects off the snow with dazzling brightnessable to blind sensitive optical organsleaving the smaller set to navigate with. Alternatively, during the deep darkness of their homeworld's moonless night, the larger pair are utilized to provide the Talz with adequate vision. Talz use a small proboscis to eat and communicate, creating high-pitched chirps and buzzes.",
+      "benefits": "Distinctions: Covered in fur, four eyes, unable to speak Galactic Basic\nHomeworld: Orto Plutonia",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 95
+    },
+    {
+      "name": "Tarasin",
+      "description": "Tarasins are tall reptilians covered in translucent scales that allows the species' color-changing skin below to show through. Tarasins also have a colorful fan of flesh and scalesknown as a kampothat opens around their heads when they experience strong emotional distress, which can be a detriment to negotiations, as it is difficult for a tarasin to hide discomfort. This color- changing ability is useful for camouflage and communication, and the scales naturally repel heat. Some examples of colors they take on include being brown when calm and in a comfortable environment, or becoming red after extended exertion or when excited. Tarasins also have short spines that protrude from their forearmsknown as a sa'tosinwhich give the creatures the ability to sense the use of the Force. Tarasins are naturally curious and protective but also slow to anger. What they lack in sheer physical strength they make up for with a brilliant intellect.",
+      "benefits": "Distinctions: Reptillian, sa'tosin spines\nHomeworld: Cularin",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 96
+    },
+    {
+      "name": "Taung",
+      "description": "Taung are a humanoid species of tall and strong sentient simians. Physically, the taung are extremely resilient and are able to endure hardships many other species are unable to, which benefits their warlike nature as well as their tendencies to conquer planets.",
+      "benefits": "Distinctions: Bony and ridged skulls, tendrils and fin-like protrusions on the back of their heads\nHomeworld: Coruscant, Mandalore (adopted)",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 97
+    },
+    {
+      "name": "Theelin",
+      "description": "The original appearance of the theelin is officially uncertain, as almost all known \"theelin\" are not full- blooded specimens, but hybrids. It is possible that some aspects of these individuals' appearances are not from their theelin genes, but from other near-human ancestors. Most, however, have vividly colored hair and pale skin, often mottled with colorful spots. Unfortunately, a series of mutations arose among later generations of theelin. These mutations have led to genetic incompatibilities within their species, making it impossible to produce offspring. Even attempts to continue their species by cross-breeding with other near-humans could not stop the theelin slide towards extinction, due to the high infant mortality rates such couplings suffer from. Theelin began inevitably dwindling in numberonly a few million theelin and part-theelin remain by the time the Republic fell, and pure theelin are presumed extinct by the fall of the Empire. Some of their greatest works are produced in these years, however, as an epitaph for a dying people.",
+      "benefits": "Distinctions: Small horns, pale skin, colorful hair\nHomeworld: Unknown",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 98
+    },
+    {
+      "name": "Thisspiasian",
+      "description": "Thisspiasians are easily recognized by their abundant beards and their long tails, which often reach over six feet. These tails are very strong and are commonly used to carry large objects. When meditating or at rest, a thisspiasian will coil their tail beneath their torso, reducing their height by several feet. They also possess four arms, with the upper set being stronger and larger. Each of their four hands have five fingers, and each finger is tipped with a long, sturdy claw. It is thought unsophisticated or unseemly by upper-class thisspiasians to have the bottom two visible in public, so they are generally hidden from sight via larger garments, with the smaller limbs sometimes even bound to their bodies. Thisspiasians need very little sleep to function normally, resting for only two hours a day, with brief meditative moments scattered throughout the day to refocus.",
+      "benefits": "Distinctions: Four arms, serpentine, large beards\nHomeworld: Thisspias",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 99
+    },
+    {
+      "name": "Tiss'Shar",
+      "description": "Tiss'shar are bipedal therapods descended from predatory reptilians native to the humid jungle continents of Tiss'sharl. They are relatively strong and agile, with long necks, slender torsos, wider hips, and a short but wiry tail. Their mouths are filled with short, sharp teeth, and their large tongues are pink and constantly moving. Their large eyes appear glassy as a result of the clear, resilient film that covered and protected them. Many tiss'shar have prominent sickle- shaped claws on the first toe of their feet; some also possessed a crest of feathers atop their heads.",
+      "benefits": "Distinctions: Long necks, sharp teeth, colorful scales, tails\nHomeworld: Tiss'sharl",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 100
+    },
+    {
+      "name": "Tognath",
+      "description": "Tognath are a sentient species native to Yar Togna. Yar Togna is a foul-smelling, high-gravity planet with a toxic, fume-saturated atmosphere. As a result, tognath wear a breathing apparatus to process the oxygen content in a planet's atmosphere. The tognath have a striking look thanks to their insectoid and mammalian characteristics; another factor is their having both an endo- and exoskeleton. They also possess a very primitive nervous system, which provides them with immunity to most pain (a helpful trait in combat). Tognath begin life as larvae born from egg clutches hatched in a suspension jelly, and latch onto one of their parents, feeding directly from their bloodstream. While in that jelly, two or more eggs (not necessarily from the same parent) sometimes graft together, thus creating a bond that continues throughout the life of the eggmates. Six months later, parents visit a nursery tree, where the young detatch from them and spin a cocoon. Within, the offspring undergo a metamorphosis, developing both their skeletons to resist the high gravity and pressures of Yar Togna.",
+      "benefits": "Distinctions: Breathing apparatus, endo and exoskeletons\nHomeworld: Yar Togna",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 101
+    },
+    {
+      "name": "Togorian",
+      "description": "The Togorian people are a feline warrior species native to the planet Togoria. They are large, heavy-framed bipeds, with retractable claws on their hands and feet. Female Togorians grow up to 7 feet tall, while adult males can reach up to 9 feet. They're covered in gray- white, black, brown, or orange fur, often with colorful spots or stripes.",
+      "benefits": "Distinctions: Large frame, retractable claws, striped fur, rigid honor code Physical Characteristics Height 6'2\" +2d12\" Weight 175 lb. x(2d6) lb. Sociocultural Characteristics\nHomeworld: Togoria",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 102
+    },
+    {
+      "name": "Toydarian",
+      "description": "A mammalian species of winged, stout bodied humanoids, the Toydarians have stubby facial tusks which protruded from their lower jaw and framed a short pudgy trunk. While their stubby legs can support their body weight, Toydarians' primary mode of locomotion was their use of the wings on their upper back. Though their wings can beat as fast as ten times a second, the effort burned up large amounts of energy, causing the species to need to replenish itself often through regularly eating mass quantities of food. In order to fuel this hyperactive metabolism, Toydarians eat concentrated foods and egg-seeds. Most of the bloodiest wars in their history were fought over food supplies.",
+      "benefits": "Distinctions: Two wings, facial tusks, snout, three fingers and toes on appendages\nHomeworld: Toydaria",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 103
+    },
+    {
+      "name": "Ugnaught",
+      "description": "Ugnaughts are diminutive, porcine humanoids who have pink skin, upturned noses, white hair, and thick layers of jowls. Some have tusks that they use in blood duels. They are strong and resilient, and their life- spans reached up to 200 standard years. They notably eat genteslugs.",
+      "benefits": "Distinctions: Diminutive stature, porcine features, technological affinity\nHomeworld: Gentes",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 104
+    },
+    {
+      "name": "Umbaran",
+      "description": "Umbarans, called the \"Shadow People\" by some, are a near-human species characterized by their pale, bluish skin and colorless, sunken eyes. Their homeworld, Umbara, is situated deep within the Ghost Nebula, and receives almost no direct light from the planet's primary star. As a result, Umbaran eyes are well- adjusted to seeing in low light, and can see into the ultraviolet spectrum, but can be disoriented by bright light.",
+      "benefits": "Distinctions: Blue tinted skin and sunken, colorless eyes\nHomeworld: Umbara",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 105
+    },
+    {
+      "name": "Verpine",
+      "description": "Verpine are thin bipedal insectoids whose heads are dominated by large compound eyes. They also have two antennae, one located behind each eye. Their hardened carapace, composed of a green chitinous substance called carahide, is as flexible as the skin of other creatures, yet tough enough to deflect a blade or even absorb a glancing blaster bolt. The Verpine circulatory system does not contain a heart. Verpine eyes are keen enough to pick out microscopic details. Their antennae contain tympanic nerves which pick up sound. Their antennae are also sensitive to radio waves, giving Verpine the natural ability to sense and transmit radio waves to communicate with another Verpine in their language over long distances.",
+      "benefits": "Distinctions: Hive-based insectoids, radio wave senses, technological aptitude, hardened carapace, short snouts, and small, toothless mouths\nHomeworld: Roche asteroid field",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 106
+    },
+    {
+      "name": "Voss",
+      "description": "Voss are humanoid sentients with a high rate of Force- sensitivity who display prominent sexual dimorphism. The male Voss have blue skin and bright orange eyes, while the females have red skin and azure eyes. The Voss do not have hair or distinct pupils, and posess unique patterns of markings on their face, neck, and body, a trace of their shared ancestry with Gormak. Their voices have a slight mechanical tinge to them, making them sound somewhat like a droid or machine. Voss undogo a physical, developmental change during their marriage ceremonies (known as the Rite of Ardor) and do not develop sexually prior to the performance of these rituals.",
+      "benefits": "Distinctions: Mechanical apperance, unique patterns and markings along face, neck, and body\nHomeworld: Voss",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 107
+    },
+    {
+      "name": "Vurk",
+      "description": "Vurks are the predominant sentient species of the planet Sembla. They are tall, reptilian humanoids with bulbous dark eyes and sweeping head crests. Their hands and feet have three digits each, one of which was opposable. They have distinguishing gray-green, leathery skin. Being able to breathe both water and air, they are perfectly adapted to travel Sembla's warm, shallow seas dotted with volcanic islands. They share a strong nomadic instinct with their amphibious ancestors.",
+      "benefits": "Distinctions: Bulbous eyes, head crests, three- fingered hands\nHomeworld: Sembla",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 108
+    },
+    {
+      "name": "Xexto",
+      "description": "Xexto are spindly invertebrates with four arms with six fingers and two legs with ten toes. Almond-shaped eyes dominate a small head perched atop a long neck. Their brain is split between two parts of their body; the part located in the skull controls primitive emotions and basic body functions, while another portion in their chest controls higher functions such as creative thinking and logic. It's believed that xexto's body structure and lightning-fast reflexes developed to help them escape predators while pursuing their own prey, there is no question that genetic manipulation forever altered their evolutionary development.",
+      "benefits": "Distinctions: Four arms, long necks, spindly limbs\nHomeworld: Troiken",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 109
+    },
+    {
+      "name": "Yevetha",
+      "description": "Physically, the Yevetha are tall beings with a ghoulish appearance that is bereft of any body hair, being described as being so gaunt as to seem skeletal due to their pallid gray skin and lithe builds. The species possesses six fingered hands that have retractable dewclaws. Each one is located on the inside of the wrist above their six-fingered hands. Their dewclaws shoot from a sheath of a skin beneath their cadaverous hands and are capable of being retracted. When extended fully, the wrist blades reach about a foot in length, and are used in close combat and blood sacrifices. The Yevetha also possess a greater tolerance for g-forces when compared to Human pilots.",
+      "benefits": "Distinctions: Retractable dewclaws, six fingers\nHomeworld: N'zoth",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 110
+    },
+    {
+      "name": "Zeltron",
+      "description": "Zeltrons are one of the few near-human species that differentiated from the baseline stock enough to be considered a new species of the Human genus, rather than simply a subspecies. They possess two biological traits of note. The first is that they all produce potent pheromones, similar to the Falleen species, which enhanced their attractiveness and likeability. The second is a limited telepathic ability, used to project emotions onto others, as well as allowing them to read and even feel the emotions of others; some Zeltrons have been hired by the Exchange for this ability. Because of their telepathic ability, positive emotions such as happiness, love and pleasure are very important to them, while negative ones such as anger, fear, or depression are shunned.",
+      "benefits": "Distinctions: Capable of producing powerful pheromones\nHomeworld: Zeltros",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 111
+    },
+    {
+      "name": "Zilkin",
+      "description": "The zilkins are a bipedal, amphibious species discernible by their diminutive stature and stalk eyes. Their homeworld, Zilk, has many dense jungles and swamps deemed impossible to navigate by most species. Only the zilkins themselves, evolved from worm-like creatures, were able to easily slip through the gaps in the tangled, coarse foliage. Their powerful legs make them adept at swimming and leaping. Zilkin also have bulbous chins which inflate with excess air while they are speaking.",
+      "benefits": "Distinctions: Four-fingered hands, three-toed feet, stalk eyes\nHomeworld: Zilk",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 112
+    },
+    {
+      "name": "Zygerrian",
+      "description": "The Zygerrians are a bipedal, sentient humanoid species. Feline in appearance, the species possesses strong, angular features, with long fangs jutting from their jaws and claws extending from their hands. The Zygerrians' faces and their pointed ears are almost entirely covered with fur; males usually have more hair than females, with bands of fur growing on their cheeks. Male Zygerrians also display a number of bony spurs protruding from the chin, which females typically lack. Zygerrians usually have sallow complexions and are physically strong, but some suffer from obesity.",
+      "benefits": "Distinctions: Large pointed ears, clawed hands, fur- covered faces, bony facial spurs\nHomeworld: Zygerria",
+      "source": "EC 02 - Species _ GM Binder.pdf",
+      "sourcePage": 113
+    }
+  ]
+}

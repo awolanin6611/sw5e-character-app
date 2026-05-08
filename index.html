@@ -30,8 +30,13 @@
           <input id="name" placeholder="Character Name">
         </div>
         <div class="basic-card">
-          <label class="fp-label" for="species">Species</label>
-          <input id="species" placeholder="Species">
+          <div class="field-label-row">
+            <label class="fp-label" for="species">Species</label>
+            <button type="button" id="speciesInfoBtn" class="info-caret-btn" aria-label="Show species details" onclick="showSpeciesInfoModal()">▼</button>
+          </div>
+          <select id="species">
+            <option value="">Choose Species</option>
+          </select>
         </div>
         <div class="basic-card">
           <label class="fp-label" for="class">Class</label>
@@ -82,8 +87,13 @@
           <input id="archetype" type="hidden" value="">
         </div>
         <div class="basic-card">
-          <label class="fp-label" for="background">Background</label>
-          <input id="background" placeholder="Background">
+          <div class="field-label-row">
+            <label class="fp-label" for="background">Background</label>
+            <button type="button" id="backgroundInfoBtn" class="info-caret-btn" aria-label="Show background details" onclick="showBackgroundInfoModal()">▼</button>
+          </div>
+          <select id="background">
+            <option value="">Choose Background</option>
+          </select>
         </div>
         <div class="basic-card">
           <label class="fp-label" for="credits">Credits</label>
@@ -459,6 +469,15 @@
             <p class="features-empty">No class-specific choices unlocked at the current levels.</p>
           </div>
         </div>
+        <div class="level-unlocked-panel">
+          <div class="level-choice-panel-header">
+            <h3>Class Feature Unlocks</h3>
+            <span class="fp-used-label">Shows current level unlocks and future class features.</span>
+          </div>
+          <div id="levelUnlockedFeatureList" class="level-unlocked-list">
+            <p class="features-empty">Add a class to view feature unlocks.</p>
+          </div>
+        </div>
         <p class="leveling-help-text">Set one or more classes here for multiclassing. Supported progression math is currently implemented for Consular, Engineer, and Scout; other classes still contribute to total level and proficiency bonus.</p>
       </div>
     </div>
@@ -635,6 +654,10 @@
   </section>
 
   </main>
+
+  <datalist id="speciesOptions"></datalist>
+  <datalist id="backgroundOptions"></datalist>
+  <datalist id="archetypeOptions"></datalist>
 
   <!-- Character Roster Panel -->
   <div id="rosterOverlay" class="roster-overlay" onclick="closeRosterPanel(event)">

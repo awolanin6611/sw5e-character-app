@@ -30,5 +30,6 @@ Thumbs.db
 # Local/non-release assets
 asset/Copilot_20260505_173236.png
 asset/image0.jpg
+data/*.pdf
 data/EC 03 - Archetypes _ GM Binder.pdf
 data/SW5e - Player's Handbook.pdf

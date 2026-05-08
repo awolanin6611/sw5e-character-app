@@ -9,7 +9,6 @@ import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
-HANDBOOK_PDF = DATA_DIR / "SW5e - Player's Handbook.pdf"
 OUTPUT_PATH = DATA_DIR / "class-progressions.json"
 
 CLASS_NAMES = [
@@ -31,6 +30,24 @@ LEVEL_RE = re.compile(r"^(?:[1-9]|1[0-9]|20)(?:st|nd|rd|th)?$")
 PB_RE = re.compile(r"^[+-]\d+$")
 RESOURCE_RE = re.compile(r"^(?:[+-]\d+|\d+|—|Unlimited|At-will|(?:[1-9]|1[0-9]|20)(?:st|nd|rd|th))$")
 DICE_RE = re.compile(r"^d(?:4|6|8|10|12)$", re.IGNORECASE)
+
+
+def find_handbook_pdf(data_dir: Path) -> Path:
+    pdf_files = sorted(data_dir.glob("*.pdf"))
+    if not pdf_files:
+        raise FileNotFoundError(f"No PDF files found in {data_dir}")
+
+    # Prefer files that look like the SW5e player's handbook.
+    preferred = []
+    for pdf_file in pdf_files:
+        name = pdf_file.name.lower()
+        if "handbook" in name and "player" in name:
+            preferred.append(pdf_file)
+
+    if preferred:
+        return preferred[0]
+
+    return pdf_files[0]
 
 
 def smart_title(text: str) -> str:
@@ -219,7 +236,8 @@ def parse_feature_descriptions(text: str, class_name: str) -> dict[str, str]:
 
 
 def build_output() -> dict:
-    doc = fitz.open(HANDBOOK_PDF)
+    handbook_pdf = find_handbook_pdf(DATA_DIR)
+    doc = fitz.open(handbook_pdf)
     outline_entries = get_outline_entries(doc)
     sections = build_class_sections(outline_entries)
 
@@ -242,7 +260,7 @@ def build_output() -> dict:
         }
 
     return {
-        "generatedFrom": [HANDBOOK_PDF.name],
+        "generatedFrom": [handbook_pdf.name],
         "classes": classes,
     }
 

@@ -1,0 +1,338 @@
+{
+  "generatedFrom": [
+    "EC 02 - Species _ GM Binder.pdf"
+  ],
+  "count": 110,
+  "species": [
+    {
+      "name": "Abyssin"
+    },
+    {
+      "name": "Advozse"
+    },
+    {
+      "name": "Aing-Tii"
+    },
+    {
+      "name": "Aleena"
+    },
+    {
+      "name": "Anomid"
+    },
+    {
+      "name": "Anx"
+    },
+    {
+      "name": "Anzellan"
+    },
+    {
+      "name": "Aqualish"
+    },
+    {
+      "name": "Arcona"
+    },
+    {
+      "name": "Ardennian"
+    },
+    {
+      "name": "Arkanian"
+    },
+    {
+      "name": "Balosar"
+    },
+    {
+      "name": "Barabel"
+    },
+    {
+      "name": "Baragwin"
+    },
+    {
+      "name": "Besalisk"
+    },
+    {
+      "name": "Caamasi"
+    },
+    {
+      "name": "Chadra-Fan"
+    },
+    {
+      "name": "Chagrian"
+    },
+    {
+      "name": "Chevin"
+    },
+    {
+      "name": "Chironian"
+    },
+    {
+      "name": "Clawdite"
+    },
+    {
+      "name": "Codru-Ji"
+    },
+    {
+      "name": "Colicoid"
+    },
+    {
+      "name": "Culisetto"
+    },
+    {
+      "name": "Dashade"
+    },
+    {
+      "name": "Defel"
+    },
+    {
+      "name": "Diathim"
+    },
+    {
+      "name": "Dowutin"
+    },
+    {
+      "name": "Draethos"
+    },
+    {
+      "name": "Dug"
+    },
+    {
+      "name": "Echani"
+    },
+    {
+      "name": "Esh-Kha"
+    },
+    {
+      "name": "Falleen"
+    },
+    {
+      "name": "Felucian"
+    },
+    {
+      "name": "Flesh Raider"
+    },
+    {
+      "name": "Gand"
+    },
+    {
+      "name": "Gank"
+    },
+    {
+      "name": "Geonosian"
+    },
+    {
+      "name": "Givin"
+    },
+    {
+      "name": "Gormak"
+    },
+    {
+      "name": "Gotal"
+    },
+    {
+      "name": "Gran"
+    },
+    {
+      "name": "Half-Human"
+    },
+    {
+      "name": "Harch"
+    },
+    {
+      "name": "Herglic"
+    },
+    {
+      "name": "Ho'Din"
+    },
+    {
+      "name": "Houk"
+    },
+    {
+      "name": "Hutt"
+    },
+    {
+      "name": "Iktotchi"
+    },
+    {
+      "name": "Kage"
+    },
+    {
+      "name": "Kaleesh"
+    },
+    {
+      "name": "Kalloran"
+    },
+    {
+      "name": "Kaminoan"
+    },
+    {
+      "name": "Karkarodon"
+    },
+    {
+      "name": "Kiffar"
+    },
+    {
+      "name": "Killik"
+    },
+    {
+      "name": "Klatooinian"
+    },
+    {
+      "name": "Kubaz"
+    },
+    {
+      "name": "Kushiban"
+    },
+    {
+      "name": "Kyuzo"
+    },
+    {
+      "name": "Lannik"
+    },
+    {
+      "name": "Lasat"
+    },
+    {
+      "name": "Lurmen"
+    },
+    {
+      "name": "Massassi"
+    },
+    {
+      "name": "Mikkian"
+    },
+    {
+      "name": "Miraluka"
+    },
+    {
+      "name": "Mirialan"
+    },
+    {
+      "name": "Mustafarian"
+    },
+    {
+      "name": "Muun"
+    },
+    {
+      "name": "Neimoidian"
+    },
+    {
+      "name": "Nikto"
+    },
+    {
+      "name": "Noghri"
+    },
+    {
+      "name": "Nothoiin"
+    },
+    {
+      "name": "Ortolan"
+    },
+    {
+      "name": "Pa'Lowick"
+    },
+    {
+      "name": "Pantoran"
+    },
+    {
+      "name": "Patrolian"
+    },
+    {
+      "name": "Pau'An"
+    },
+    {
+      "name": "Pyke"
+    },
+    {
+      "name": "Quarren"
+    },
+    {
+      "name": "Quermian"
+    },
+    {
+      "name": "Rakata"
+    },
+    {
+      "name": "Rattataki"
+    },
+    {
+      "name": "Rishii"
+    },
+    {
+      "name": "Ryn"
+    },
+    {
+      "name": "Selkath"
+    },
+    {
+      "name": "Selonian"
+    },
+    {
+      "name": "Shistavanen"
+    },
+    {
+      "name": "Squib"
+    },
+    {
+      "name": "Ssi-Ruu"
+    },
+    {
+      "name": "Sullustan"
+    },
+    {
+      "name": "Talz"
+    },
+    {
+      "name": "Tarasin"
+    },
+    {
+      "name": "Taung"
+    },
+    {
+      "name": "Theelin"
+    },
+    {
+      "name": "Thisspiasian"
+    },
+    {
+      "name": "Tiss'Shar"
+    },
+    {
+      "name": "Tognath"
+    },
+    {
+      "name": "Togorian"
+    },
+    {
+      "name": "Toydarian"
+    },
+    {
+      "name": "Ugnaught"
+    },
+    {
+      "name": "Umbaran"
+    },
+    {
+      "name": "Verpine"
+    },
+    {
+      "name": "Voss"
+    },
+    {
+      "name": "Vurk"
+    },
+    {
+      "name": "Xexto"
+    },
+    {
+      "name": "Yevetha"
+    },
+    {
+      "name": "Zeltron"
+    },
+    {
+      "name": "Zilkin"
+    },
+    {
+      "name": "Zygerrian"
+    }
+  ]
+}

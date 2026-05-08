@@ -1,0 +1,32 @@
+{
+  "generatedFrom": "data/*.pdf",
+  "categories": {
+    "coreRules": [
+      "data/SW5e - Player's Handbook.pdf"
+    ],
+    "species": [
+      "data/EC 02 - Species _ GM Binder.pdf"
+    ],
+    "backgrounds": [
+      "data/EC 04 - Backgrounds _ GM Binder.pdf"
+    ],
+    "archetypes": [
+      "data/EC 03 - Archetypes _ GM Binder.pdf"
+    ],
+    "forcePowers": [
+      "data/Expanded Force Powers _ GM Binder.pdf"
+    ],
+    "techPowers": [
+      "data/Expanded Tech Powers _ GM Binder.pdf"
+    ],
+    "starships": [
+      "data/Shipyards of the Galaxy _ GM Binder.pdf",
+      "data/SW5e - Starships of the Galaxy - 20210316.pdf"
+    ],
+    "adventuresAndWorld": [
+      "data/Heretic's Guide to the Galaxy _ GM Binder.pdf",
+      "data/SW5e - Scum and Villainy - 20191105.pdf",
+      "data/SW5e - Wretched Hives - 20220419.pdf"
+    ]
+  }
+}

@@ -1,10 +1,15 @@
 {
   "name": "sw5e-character-app",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "SW5E Character Sheet Desktop App",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "index:pdf-sources": "python scripts/index_pdf_sources.py",
+    "index:pdf-corpus": "python scripts/build_pdf_corpus.py",
+    "index:pdf-all": "python scripts/index_pdf_sources.py && python scripts/build_pdf_corpus.py",
+    "extract:sheet-reference": "python scripts/extract_sheet_reference_data.py",
+    "build:class-progressions": "python scripts/generate_class_progressions.py",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --win nsis portable",
     "release": "electron-builder --win nsis --publish always"

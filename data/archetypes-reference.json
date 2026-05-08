@@ -1,0 +1,478 @@
+{
+  "generatedFrom": [
+    "EC 03 - Archetypes _ GM Binder.pdf"
+  ],
+  "count": 78,
+  "archetypes": [
+    {
+      "name": "Addicted Approach",
+      "sourcePages": [
+        5
+      ]
+    },
+    {
+      "name": "Adept Specialist",
+      "sourcePages": [
+        46
+      ]
+    },
+    {
+      "name": "Aing-Tii Order",
+      "sourcePages": [
+        71
+      ]
+    },
+    {
+      "name": "Aqinos Form",
+      "sourcePages": [
+        59
+      ]
+    },
+    {
+      "name": "Archaeologist Pursuit",
+      "sourcePages": [
+        95
+      ]
+    },
+    {
+      "name": "Armored Approach",
+      "sourcePages": [
+        6
+      ]
+    },
+    {
+      "name": "Artificer Engineering",
+      "sourcePages": [
+        25
+      ]
+    },
+    {
+      "name": "Astrotech Engineering",
+      "sourcePages": [
+        28
+      ]
+    },
+    {
+      "name": "Ataru Form",
+      "sourcePages": [
+        60
+      ]
+    },
+    {
+      "name": "Audiotech Engineering",
+      "sourcePages": [
+        32
+      ]
+    },
+    {
+      "name": "Beastmaster Approach",
+      "sourcePages": [
+        7
+      ]
+    },
+    {
+      "name": "Biochem Engineering",
+      "sourcePages": [
+        35
+      ]
+    },
+    {
+      "name": "Biotech Engineering",
+      "sourcePages": [
+        38
+      ]
+    },
+    {
+      "name": "Bloodstorm Approach",
+      "sourcePages": [
+        9
+      ]
+    },
+    {
+      "name": "Bolstering Practice",
+      "sourcePages": [
+        83
+      ]
+    },
+    {
+      "name": "Brawling Approach",
+      "sourcePages": [
+        10
+      ]
+    },
+    {
+      "name": "Champion Approach",
+      "sourcePages": [
+        11
+      ]
+    },
+    {
+      "name": "Chef Pursuit",
+      "sourcePages": [
+        97
+      ]
+    },
+    {
+      "name": "Construction Engineering",
+      "sourcePages": [
+        41
+      ]
+    },
+    {
+      "name": "Cybertech Engineering",
+      "sourcePages": [
+        43
+      ]
+    },
+    {
+      "name": "Demolitions Specialist",
+      "sourcePages": [
+        48
+      ]
+    },
+    {
+      "name": "Detective Pursuit",
+      "sourcePages": [
+        99
+      ]
+    },
+    {
+      "name": "Disabling Practice",
+      "sourcePages": [
+        84
+      ]
+    },
+    {
+      "name": "Enhancement Specialist",
+      "sourcePages": [
+        49
+      ]
+    },
+    {
+      "name": "Exhibition Specialist",
+      "sourcePages": [
+        51
+      ]
+    },
+    {
+      "name": "Explorer Pursuit",
+      "sourcePages": [
+        100
+      ]
+    },
+    {
+      "name": "Fireteam Specialist",
+      "sourcePages": [
+        52
+      ]
+    },
+    {
+      "name": "Form Basics",
+      "sourcePages": [
+        62,
+        67,
+        68
+      ]
+    },
+    {
+      "name": "Frenzied Approach",
+      "sourcePages": [
+        12
+      ]
+    },
+    {
+      "name": "Geneticist Pursuit",
+      "sourcePages": [
+        101
+      ]
+    },
+    {
+      "name": "Heavy Weapons Specialist",
+      "sourcePages": [
+        54
+      ]
+    },
+    {
+      "name": "Industrial Approach",
+      "sourcePages": [
+        13
+      ]
+    },
+    {
+      "name": "Jal Shey Order",
+      "sourcePages": [
+        72
+      ]
+    },
+    {
+      "name": "Jar'Kai Form",
+      "sourcePages": [
+        61
+      ]
+    },
+    {
+      "name": "Kage Order",
+      "sourcePages": [
+        73
+      ]
+    },
+    {
+      "name": "Kro Var Order",
+      "sourcePages": [
+        75
+      ]
+    },
+    {
+      "name": "Kyuzo Order",
+      "sourcePages": [
+        74
+      ]
+    },
+    {
+      "name": "Lethality Practice",
+      "sourcePages": [
+        85
+      ]
+    },
+    {
+      "name": "Maverick Practice",
+      "sourcePages": [
+        86
+      ]
+    },
+    {
+      "name": "Mounted Specialist",
+      "sourcePages": [
+        55
+      ]
+    },
+    {
+      "name": "Occultist Pursuit",
+      "sourcePages": [
+        103
+      ]
+    },
+    {
+      "name": "Path of Communion",
+      "sourcePages": [
+        122
+      ]
+    },
+    {
+      "name": "Path of Ethereality",
+      "sourcePages": [
+        124
+      ]
+    },
+    {
+      "name": "Path of Iron",
+      "sourcePages": [
+        125
+      ]
+    },
+    {
+      "name": "Path of Meditation",
+      "sourcePages": [
+        126
+      ]
+    },
+    {
+      "name": "Path of Synthesis",
+      "sourcePages": [
+        127
+      ]
+    },
+    {
+      "name": "Path of Tenacity",
+      "sourcePages": [
+        128
+      ]
+    },
+    {
+      "name": "Path of Witchcraft",
+      "sourcePages": [
+        129
+      ]
+    },
+    {
+      "name": "Path of the Corsair",
+      "sourcePages": [
+        123
+      ]
+    },
+    {
+      "name": "Performance Practice",
+      "sourcePages": [
+        87
+      ]
+    },
+    {
+      "name": "Praetorian Specialist",
+      "sourcePages": [
+        56
+      ]
+    },
+    {
+      "name": "Precision Approach",
+      "sourcePages": [
+        15
+      ]
+    },
+    {
+      "name": "Pugnacity Practice",
+      "sourcePages": [
+        88
+      ]
+    },
+    {
+      "name": "Rakatan Order",
+      "sourcePages": [
+        79
+      ]
+    },
+    {
+      "name": "Ruffian Practice",
+      "sourcePages": [
+        89
+      ]
+    },
+    {
+      "name": "Saboteur Practice",
+      "sourcePages": [
+        90
+      ]
+    },
+    {
+      "name": "Sawbones Practice",
+      "sourcePages": [
+        92
+      ]
+    },
+    {
+      "name": "Scrapper Practice",
+      "sourcePages": [
+        93
+      ]
+    },
+    {
+      "name": "Shadow Killer Practice",
+      "sourcePages": [
+        94
+      ]
+    },
+    {
+      "name": "Shii-Cho Form",
+      "sourcePages": [
+        64
+      ]
+    },
+    {
+      "name": "Slicer Pursuit",
+      "sourcePages": [
+        105
+      ]
+    },
+    {
+      "name": "Sokan Form",
+      "sourcePages": [
+        65
+      ]
+    },
+    {
+      "name": "Teras Kasi Order",
+      "sourcePages": [
+        80
+      ]
+    },
+    {
+      "name": "Totem Specialist",
+      "sourcePages": [
+        57
+      ]
+    },
+    {
+      "name": "Trakata Form",
+      "sourcePages": [
+        66
+      ]
+    },
+    {
+      "name": "Trickster Order",
+      "sourcePages": [
+        81
+      ]
+    },
+    {
+      "name": "Warchief Approach",
+      "sourcePages": [
+        16
+      ]
+    },
+    {
+      "name": "Way of Confluence",
+      "sourcePages": [
+        17
+      ]
+    },
+    {
+      "name": "Way of Endurance",
+      "sourcePages": [
+        18
+      ]
+    },
+    {
+      "name": "Way of Manipulation",
+      "sourcePages": [
+        19
+      ]
+    },
+    {
+      "name": "Way of Negation",
+      "sourcePages": [
+        20
+      ]
+    },
+    {
+      "name": "Way of Technology",
+      "sourcePages": [
+        22
+      ]
+    },
+    {
+      "name": "Way of Telekinetics",
+      "sourcePages": [
+        23
+      ]
+    },
+    {
+      "name": "Way of Tutelage",
+      "sourcePages": [
+        24
+      ]
+    },
+    {
+      "name": "Way of the Seer",
+      "sourcePages": [
+        21
+      ]
+    },
+    {
+      "name": "Whills Order",
+      "sourcePages": [
+        82
+      ]
+    },
+    {
+      "name": "Ysannanite Form",
+      "sourcePages": [
+        70
+      ]
+    },
+    {
+      "name": "Zoologist Pursuit",
+      "sourcePages": [
+        107
+      ]
+    }
+  ]
+}

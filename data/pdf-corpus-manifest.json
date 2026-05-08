@@ -1,0 +1,73 @@
+{
+  "sourceDir": "data",
+  "pdfCount": 11,
+  "recordCount": 1368,
+  "files": [
+    {
+      "fileName": "EC 02 - Species _ GM Binder.pdf",
+      "relativePath": "data/EC 02 - Species _ GM Binder.pdf",
+      "pageCount": 114,
+      "nonEmptyPages": 113
+    },
+    {
+      "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+      "relativePath": "data/EC 03 - Archetypes _ GM Binder.pdf",
+      "pageCount": 131,
+      "nonEmptyPages": 128
+    },
+    {
+      "fileName": "EC 04 - Backgrounds _ GM Binder.pdf",
+      "relativePath": "data/EC 04 - Backgrounds _ GM Binder.pdf",
+      "pageCount": 43,
+      "nonEmptyPages": 42
+    },
+    {
+      "fileName": "Expanded Force Powers _ GM Binder.pdf",
+      "relativePath": "data/Expanded Force Powers _ GM Binder.pdf",
+      "pageCount": 33,
+      "nonEmptyPages": 33
+    },
+    {
+      "fileName": "Expanded Tech Powers _ GM Binder.pdf",
+      "relativePath": "data/Expanded Tech Powers _ GM Binder.pdf",
+      "pageCount": 65,
+      "nonEmptyPages": 65
+    },
+    {
+      "fileName": "Heretic's Guide to the Galaxy _ GM Binder.pdf",
+      "relativePath": "data/Heretic's Guide to the Galaxy _ GM Binder.pdf",
+      "pageCount": 130,
+      "nonEmptyPages": 130
+    },
+    {
+      "fileName": "Shipyards of the Galaxy _ GM Binder.pdf",
+      "relativePath": "data/Shipyards of the Galaxy _ GM Binder.pdf",
+      "pageCount": 2,
+      "nonEmptyPages": 2
+    },
+    {
+      "fileName": "SW5e - Player's Handbook.pdf",
+      "relativePath": "data/SW5e - Player's Handbook.pdf",
+      "pageCount": 318,
+      "nonEmptyPages": 312
+    },
+    {
+      "fileName": "SW5e - Scum and Villainy - 20191105.pdf",
+      "relativePath": "data/SW5e - Scum and Villainy - 20191105.pdf",
+      "pageCount": 196,
+      "nonEmptyPages": 195
+    },
+    {
+      "fileName": "SW5e - Starships of the Galaxy - 20210316.pdf",
+      "relativePath": "data/SW5e - Starships of the Galaxy - 20210316.pdf",
+      "pageCount": 120,
+      "nonEmptyPages": 119
+    },
+    {
+      "fileName": "SW5e - Wretched Hives - 20220419.pdf",
+      "relativePath": "data/SW5e - Wretched Hives - 20220419.pdf",
+      "pageCount": 230,
+      "nonEmptyPages": 229
+    }
+  ]
+}

@@ -4,6 +4,14 @@ let storageBackend = 'none';
 let forcePowerCatalog = [];
 let techPowerCatalog = [];
 let classProgressionCatalog = {};
+let speciesReferenceNames = [];
+let speciesReferenceSource = '';
+let backgroundReferenceNames = [];
+let backgroundReferenceSource = '';
+let speciesDetailsByName = {};
+let backgroundDetailsByName = {};
+let archetypeReferenceEntries = [];
+let archetypeReferenceSource = '';
 let activeFeatureClassTab = '';
 let activeCharacterArchetypeTab = '';
 let activePowerCatalogTab = 'force';
@@ -1044,7 +1052,14 @@ function renderClassLevelRows(classConfig) {
   }
 
   const normalized = syncClassSummaryFields(classConfig);
-  container.innerHTML = normalized.map((entry, index) => `
+  container.innerHTML = normalized.map((entry, index) => {
+    const archetypeOptions = buildSelectOptionsHtml(
+      archetypeReferenceEntries.map((archetype) => archetype?.name),
+      entry.archetype,
+      'Choose Archetype / Tradition'
+    );
+
+    return `
     <div class="class-level-row" data-index="${index}">
       <div class="class-level-field class-level-field--class">
         <label class="fp-label" for="classLevelName_${index}">Class</label>
@@ -1062,14 +1077,19 @@ function renderClassLevelRows(classConfig) {
       </div>
       <div class="class-level-field class-level-field--archetype">
         <label class="fp-label" for="classArchetype_${index}">Archetype / Tradition</label>
-        <input id="classArchetype_${index}" class="class-archetype-input" value="${entry.archetype.replace(/"/g, '&quot;')}" placeholder="Optional" onchange="updateClassLevelRow(${index}, 'archetype', this.value)">
+        <select id="classArchetype_${index}" class="class-archetype-input" onchange="updateClassLevelRow(${index}, 'archetype', this.value)">
+          ${archetypeOptions}
+        </select>
       </div>
       <div class="class-level-field class-level-field--actions">
         <label class="fp-label">Row</label>
         <button type="button" class="class-level-remove" onclick="removeClassLevelRow(${index})" ${normalized.length <= 1 ? 'disabled' : ''}>Remove</button>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
+
+  refreshArchetypeInputHints();
 }
 
 function buildLevelChoiceDefinitions(classConfig) {
@@ -1195,16 +1215,20 @@ function renderCharacterInfoArchetypeTabs(classConfig) {
   panel.appendChild(label);
 
   if (!classRule) {
-    const input = document.createElement('input');
-    input.className = 'character-archetype-input';
-    input.value = selectedEntry.archetype;
-    input.placeholder = 'Enter archetype';
-    input.onchange = () => updateClassLevelRow(selectedEntry.index, 'archetype', input.value);
-    panel.appendChild(input);
+    const select = document.createElement('select');
+    select.className = 'character-archetype-input';
+    select.innerHTML = buildSelectOptionsHtml(
+      archetypeReferenceEntries.map((archetype) => archetype?.name),
+      selectedEntry.archetype,
+      'Choose Archetype / Tradition'
+    );
+    select.value = selectedEntry.archetype;
+    select.onchange = () => updateClassLevelRow(selectedEntry.index, 'archetype', select.value);
+    panel.appendChild(select);
 
     const hint = document.createElement('p');
     hint.className = 'character-archetype-help';
-    hint.textContent = 'No predefined options loaded for this class yet; enter your archetype manually.';
+    hint.textContent = 'Choose from reference archetypes for this class.';
     panel.appendChild(hint);
   } else {
     const select = document.createElement('select');
@@ -1243,6 +1267,7 @@ function renderCharacterInfoArchetypeTabs(classConfig) {
   }
 
   container.appendChild(panel);
+  refreshArchetypeInputHints();
 }
 
 function setClassLevelConfig(classConfig) {
@@ -2115,6 +2140,320 @@ function renderFeatureList(features, progression = null) {
   }
 }
 
+function getClassFeaturesAtExactLevel(className, level, archetype = '') {
+  const normalizedClassName = String(className || '').trim();
+  const exactLevel = clampLevel(level);
+  if (!normalizedClassName || normalizedClassName === PLACEHOLDER_CLASS) {
+    return [];
+  }
+
+  const classData = getClassProgressionData(normalizedClassName);
+  if (classData?.progression) {
+    const row = classData.progression[String(exactLevel)];
+    if (!row?.features?.length) {
+      return [];
+    }
+
+    return row.features.map((featureName) => createFeatureEntry(
+      featureName,
+      exactLevel,
+      classData.featureDescriptions?.[normalizeFeatureLookupKey(featureName)] || '',
+      classData.name
+    ));
+  }
+
+  if (normalizedClassName.toLowerCase().includes('consular')) {
+    const consularRow = CONSULAR_TABLE[exactLevel];
+    if (!consularRow?.features?.length) {
+      return [];
+    }
+
+    return consularRow.features.map((featureName) => createFeatureEntry(
+      featureName,
+      exactLevel,
+      FEATURE_DETAILS[featureName] || '',
+      'Consular'
+    ));
+  }
+
+  const genericFeatures = getGenericClassFeaturesByLevel(normalizedClassName, exactLevel, archetype)
+    .map((feature) => {
+      const match = String(feature).match(/^Level\s+(\d+):\s*(.+)$/);
+      if (!match) {
+        return null;
+      }
+      const featureLevel = Number(match[1]);
+      const featureName = String(match[2] || '').trim();
+      if (featureLevel !== exactLevel || !featureName) {
+        return null;
+      }
+      return createFeatureEntry(featureName, featureLevel, FEATURE_DETAILS[featureName] || '', normalizedClassName);
+    })
+    .filter(Boolean);
+
+  return genericFeatures;
+}
+
+function createLevelingFeatureItem(feature) {
+  const item = document.createElement('div');
+  item.className = 'leveling-feature-row';
+
+  const name = document.createElement('span');
+  name.className = 'leveling-feature-name';
+  name.textContent = feature.displayName || feature.name;
+
+  const descText = getFeatureDescription(feature);
+  const infoBtn = document.createElement('button');
+  infoBtn.type = 'button';
+  infoBtn.className = 'leveling-feature-info-btn';
+  infoBtn.setAttribute('aria-label', 'View feature description');
+  infoBtn.innerHTML = '&#9432;';
+  infoBtn.title = 'View description';
+  infoBtn.onclick = () => {
+    openReferenceInfoModal({
+      title: feature.name,
+      meta: feature.level != null ? `Level ${feature.level}${feature.className ? ' — ' + feature.className : ''}` : (feature.className || ''),
+      sections: [descText]
+    });
+  };
+
+  item.appendChild(name);
+  item.appendChild(infoBtn);
+  return item;
+}
+
+function renderLevelingUnlockedFeatures(classConfig) {
+  const container = document.getElementById('levelUnlockedFeatureList');
+  if (!container) {
+    return;
+  }
+
+  const concreteClasses = normalizeClassConfig(classConfig).filter((entry) => String(entry.name || '') !== PLACEHOLDER_CLASS);
+  container.innerHTML = '';
+
+  if (!concreteClasses.length) {
+    container.innerHTML = '<p class="features-empty">Add a class to view feature unlocks.</p>';
+    return;
+  }
+
+  concreteClasses.forEach((entry) => {
+    const classLevel = clampLevel(entry.level);
+    const unlockedThroughCurrent = [];
+    for (let unlockedLevel = 1; unlockedLevel <= classLevel; unlockedLevel += 1) {
+      const features = getClassFeaturesAtExactLevel(entry.name, unlockedLevel, entry.archetype);
+      if (features.length) {
+        unlockedThroughCurrent.push({ level: unlockedLevel, features });
+      }
+    }
+
+    const futureUnlocks = [];
+
+    for (let futureLevel = classLevel + 1; futureLevel <= 20; futureLevel += 1) {
+      const features = getClassFeaturesAtExactLevel(entry.name, futureLevel, entry.archetype);
+      if (features.length) {
+        futureUnlocks.push({ level: futureLevel, features });
+      }
+    }
+
+    const classCard = document.createElement('div');
+    classCard.className = 'level-unlocked-card';
+
+    const cardHeader = document.createElement('div');
+    cardHeader.className = 'level-unlocked-card-header';
+
+    const title = document.createElement('span');
+    title.className = 'level-unlocked-title';
+    title.textContent = entry.name;
+
+    const badge = document.createElement('span');
+    badge.className = 'level-unlocked-badge';
+    badge.textContent = `Current Level ${classLevel}`;
+
+    cardHeader.appendChild(title);
+    cardHeader.appendChild(badge);
+    classCard.appendChild(cardHeader);
+
+    const sections = document.createElement('div');
+    sections.className = 'level-unlocked-sections';
+
+    const currentCard = document.createElement('div');
+    currentCard.className = 'level-unlocked-subcard';
+
+    const currentHeading = document.createElement('p');
+    currentHeading.className = 'level-unlocked-section-title';
+    currentHeading.textContent = `Unlocked Through Level ${classLevel}`;
+    currentCard.appendChild(currentHeading);
+
+    const currentParityGrid = document.createElement('div');
+    currentParityGrid.className = 'level-unlocked-parity-grid';
+
+    const oddCard = document.createElement('div');
+    oddCard.className = 'level-unlocked-parity-card';
+    const oddTitle = document.createElement('p');
+    oddTitle.className = 'level-unlocked-section-title';
+    oddTitle.textContent = 'Odd Levels';
+    oddCard.appendChild(oddTitle);
+    const oddLevelsWrap = document.createElement('div');
+    oddLevelsWrap.className = 'level-unlocked-level-grid';
+
+    const evenCard = document.createElement('div');
+    evenCard.className = 'level-unlocked-parity-card';
+    const evenTitle = document.createElement('p');
+    evenTitle.className = 'level-unlocked-section-title';
+    evenTitle.textContent = 'Even Levels';
+    evenCard.appendChild(evenTitle);
+    const evenLevelsWrap = document.createElement('div');
+    evenLevelsWrap.className = 'level-unlocked-level-grid';
+
+    if (unlockedThroughCurrent.length) {
+      unlockedThroughCurrent.forEach((levelGroup) => {
+        const levelCard = document.createElement('div');
+        levelCard.className = 'level-unlocked-level-card unlocked';
+
+        const levelCardHeader = document.createElement('div');
+        levelCardHeader.className = 'level-unlocked-level-card-header';
+
+        const levelLabel = document.createElement('span');
+        levelLabel.className = 'level-unlocked-locked-label';
+        levelLabel.textContent = `Level ${levelGroup.level}`;
+
+        const levelPill = document.createElement('span');
+        levelPill.className = 'level-unlocked-level-pill';
+        levelPill.textContent = 'Unlocked';
+
+        levelCardHeader.appendChild(levelLabel);
+        levelCardHeader.appendChild(levelPill);
+        levelCard.appendChild(levelCardHeader);
+
+        const levelList = document.createElement('div');
+        levelList.className = 'features-dropdown-list';
+        levelGroup.features.forEach((feature) => levelList.appendChild(createLevelingFeatureItem(feature)));
+        levelCard.appendChild(levelList);
+
+        if ((Number(levelGroup.level) || 0) % 2 === 0) {
+          evenLevelsWrap.appendChild(levelCard);
+        } else {
+          oddLevelsWrap.appendChild(levelCard);
+        }
+      });
+    }
+
+    if (!oddLevelsWrap.children.length) {
+      const oddEmpty = document.createElement('p');
+      oddEmpty.className = 'features-empty';
+      oddEmpty.textContent = 'No odd level unlocks yet.';
+      oddLevelsWrap.appendChild(oddEmpty);
+    }
+
+    if (!evenLevelsWrap.children.length) {
+      const evenEmpty = document.createElement('p');
+      evenEmpty.className = 'features-empty';
+      evenEmpty.textContent = 'No even level unlocks yet.';
+      evenLevelsWrap.appendChild(evenEmpty);
+    }
+
+    oddCard.appendChild(oddLevelsWrap);
+    evenCard.appendChild(evenLevelsWrap);
+    currentParityGrid.appendChild(oddCard);
+    currentParityGrid.appendChild(evenCard);
+    currentCard.appendChild(currentParityGrid);
+    sections.appendChild(currentCard);
+
+    const lockedCard = document.createElement('div');
+    lockedCard.className = 'level-unlocked-subcard';
+
+    const lockedHeading = document.createElement('p');
+    lockedHeading.className = 'level-unlocked-section-title';
+    lockedHeading.textContent = `Locked Levels (${classLevel + 1}–20)`;
+    lockedCard.appendChild(lockedHeading);
+
+    const lockedParityGrid = document.createElement('div');
+    lockedParityGrid.className = 'level-unlocked-parity-grid';
+
+    const lockedOddCard = document.createElement('div');
+    lockedOddCard.className = 'level-unlocked-parity-card';
+    const lockedOddTitle = document.createElement('p');
+    lockedOddTitle.className = 'level-unlocked-section-title';
+    lockedOddTitle.textContent = 'Odd Levels';
+    lockedOddCard.appendChild(lockedOddTitle);
+    const lockedOddWrap = document.createElement('div');
+    lockedOddWrap.className = 'level-unlocked-level-grid';
+
+    const lockedEvenCard = document.createElement('div');
+    lockedEvenCard.className = 'level-unlocked-parity-card';
+    const lockedEvenTitle = document.createElement('p');
+    lockedEvenTitle.className = 'level-unlocked-section-title';
+    lockedEvenTitle.textContent = 'Even Levels';
+    lockedEvenCard.appendChild(lockedEvenTitle);
+    const lockedEvenWrap = document.createElement('div');
+    lockedEvenWrap.className = 'level-unlocked-level-grid';
+
+    if (futureUnlocks.length) {
+      futureUnlocks.forEach((futureGroup) => {
+        const levelCard = document.createElement('div');
+        levelCard.className = 'level-unlocked-level-card locked';
+
+        const levelRow = document.createElement('div');
+        levelRow.className = 'level-unlocked-level-card-header';
+
+        const levelLabel = document.createElement('span');
+        levelLabel.className = 'level-unlocked-locked-label';
+        levelLabel.textContent = `Level ${futureGroup.level}`;
+
+        const showMoreBtn = document.createElement('button');
+        showMoreBtn.type = 'button';
+        showMoreBtn.className = 'level-unlocked-show-more';
+        showMoreBtn.textContent = 'Show';
+
+        const futureList = document.createElement('div');
+        futureList.className = 'leveling-feature-list level-unlocked-future hidden';
+        futureGroup.features.forEach((feature) => futureList.appendChild(createLevelingFeatureItem(feature)));
+
+        showMoreBtn.onclick = () => {
+          futureList.classList.toggle('hidden');
+          const expanded = !futureList.classList.contains('hidden');
+          showMoreBtn.textContent = expanded ? 'Hide' : 'Show';
+        };
+
+        levelRow.appendChild(levelLabel);
+        levelRow.appendChild(showMoreBtn);
+        levelCard.appendChild(levelRow);
+        levelCard.appendChild(futureList);
+
+        if ((Number(futureGroup.level) || 0) % 2 === 0) {
+          lockedEvenWrap.appendChild(levelCard);
+        } else {
+          lockedOddWrap.appendChild(levelCard);
+        }
+      });
+    }
+
+    if (!lockedOddWrap.children.length) {
+      const e = document.createElement('p');
+      e.className = 'features-empty';
+      e.textContent = 'No odd locked levels.';
+      lockedOddWrap.appendChild(e);
+    }
+
+    if (!lockedEvenWrap.children.length) {
+      const e = document.createElement('p');
+      e.className = 'features-empty';
+      e.textContent = 'No even locked levels.';
+      lockedEvenWrap.appendChild(e);
+    }
+
+    lockedOddCard.appendChild(lockedOddWrap);
+    lockedEvenCard.appendChild(lockedEvenWrap);
+    lockedParityGrid.appendChild(lockedOddCard);
+    lockedParityGrid.appendChild(lockedEvenCard);
+    lockedCard.appendChild(lockedParityGrid);
+    sections.appendChild(lockedCard);
+    classCard.appendChild(sections);
+
+    container.appendChild(classCard);
+  });
+}
+
 function setProgressionOutputs(progression) {
   document.getElementById('proficiencyBonus').value = `Proficiency Bonus: +${progression.pb}`;
   document.getElementById('forcePowersKnown').value = `Force Powers Known: ${progression.forcePowersKnown}`;
@@ -2159,6 +2498,7 @@ function setProgressionOutputs(progression) {
     : 'Level requirements satisfied.';
 
   renderFeatureList(progression.features, progression);
+  renderLevelingUnlockedFeatures(getClassLevelConfig());
 }
 
 function applyLevelProgression(options = {}) {
@@ -2362,6 +2702,8 @@ function setCharacterData(data) {
     
     // Basic Info
   document.getElementById('name').value = data.name || '';
+  syncSelectOptions('species', speciesReferenceNames, 'Choose Species');
+  syncSelectOptions('background', backgroundReferenceNames, 'Choose Background');
   document.getElementById('species').value = data.species || '';
   const classConfig = normalizeClassConfig(data.classes || [{ name: data.class || 'Consular', level: data.level || 1, archetype: data.archetype || '' }]);
   setClassLevelConfig(classConfig);
@@ -2725,6 +3067,212 @@ function loadClassProgressionCatalog() {
   }
 }
 
+function loadJsonFromDataFile(fileName) {
+  if (fs && path) {
+    const filePath = path.join(__dirname, 'data', fileName);
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  }
+
+  const request = new XMLHttpRequest();
+  request.open('GET', `./data/${fileName}`, false);
+  request.send(null);
+  if (request.status !== 200 && request.status !== 0) {
+    throw new Error(`${fileName} request failed with status ${request.status}`);
+  }
+  return JSON.parse(request.responseText);
+}
+
+function populateDatalist(datalistId, values) {
+  const listEl = document.getElementById(datalistId);
+  if (!listEl) {
+    return;
+  }
+
+  const unique = Array.from(new Set((Array.isArray(values) ? values : []).map((item) => String(item || '').trim()).filter(Boolean)))
+    .sort((left, right) => left.localeCompare(right));
+  listEl.innerHTML = unique.map((name) => `<option value="${name.replace(/"/g, '&quot;')}"></option>`).join('');
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function buildSelectOptionsHtml(values, currentValue, placeholderText) {
+  const normalizedCurrent = String(currentValue || '');
+  const unique = Array.from(new Set((Array.isArray(values) ? values : []).map((item) => String(item || '').trim()).filter(Boolean)))
+    .sort((left, right) => left.localeCompare(right));
+
+  const options = [`<option value="">${escapeHtml(placeholderText)}</option>`];
+  unique.forEach((name) => {
+    options.push(`<option value="${escapeHtml(name)}" ${name === normalizedCurrent ? 'selected' : ''}>${escapeHtml(name)}</option>`);
+  });
+
+  if (normalizedCurrent && !unique.includes(normalizedCurrent)) {
+    options.push(`<option value="${escapeHtml(normalizedCurrent)}" selected>${escapeHtml(normalizedCurrent)} (custom)</option>`);
+  }
+
+  return options.join('');
+}
+
+function syncSelectOptions(selectId, values, placeholderText) {
+  const selectEl = document.getElementById(selectId);
+  if (!selectEl) {
+    return;
+  }
+
+  const currentValue = String(selectEl.value || '');
+  selectEl.innerHTML = buildSelectOptionsHtml(values, currentValue, placeholderText);
+  selectEl.value = currentValue;
+}
+
+function getArchetypeSourceHint(name) {
+  const normalized = String(name || '').trim().toLowerCase();
+  if (!normalized) {
+    return '';
+  }
+
+  const match = archetypeReferenceEntries.find((entry) => String(entry?.name || '').trim().toLowerCase() === normalized);
+  if (!match) {
+    return '';
+  }
+
+  const pages = Array.isArray(match.sourcePages) && match.sourcePages.length
+    ? ` (p. ${match.sourcePages.join(', ')})`
+    : '';
+  return archetypeReferenceSource ? `Source: ${archetypeReferenceSource}${pages}` : `Source${pages}`;
+}
+
+function updateSimpleSourceHint(inputId, validNames, sourceLabel) {
+  const input = document.getElementById(inputId);
+  if (!input) {
+    return;
+  }
+
+  const current = String(input.value || '').trim().toLowerCase();
+  const isKnown = current && validNames.has(current);
+  input.title = isKnown && sourceLabel ? `Source: ${sourceLabel}` : '';
+}
+
+function updateArchetypeInputTitle(input) {
+  if (!input) {
+    return;
+  }
+  input.title = getArchetypeSourceHint(input.value);
+}
+
+function refreshArchetypeInputHints() {
+  document.querySelectorAll('.class-archetype-input, .character-archetype-input, .character-archetype-select').forEach((control) => {
+    if (!control.dataset.sourceHintBound) {
+      control.addEventListener('change', () => updateArchetypeInputTitle(control));
+      control.dataset.sourceHintBound = '1';
+    }
+    updateArchetypeInputTitle(control);
+  });
+}
+
+function loadSheetReferenceCatalogs() {
+  try {
+    const speciesData = loadJsonFromDataFile('species-reference.json');
+    speciesReferenceNames = (speciesData?.species || []).map((entry) => entry?.name).filter(Boolean);
+    speciesReferenceSource = (speciesData?.generatedFrom || [])[0] || '';
+  } catch (err) {
+    console.warn('Unable to load species-reference.json:', err.message);
+    speciesReferenceNames = [];
+    speciesReferenceSource = '';
+  }
+
+  try {
+    const backgroundsData = loadJsonFromDataFile('backgrounds-reference.json');
+    backgroundReferenceNames = (backgroundsData?.backgrounds || []).map((entry) => entry?.name).filter(Boolean);
+    backgroundReferenceSource = (backgroundsData?.generatedFrom || [])[0] || '';
+  } catch (err) {
+    console.warn('Unable to load backgrounds-reference.json:', err.message);
+    backgroundReferenceNames = [];
+    backgroundReferenceSource = '';
+  }
+
+  try {
+    const archetypesData = loadJsonFromDataFile('archetypes-reference.json');
+    archetypeReferenceEntries = Array.isArray(archetypesData?.archetypes) ? archetypesData.archetypes : [];
+    archetypeReferenceSource = (archetypesData?.generatedFrom || [])[0] || '';
+  } catch (err) {
+    console.warn('Unable to load archetypes-reference.json:', err.message);
+    archetypeReferenceEntries = [];
+    archetypeReferenceSource = '';
+  }
+
+  try {
+    const speciesDetailsData = loadJsonFromDataFile('species-details.json');
+    const speciesEntries = Array.isArray(speciesDetailsData?.species) ? speciesDetailsData.species : [];
+    speciesDetailsByName = speciesEntries.reduce((acc, entry) => {
+      const key = normalizeLookupName(entry?.name);
+      if (key) {
+        acc[key] = entry;
+      }
+      return acc;
+    }, {});
+  } catch (err) {
+    console.warn('Unable to load species-details.json:', err.message);
+    speciesDetailsByName = {};
+  }
+
+  try {
+    const backgroundDetailsData = loadJsonFromDataFile('background-details.json');
+    const backgroundEntries = Array.isArray(backgroundDetailsData?.backgrounds) ? backgroundDetailsData.backgrounds : [];
+    backgroundDetailsByName = backgroundEntries.reduce((acc, entry) => {
+      const key = normalizeLookupName(entry?.name);
+      if (key) {
+        acc[key] = entry;
+      }
+      return acc;
+    }, {});
+  } catch (err) {
+    console.warn('Unable to load background-details.json:', err.message);
+    backgroundDetailsByName = {};
+  }
+
+  populateDatalist('speciesOptions', speciesReferenceNames);
+  populateDatalist('backgroundOptions', backgroundReferenceNames);
+  populateDatalist('archetypeOptions', archetypeReferenceEntries.map((entry) => entry?.name).filter(Boolean));
+  syncSelectOptions('species', speciesReferenceNames, 'Choose Species');
+  syncSelectOptions('background', backgroundReferenceNames, 'Choose Background');
+
+  const speciesNameSet = new Set(speciesReferenceNames.map((name) => String(name).trim().toLowerCase()));
+  const backgroundNameSet = new Set(backgroundReferenceNames.map((name) => String(name).trim().toLowerCase()));
+  const speciesInput = document.getElementById('species');
+  const backgroundInput = document.getElementById('background');
+
+  if (speciesInput && !speciesInput.dataset.sourceHintBound) {
+    speciesInput.addEventListener('change', () => updateSimpleSourceHint('species', speciesNameSet, speciesReferenceSource));
+    speciesInput.dataset.sourceHintBound = '1';
+  }
+
+  if (backgroundInput && !backgroundInput.dataset.sourceHintBound) {
+    backgroundInput.addEventListener('change', () => updateSimpleSourceHint('background', backgroundNameSet, backgroundReferenceSource));
+    backgroundInput.dataset.sourceHintBound = '1';
+  }
+
+  if (speciesInput && !speciesInput.dataset.infoModalBound) {
+    speciesInput.addEventListener('change', updateIdentityInfoButtonState);
+    speciesInput.dataset.infoModalBound = '1';
+  }
+
+  if (backgroundInput && !backgroundInput.dataset.infoModalBound) {
+    backgroundInput.addEventListener('change', updateIdentityInfoButtonState);
+    backgroundInput.dataset.infoModalBound = '1';
+  }
+
+  updateSimpleSourceHint('species', speciesNameSet, speciesReferenceSource);
+  updateSimpleSourceHint('background', backgroundNameSet, backgroundReferenceSource);
+  updateIdentityInfoButtonState();
+  refreshArchetypeInputHints();
+}
+
 function getKnownPowersList() {
   const items = document.querySelectorAll('#powersLeft .power-item, #powersRight .power-item');
   return Array.from(items).map((el) => ({
@@ -2745,6 +3293,10 @@ function getTechPowersList() {
 }
 
 function normalizeForcePowerName(name) {
+  return String(name || '').trim().toLowerCase();
+}
+
+function normalizeLookupName(name) {
   return String(name || '').trim().toLowerCase();
 }
 
@@ -2836,7 +3388,7 @@ function ensurePowerDescriptionModal() {
   return overlay;
 }
 
-function openPowerDescriptionModal(power) {
+function openReferenceInfoModal(options) {
   const overlay = ensurePowerDescriptionModal();
   const titleEl = document.getElementById('powerModalTitle');
   const metaEl = document.getElementById('powerModalMeta');
@@ -2846,10 +3398,113 @@ function openPowerDescriptionModal(power) {
     return;
   }
 
-  titleEl.textContent = power.name;
-  metaEl.textContent = powerLevelLabel(power.level);
-  bodyEl.textContent = power.description || 'No description available.';
+  const title = options?.title || 'Details';
+  const meta = options?.meta || '';
+  const sections = Array.isArray(options?.sections) ? options.sections.filter(Boolean) : [];
+
+  titleEl.textContent = title;
+  metaEl.textContent = meta;
+  metaEl.style.display = meta ? '' : 'none';
+  bodyEl.textContent = sections.length ? sections.join('\n\n') : 'No description available.';
   overlay.classList.remove('hidden');
+}
+
+function openPowerDescriptionModal(power) {
+  const sections = [];
+  if (power?.description) {
+    sections.push(power.description);
+  }
+
+  openReferenceInfoModal({
+    title: power?.name || 'Power Details',
+    meta: typeof power?.level === 'number' ? powerLevelLabel(power.level) : '',
+    sections
+  });
+}
+
+function getSpeciesDetailByName(name) {
+  return speciesDetailsByName[normalizeLookupName(name)] || null;
+}
+
+function getBackgroundDetailByName(name) {
+  return backgroundDetailsByName[normalizeLookupName(name)] || null;
+}
+
+function updateIdentityInfoButtonState() {
+  const speciesName = document.getElementById('species')?.value || '';
+  const backgroundName = document.getElementById('background')?.value || '';
+  const speciesBtn = document.getElementById('speciesInfoBtn');
+  const backgroundBtn = document.getElementById('backgroundInfoBtn');
+
+  if (speciesBtn) {
+    const hasSelection = Boolean(speciesName);
+    speciesBtn.disabled = !hasSelection;
+    speciesBtn.title = hasSelection ? `Show details for ${speciesName}` : 'Select a species to view details';
+  }
+
+  if (backgroundBtn) {
+    const hasSelection = Boolean(backgroundName);
+    backgroundBtn.disabled = !hasSelection;
+    backgroundBtn.title = hasSelection ? `Show details for ${backgroundName}` : 'Select a background to view details';
+  }
+}
+
+function showSpeciesInfoModal() {
+  const speciesName = document.getElementById('species')?.value || '';
+  if (!speciesName) {
+    return;
+  }
+
+  const details = getSpeciesDetailByName(speciesName) || {};
+  const sections = [];
+  if (details.description) {
+    sections.push(`Description\n${details.description}`);
+  }
+  if (details.benefits) {
+    sections.push(`Species Benefits\n${details.benefits}`);
+  }
+  if (!sections.length) {
+    sections.push('No species details found for this selection.');
+  }
+
+  const sourceMeta = details.sourcePage
+    ? `Source: ${details.source || speciesReferenceSource || 'Species Reference'} (p. ${details.sourcePage})`
+    : `Source: ${details.source || speciesReferenceSource || 'Species Reference'}`;
+
+  openReferenceInfoModal({
+    title: speciesName,
+    meta: sourceMeta,
+    sections
+  });
+}
+
+function showBackgroundInfoModal() {
+  const backgroundName = document.getElementById('background')?.value || '';
+  if (!backgroundName) {
+    return;
+  }
+
+  const details = getBackgroundDetailByName(backgroundName) || {};
+  const sections = [];
+  if (details.description) {
+    sections.push(`Description\n${details.description}`);
+  }
+  if (details.benefits) {
+    sections.push(`Background Benefits\n${details.benefits}`);
+  }
+  if (!sections.length) {
+    sections.push('No background details found for this selection.');
+  }
+
+  const sourceMeta = details.sourcePage
+    ? `Source: ${details.source || backgroundReferenceSource || 'Background Reference'} (p. ${details.sourcePage})`
+    : `Source: ${details.source || backgroundReferenceSource || 'Background Reference'}`;
+
+  openReferenceInfoModal({
+    title: backgroundName,
+    meta: sourceMeta,
+    sections
+  });
 }
 
 function closePowerDescriptionModal() {
@@ -3499,6 +4154,7 @@ window.addEventListener('DOMContentLoaded', () => {
   loadClassProgressionCatalog();
   loadForcePowerCatalog();
   loadTechPowerCatalog();
+  loadSheetReferenceCatalogs();
   bindIdentityFieldGuards();
 
   document.addEventListener('keydown', (event) => {
