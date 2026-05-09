@@ -1,6 +1,6 @@
 {
   "name": "sw5e-character-app",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "SW5E Character Sheet Desktop App",
   "main": "main.js",
   "scripts": {
