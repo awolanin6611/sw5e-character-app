@@ -10,12 +10,44 @@
       "baseEndPage": 53,
       "subclasses": [
         {
+          "name": "Addicted Approach",
+          "page": 5
+        },
+        {
+          "name": "Armored Approach",
+          "page": 6
+        },
+        {
           "name": "Ballistic Approach",
           "page": 54
         },
         {
+          "name": "Beastmaster Approach",
+          "page": 7
+        },
+        {
+          "name": "Bloodstorm Approach",
+          "page": 9
+        },
+        {
+          "name": "Brawling Approach",
+          "page": 10
+        },
+        {
+          "name": "Champion Approach",
+          "page": 11
+        },
+        {
           "name": "Cyclone Approach",
           "page": 55
+        },
+        {
+          "name": "Frenzied Approach",
+          "page": 12
+        },
+        {
+          "name": "Industrial Approach",
+          "page": 13
         },
         {
           "name": "Juggernaut Approach",
@@ -24,6 +56,14 @@
         {
           "name": "Marauder Approach",
           "page": 57
+        },
+        {
+          "name": "Precision Approach",
+          "page": 15
+        },
+        {
+          "name": "Warchief Approach",
+          "page": 16
         }
       ],
       "progression": {
@@ -179,16 +219,48 @@
           "page": 63
         },
         {
+          "name": "Way of Confluence",
+          "page": 17
+        },
+        {
+          "name": "Way of Endurance",
+          "page": 18
+        },
+        {
           "name": "Way of Lightning",
           "page": 64
+        },
+        {
+          "name": "Way of Manipulation",
+          "page": 19
+        },
+        {
+          "name": "Way of Negation",
+          "page": 20
+        },
+        {
+          "name": "Way of Suggestion",
+          "page": 66
+        },
+        {
+          "name": "Way of Technology",
+          "page": 22
+        },
+        {
+          "name": "Way of Telekinetics",
+          "page": 23
+        },
+        {
+          "name": "Way of Tutelage",
+          "page": 24
         },
         {
           "name": "Way of the Sage",
           "page": 65
         },
         {
-          "name": "Way of Suggestion",
-          "page": 66
+          "name": "Way of the Seer",
+          "page": 21
         }
       ],
       "progression": {
@@ -328,6 +400,34 @@
           "page": 73
         },
         {
+          "name": "Artificer Engineering",
+          "page": 25
+        },
+        {
+          "name": "Astrotech Engineering",
+          "page": 28
+        },
+        {
+          "name": "Audiotech Engineering",
+          "page": 32
+        },
+        {
+          "name": "Biochem Engineering",
+          "page": 35
+        },
+        {
+          "name": "Biotech Engineering",
+          "page": 38
+        },
+        {
+          "name": "Construction Engineering",
+          "page": 41
+        },
+        {
+          "name": "Cybertech Engineering",
+          "page": 43
+        },
+        {
           "name": "Gadgeteer Engineering",
           "page": 76
         },
@@ -465,6 +565,10 @@
       "baseEndPage": 84,
       "subclasses": [
         {
+          "name": "Adept Specialist",
+          "page": 46
+        },
+        {
           "name": "Assault Specialist",
           "page": 85
         },
@@ -473,12 +577,48 @@
           "page": 86
         },
         {
+          "name": "Demolitions Specialist",
+          "page": 48
+        },
+        {
+          "name": "Enhancement Specialist",
+          "page": 49
+        },
+        {
+          "name": "Exhibition Specialist",
+          "page": 51
+        },
+        {
+          "name": "Fireteam Specialist",
+          "page": 52
+        },
+        {
+          "name": "Heavy Weapons Specialist",
+          "page": 54
+        },
+        {
+          "name": "Mounted Specialist",
+          "page": 55
+        },
+        {
+          "name": "Praetorian Specialist",
+          "page": 56
+        },
+        {
+          "name": "Scanner Specialist",
+          "page": 95
+        },
+        {
           "name": "Shield Specialist",
           "page": 87
         },
         {
           "name": "Tactical Specialist",
           "page": 88
+        },
+        {
+          "name": "Totem Specialist",
+          "page": 57
         }
       ],
       "progression": {
@@ -628,6 +768,18 @@
       "baseEndPage": 92,
       "subclasses": [
         {
+          "name": "Aqinos Form",
+          "page": 59
+        },
+        {
+          "name": "Ataru Form",
+          "page": 60
+        },
+        {
+          "name": "Jar'Kai Form",
+          "page": 61
+        },
+        {
           "name": "Makashi Form",
           "page": 93
         },
@@ -640,8 +792,24 @@
           "page": 95
         },
         {
+          "name": "Shii-Cho Form",
+          "page": 64
+        },
+        {
+          "name": "Sokan Form",
+          "page": 65
+        },
+        {
           "name": "Soresu Form",
           "page": 97
+        },
+        {
+          "name": "Trakata Form",
+          "page": 66
+        },
+        {
+          "name": "Ysannanite Form",
+          "page": 70
         }
       ],
       "progression": {
@@ -780,20 +948,64 @@
       "baseEndPage": 102,
       "subclasses": [
         {
+          "name": "Aing-Tii Order",
+          "page": 71
+        },
+        {
           "name": "Crimson Order",
           "page": 103
+        },
+        {
+          "name": "Deployment Order",
+          "page": 105
         },
         {
           "name": "Echani Order",
           "page": 104
         },
         {
+          "name": "Jal Shey Order",
+          "page": 72
+        },
+        {
+          "name": "Kage Order",
+          "page": 73
+        },
+        {
+          "name": "Kro Var Order",
+          "page": 75
+        },
+        {
+          "name": "Kyuzo Order",
+          "page": 74
+        },
+        {
           "name": "Matukai Order",
           "page": 105
         },
         {
+          "name": "Monastic Order",
+          "page": 101
+        },
+        {
           "name": "Nightsister Order",
           "page": 106
+        },
+        {
+          "name": "Rakatan Order",
+          "page": 79
+        },
+        {
+          "name": "Teras Kasi Order",
+          "page": 80
+        },
+        {
+          "name": "Trickster Order",
+          "page": 81
+        },
+        {
+          "name": "Whills Order",
+          "page": 82
         }
       ],
       "progression": {
@@ -963,8 +1175,48 @@
           "page": 113
         },
         {
+          "name": "Bolstering Practice",
+          "page": 83
+        },
+        {
+          "name": "Disabling Practice",
+          "page": 84
+        },
+        {
           "name": "Lethality Practice",
           "page": 115
+        },
+        {
+          "name": "Maverick Practice",
+          "page": 86
+        },
+        {
+          "name": "Performance Practice",
+          "page": 87
+        },
+        {
+          "name": "Pugnacity Practice",
+          "page": 88
+        },
+        {
+          "name": "Ruffian Practice",
+          "page": 89
+        },
+        {
+          "name": "Saboteur Practice",
+          "page": 90
+        },
+        {
+          "name": "Sawbones Practice",
+          "page": 92
+        },
+        {
+          "name": "Scrapper Practice",
+          "page": 93
+        },
+        {
+          "name": "Shadow Killer Practice",
+          "page": 94
         },
         {
           "name": "Sharpshooter Practice",
@@ -1120,8 +1372,32 @@
       "baseEndPage": 121,
       "subclasses": [
         {
+          "name": "Archaeologist Pursuit",
+          "page": 95
+        },
+        {
+          "name": "Chef Pursuit",
+          "page": 97
+        },
+        {
+          "name": "Detective Pursuit",
+          "page": 99
+        },
+        {
+          "name": "Explorer Pursuit",
+          "page": 100
+        },
+        {
           "name": "Gambler Pursuit",
           "page": 122
+        },
+        {
+          "name": "Geneticist Pursuit",
+          "page": 101
+        },
+        {
+          "name": "Occultist Pursuit",
+          "page": 103
         },
         {
           "name": "Physician Pursuit",
@@ -1132,8 +1408,16 @@
           "page": 125
         },
         {
+          "name": "Slicer Pursuit",
+          "page": 105
+        },
+        {
           "name": "Tactician Pursuit",
           "page": 126
+        },
+        {
+          "name": "Zoologist Pursuit",
+          "page": 107
         }
       ],
       "progression": {
@@ -1435,20 +1719,48 @@
       "baseEndPage": 138,
       "subclasses": [
         {
-          "name": "Path of the Corsair",
-          "page": 139
+          "name": "Path of Communion",
+          "page": 122
+        },
+        {
+          "name": "Path of Ethereality",
+          "page": 124
         },
         {
           "name": "Path of Focus",
           "page": 140
         },
         {
-          "name": "Path of the Forceblade",
-          "page": 141
+          "name": "Path of Iron",
+          "page": 125
+        },
+        {
+          "name": "Path of Meditation",
+          "page": 126
         },
         {
           "name": "Path of Shadows",
           "page": 142
+        },
+        {
+          "name": "Path of Synthesis",
+          "page": 127
+        },
+        {
+          "name": "Path of Tenacity",
+          "page": 128
+        },
+        {
+          "name": "Path of Witchcraft",
+          "page": 129
+        },
+        {
+          "name": "Path of the Corsair",
+          "page": 139
+        },
+        {
+          "name": "Path of the Forceblade",
+          "page": 141
         }
       ],
       "progression": {

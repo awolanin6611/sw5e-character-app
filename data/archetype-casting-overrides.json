@@ -1,0 +1,465 @@
+{
+  "generatedFrom": [
+    "archetypes-reference.json",
+    "pdf-corpus.jsonl",
+    "archetype-casting-curation.json"
+  ],
+  "appliedCuration": {
+    "allow": {
+      "force": 0,
+      "tech": 0
+    },
+    "deny": {
+      "force": 0,
+      "tech": 0
+    }
+  },
+  "overrides": {
+    "force": [
+      {
+        "classKey": "berserker",
+        "archetypeIncludes": [
+          "marauder approach"
+        ],
+        "archetypeName": "Marauder Approach",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 57,
+            "snippet": "MARAUDER APPROACH Few things are more terrifying than being in the path of a Berserker who has learned the ways of the Force. Those who follow this path unlock something deep within them, a well of untamed power from the depths of their fur"
+          },
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 58,
+            "snippet": "RECKLESS POWER Marauder Approach: 6th level Weapons and the force are equally an extension of your rage. While you are raging and you use your action to cast a force power, you can make a single melee weapon attack as a bonus action. MARAUD"
+          }
+        ]
+      },
+      {
+        "classKey": "consular",
+        "archetypeIncludes": [
+          "way of lightning"
+        ],
+        "archetypeName": "Way of Lightning",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 64,
+            "snippet": "WAY OF LIGHTNING Of all of the dark arts of the Force, little can match the spectacle and devastation of Force lightning. Those consulars who follow the Way of Lightning summon intense discharges of pure Force energy, overwhelming enemies w"
+          }
+        ]
+      },
+      {
+        "classKey": "consular",
+        "archetypeIncludes": [
+          "way of manipulation"
+        ],
+        "archetypeName": "Way of Manipulation",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 19,
+            "snippet": "WAY OF MANIPULATION The power of the Force is both vast and diverse, with uses varying drastically based on their wielder. Those consulars who follow the Way of Manipulation learn to control their weapons with the Force, maneuvering them ac"
+          }
+        ]
+      },
+      {
+        "classKey": "consular",
+        "archetypeIncludes": [
+          "way of suggestion"
+        ],
+        "archetypeName": "Way of Suggestion",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 66,
+            "snippet": "WAY OF SUGGESTION There is power in a light touch, and no one knows this better than the consular. Those consulars who follow the Way of Suggestion have honed their attunement to the Force, allowing them to disappear, despite being in plain"
+          }
+        ]
+      },
+      {
+        "classKey": "consular",
+        "archetypeIncludes": [
+          "way of the sage"
+        ],
+        "archetypeName": "Way of the Sage",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 65,
+            "snippet": "WAY OF THE SAGE The rejuvenating power of the Force is incredible, and the consular is the master of this usage. Those consulars who follow the Way of the Sage assist with an array of healing powers that grant allies the strength to continu"
+          }
+        ]
+      },
+      {
+        "classKey": "engineer",
+        "archetypeIncludes": [
+          "artificer engineering"
+        ],
+        "archetypeName": "Artificer Engineering",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 25,
+            "snippet": "ARTIFICER ENGINEERING Those engineers who choose the Artificer Engineering discipline focus on building and modifying lightsabers, while tapping into the latent presence of the Force in these lightsaber crystals. BONUS PROFICIENCIES Artific"
+          }
+        ]
+      },
+      {
+        "classKey": "fighter",
+        "archetypeIncludes": [
+          "adept specialist"
+        ],
+        "archetypeName": "Adept Specialist",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 46,
+            "snippet": "ADEPT SPECIALIST Those fighters who choose to become Adept Specialists tap into a latent Force-sensitivity to augment their martial prowess, blending the two to accelerate their bodies and blows. An adept speeds across the battlefield, atta"
+          },
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 47,
+            "snippet": "WHIRLING WEAPONS Adept Specialist: 7th level Your constant blur of motion and attacks becomes an unending barrage as you build momentum. Once on your turn when you miss with a weapon attack you can make another weapon attack, no action requ"
+          }
+        ]
+      },
+      {
+        "classKey": "monk",
+        "archetypeIncludes": [
+          "aing-tii order"
+        ],
+        "archetypeName": "Aing-Tii Order",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 71,
+            "snippet": "AING-TII ORDER Monks of the Aing-Tii Order blend an attunement to the Force with their supreme focus to become a blur of motion in the heat of battle. FORCECASTING Aing-Tii Order: 3rd level You have learned powers, fragments of knowledge th"
+          }
+        ]
+      },
+      {
+        "classKey": "monk",
+        "archetypeIncludes": [
+          "monastic order"
+        ],
+        "archetypeName": "Monastic Order",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 122,
+            "snippet": "PATH OF COMMUNION Those who master the Force can transcend death, persisting beyond their natural experation. Those sentinels who follow the Path of Communion bond with a Force ghost, developing a symbiotic relationship which alters the way"
+          },
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 101,
+            "snippet": "MONASTIC ORDER Monk: 3rd, 6th, 11th, and 17th level You commit yourself to one monastic order, which is detailed at the end of the class description. ABILITY SCORE IMPROVEMENT Monk: 4th, 8th, 10th, 12th, 16th, and 19th level You can increas"
+          }
+        ]
+      },
+      {
+        "classKey": "operative",
+        "archetypeIncludes": [
+          "beguiler practice"
+        ],
+        "archetypeName": "Beguiler Practice",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 113,
+            "snippet": "BEGUILER PRACTICE Those operatives who choose the Beguiler Practice augment their natural wiles and charm with subtle utilization of the Force. They tap into these powers to cloud the minds of their foes, distracting and diverting before ab"
+          },
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 114,
+            "snippet": "FASCINATING DISPLAY Beguiler Practice: 3rd level You can spend 1 minute attemping to distract and enthrall those around you. Choose a number of humanoids within 60 feet of you who watched your display for the duration, up to a number equal "
+          }
+        ]
+      },
+      {
+        "classKey": "scholar",
+        "archetypeIncludes": [
+          "archaeologist pursuit"
+        ],
+        "archetypeName": "Archaeologist Pursuit",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 95,
+            "snippet": "ARCHAEOLOGIST PURSUIT Archaeologists are those who study the remnants of historical civilizations. Those scholars who choose the Archaeologist Pursuit are driven by a desire to uncover the past, forming a connection to the lives of those th"
+          },
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 96,
+            "snippet": "PSYCHOMETRIC ANALYSIS Archaeologist Pursuit: 9th level Your strength in the Force and your ability to read the objects around you intensifies. You can use your Critical Analysis to analyze an object of Huge size or smaller that you can see "
+          }
+        ]
+      },
+      {
+        "classKey": "scholar",
+        "archetypeIncludes": [
+          "occultist pursuit"
+        ],
+        "archetypeName": "Occultist Pursuit",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 104,
+            "snippet": "TOIL AND TROUBLE Occultist Pursuit: 17th level You perfect your control of your curses, granting them unmatched potency. When the target of your Curse of Objurgation fails a saving throw against one of your maneuvers, you can choose to ampl"
+          }
+        ]
+      },
+      {
+        "classKey": "sentinel",
+        "archetypeIncludes": [
+          "path of communion"
+        ],
+        "archetypeName": "Path of Communion",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 122,
+            "snippet": "PATH OF COMMUNION Those who master the Force can transcend death, persisting beyond their natural experation. Those sentinels who follow the Path of Communion bond with a Force ghost, developing a symbiotic relationship which alters the way"
+          }
+        ]
+      },
+      {
+        "classKey": "sentinel",
+        "archetypeIncludes": [
+          "path of shadows"
+        ],
+        "archetypeName": "Path of Shadows",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 142,
+            "snippet": "PATH OF SHADOWS In darkness, there is protection. Those sentinels who follow the Path of Shadows utilize a calculated plan, becoming masters of stealth and ambush who forgo the head-on attack for the vulnerable flank. DEAD SILENCE Path of S"
+          }
+        ]
+      },
+      {
+        "classKey": "sentinel",
+        "archetypeIncludes": [
+          "path of witchcraft"
+        ],
+        "archetypeName": "Path of Witchcraft",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 129,
+            "snippet": "PATH OF WITCHCRAFT The Force connects all living things. Those sentinels who follow the Path of Witchcraft use that connection to summon the aid of nature, both spirits and the elements, adapting them to their will. WILD POWER Path of Witch"
+          },
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 130,
+            "snippet": "PATH OF WITCHCRAFT (COMPANION) The Force connects all living things. Those sentinels who follow the Path of Witchcraft use that connection to summon the aid of nature, both beasts and the elements, adapting them to their will. BONUS PROFICI"
+          }
+        ]
+      }
+    ],
+    "tech": [
+      {
+        "classKey": "berserker",
+        "archetypeIncludes": [
+          "industrial approach"
+        ],
+        "archetypeName": "Industrial Approach",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 13,
+            "snippet": "INDUSTRIAL APPROACH While some berserkers are content to surrender to their rage, others prefer a more tactful approach. Berserkers of the Industrial Approach augment their rage with the versatility of technology, adding elemental explosion"
+          },
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 14,
+            "snippet": "EXPLOSIVE RESILIENCE Industrial Approach: 6th, 9th, 13th, and 17th level Once per round, when you deal damage that includes your rage damage, you can cause a localized explosion around the recipient of that damage. Each creature within 5 fe"
+          }
+        ]
+      },
+      {
+        "classKey": "berserker",
+        "archetypeIncludes": [
+          "juggernaut approach"
+        ],
+        "archetypeName": "Juggernaut Approach",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 49,
+            "snippet": "CHAPTER 3: CLASSES dventurers are extraordinary people, driven by a thirst for excitement into a life that others would never dare lead. They are heroes, compelled to explore the dark places of the world and take on the challenges that less"
+          }
+        ]
+      },
+      {
+        "classKey": "consular",
+        "archetypeIncludes": [
+          "way of technology"
+        ],
+        "archetypeName": "Way of Technology",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 22,
+            "snippet": "WAY OF TECHNOLOGY While many Forcewielders eschew the use of technology, other choose to embrace it. Those consulars who follow the Way of Technology pair their mastery of the Force with the versatility of technology, applying the knowledge"
+          }
+        ]
+      },
+      {
+        "classKey": "engineer",
+        "archetypeIncludes": [
+          "astrotech engineering"
+        ],
+        "archetypeName": "Astrotech Engineering",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 28,
+            "snippet": "ASTROTECH ENGINEERING Those engineers who choose the Astrotech Engineering discipline focus on utilizing their vast knowledge of droid technology to confuse, confound, and destroy enemy tech, droids and constructs. BONUS PROFICIENCIES Astro"
+          }
+        ]
+      },
+      {
+        "classKey": "engineer",
+        "archetypeIncludes": [
+          "cybertech engineering"
+        ],
+        "archetypeName": "Cybertech Engineering",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 43,
+            "snippet": "CYBERTECH ENGINEERING Those engineers who choose the Cybertech Engineering discipline focus on the ability to craft reusable consumables and items that augment and complement their techcasting abilities. BONUS PROFICIENCIES Cybertech Engine"
+          }
+        ]
+      },
+      {
+        "classKey": "engineer",
+        "archetypeIncludes": [
+          "gadgeteer engineering"
+        ],
+        "archetypeName": "Gadgeteer Engineering",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 76,
+            "snippet": "GADGETEER ENGINEERING Those engineers who choose the Gadgeteer discipline focus on the ability to craft reusable consumables and items that augment and complement their techcasting abilities. BONUS PROFICIENCIES Gadgeteer Engineering: 3rd l"
+          }
+        ]
+      },
+      {
+        "classKey": "fighter",
+        "archetypeIncludes": [
+          "enhancement specialist"
+        ],
+        "archetypeName": "Enhancement Specialist",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 49,
+            "snippet": "ENHANCEMENT SPECIALIST Those fighters who choose to become Enhancement Specialists learn to apply their technological prowess to their blasters. With their deep understanding of both their weapon and how to manipulate its ammunition on the "
+          }
+        ]
+      },
+      {
+        "classKey": "fighter",
+        "archetypeIncludes": [
+          "shield specialist"
+        ],
+        "archetypeName": "Shield Specialist",
+        "evidence": [
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 49,
+            "snippet": "CHAPTER 3: CLASSES dventurers are extraordinary people, driven by a thirst for excitement into a life that others would never dare lead. They are heroes, compelled to explore the dark places of the world and take on the challenges that less"
+          },
+          {
+            "fileName": "SW5e - Player's Handbook.pdf",
+            "page": 87,
+            "snippet": "SHIELD SPECIALIST Those fighters who choose to become Shield Specialists train to bolster those around them. They can inspire their allies with renewed vigor while simultaneously protecting them from harm. TECHCASTING Shield Specialist: 3rd"
+          }
+        ]
+      },
+      {
+        "classKey": "guardian",
+        "archetypeIncludes": [
+          "aqinos form"
+        ],
+        "archetypeName": "Aqinos Form",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 59,
+            "snippet": "AQINOS FORM Aqinos Form, also know as Adaptation Form, is named after a Jedi Master who sought to merge technology with Force use. Those guardians who focus on Aqinos Form adopt these tenets to employ clever exploits using technology and th"
+          }
+        ]
+      },
+      {
+        "classKey": "monk",
+        "archetypeIncludes": [
+          "rakatan order"
+        ],
+        "archetypeName": "Rakatan Order",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 79,
+            "snippet": "RAKATAN ORDER Monks of the Rakatan Order believe in the harmony of self with technology. They use tech to push themselves beyond their body's natural limits. TECHCASTING Rakatan Order: 3rd level You have derived powers from schematics with "
+          }
+        ]
+      },
+      {
+        "classKey": "operative",
+        "archetypeIncludes": [
+          "saboteur practice"
+        ],
+        "archetypeName": "Saboteur Practice",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 90,
+            "snippet": "SABOTEUR PRACTICE Those operatives who choose the Saboteur Practice enhance their fine-honed skills of stealth and agility with tech, using advanced technology with the aid of a tracker droid to sustain a longer assault. BONUS PROFICIENCIES"
+          },
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 91,
+            "snippet": "TRACKER DROID COMPANION Saboteur Practice: 3rd, 5th, 9th, 13th, and 17th level You learn to employ all the knowledge you've accumulated to create and customize your own tracker droid companion. Create your tracker droid companion as detaile"
+          }
+        ]
+      },
+      {
+        "classKey": "scholar",
+        "archetypeIncludes": [
+          "slicer pursuit"
+        ],
+        "archetypeName": "Slicer Pursuit",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 105,
+            "snippet": "SLICER PURSUIT Across the galaxy one can find numerous pseudonyms and false identities belonging to the hackers and cyber- infiltrators that call the world of electronics home. Those scholars who choose the Slicer Pursuit put their impressi"
+          },
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 106,
+            "snippet": "POTENT PROGRAMMING Slicer Pursuit: 6th level When a creature succeeds on a saving throw against an at-will tech power you cast that deals damage, the creature takes half the power's damage, but suffers no additional effects of the power. RE"
+          }
+        ]
+      },
+      {
+        "classKey": "sentinel",
+        "archetypeIncludes": [
+          "path of synthesis"
+        ],
+        "archetypeName": "Path of Synthesis",
+        "evidence": [
+          {
+            "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+            "page": 127,
+            "snippet": "PATH OF SYNTHESIS There is power in diversity unknown to those of narrow mind. Those sentinels who follow the Path of Synthesis blend their intricate mastery of the Force with their understanding of technology, creating unique effects to ov"
+          }
+        ]
+      }
+    ]
+  }
+}

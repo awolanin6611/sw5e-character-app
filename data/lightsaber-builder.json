@@ -1,0 +1,359 @@
+{
+  "lightsaber": {
+    "description": "Lightsaber modular system from lightsaber_modular_system_full_player_v3.pdf",
+    "modules": {
+      "crystals": {
+        "description": "Lightsaber crystals that add damage dice and grant special effects",
+        "scalingRule": "Adds damage dice equal to crystal tier × saber tier",
+        "options": {
+          "blue": {
+            "name": "Blue (Kyber)",
+            "tier1": {
+              "effect": "Reroll 1 missed attack (SR)",
+              "damageDice": 1
+            },
+            "tier2": {
+              "effect": "+1d6 first hit/turn",
+              "damageDice": 2
+            },
+            "tier3": {
+              "effect": "+1d10 on crit; +1 AC",
+              "damageDice": 3
+            }
+          },
+          "green": {
+            "name": "Green (Adegan)",
+            "tier1": {
+              "effect": "+2 to the first Concentration check",
+              "damageDice": 1
+            },
+            "tier2": {
+              "effect": "+1d4 force/turn",
+              "damageDice": 2
+            },
+            "tier3": {
+              "effect": "PB to Concentration",
+              "damageDice": 3
+            }
+          },
+          "yellow": {
+            "name": "Yellow",
+            "tier1": {
+              "effect": "Advantage vs hidden/invisible",
+              "damageDice": 1
+            },
+            "tier2": {
+              "effect": "+2 initiative; radiant crits",
+              "damageDice": 2
+            },
+            "tier3": {
+              "effect": "Cannot be surprised",
+              "damageDice": 3
+            }
+          },
+          "orange": {
+            "name": "Orange",
+            "tier1": {
+              "effect": "Advantage on Insight (social)",
+              "damageDice": 1
+            },
+            "tier2": {
+              "effect": "+1d4 Persuasion; min 10",
+              "damageDice": 2
+            },
+            "tier3": {
+              "effect": "Neutralize hostiles; Persuasion expertise",
+              "damageDice": 3
+            }
+          },
+          "red": {
+            "name": "Red (Synthetic)",
+            "tier1": {
+              "effect": "+10 damage (LR)",
+              "damageDice": 1
+            },
+            "tier2": {
+              "effect": "+1d6 necrotic/turn; heal 2",
+              "damageDice": 2
+            },
+            "tier3": {
+              "effect": "+2d6 necrotic/turn; restore FP",
+              "damageDice": 3
+            }
+          },
+          "purple": {
+            "name": "Purple",
+            "tier1": {
+              "effect": "Adv Insight vs Force-users",
+              "damageDice": 1
+            },
+            "tier2": {
+              "effect": "+1d8 force/SR",
+              "damageDice": 2
+            },
+            "tier3": {
+              "effect": "Ignore resistance",
+              "damageDice": 3
+            }
+          }
+        }
+      },
+      "enhancements": {
+        "description": "Lightsaber enhancements that provide additional effects",
+        "options": {
+          "tier1": [
+            {
+              "name": "Stabilization Matrix",
+              "effect": "Reduce crit-fail chance"
+            },
+            {
+              "name": "Heat Vent",
+              "effect": "+1d4 once/turn"
+            },
+            {
+              "name": "Insulated Wiring",
+              "effect": "Advantage vs disarm"
+            },
+            {
+              "name": "Basic Dual-Phase",
+              "effect": "10 ft reach (1 round)"
+            },
+            {
+              "name": "Anti-Armor",
+              "effect": "+3 vs droids/armor"
+            },
+            {
+              "name": "Energy Bypass",
+              "effect": "+1 damage vs shields"
+            }
+          ],
+          "tier2": [
+            {
+              "name": "Refined Power Cell",
+              "effect": "+1d8/SR"
+            },
+            {
+              "name": "Hyper-Resonance",
+              "effect": "+1d10 crit"
+            },
+            {
+              "name": "Force Pulse",
+              "effect": "1d4 when hit"
+            },
+            {
+              "name": "Advanced Dual-Phase",
+              "effect": "Free reach mode"
+            },
+            {
+              "name": "Overload Regulator",
+              "effect": "+2 damage if you spent FP this turn"
+            },
+            {
+              "name": "Stability Bracket",
+              "effect": "+1 to hit if you haven't moved"
+            }
+          ],
+          "tier3": [
+            {
+              "name": "Perfect Power Core",
+              "effect": "+1d6 every hit"
+            },
+            {
+              "name": "Ionic Harmonics",
+              "effect": "Ignore resist/immunity (1/SR)"
+            },
+            {
+              "name": "Photon Edge",
+              "effect": "Cuts like adamantine"
+            },
+            {
+              "name": "Force Matrix",
+              "effect": "+4 reaction to Force/Concentration"
+            },
+            {
+              "name": "Supercharged Dual-Phase",
+              "effect": "+2d6 first reach hit"
+            },
+            {
+              "name": "Quantum Channel",
+              "effect": "Once per turn, add +PB damage of chosen type"
+            }
+          ]
+        }
+      },
+      "mods": {
+        "description": "Lightsaber mods that grant tactical bonuses",
+        "options": {
+          "tier1": [
+            {
+              "name": "Emitter Guard",
+              "effect": "+1 AC vs melee"
+            },
+            {
+              "name": "Counterweight",
+              "effect": "Adv Acrobatics"
+            },
+            {
+              "name": "Focusing Lens",
+              "effect": "1 advantaged attack (SR)"
+            },
+            {
+              "name": "Perceptive Module",
+              "effect": "+1 Wis; adv Perception"
+            },
+            {
+              "name": "Agile Coupling",
+              "effect": "+1 Dex; +1 init"
+            },
+            {
+              "name": "Micro-Servo Actuator",
+              "effect": "+1 to hit if dual wielding"
+            }
+          ],
+          "tier2": [
+            {
+              "name": "Crossguard Stabilizer",
+              "effect": "+1d6 reaction damage"
+            },
+            {
+              "name": "Kinetic Loop",
+              "effect": "+2 dmg after parry/deflect"
+            },
+            {
+              "name": "Ocular Scope",
+              "effect": "+2 to hit w/ disadvantage"
+            },
+            {
+              "name": "Mag-Seal",
+              "effect": "Only disarmed on crit"
+            },
+            {
+              "name": "Evasion Gyroscope",
+              "effect": "+1 Dex; shift 5 ft on miss"
+            },
+            {
+              "name": "Targeting Subprocessor",
+              "effect": "+1 damage on all off-hand attacks"
+            }
+          ],
+          "tier3": [
+            {
+              "name": "Inquisitor Disk",
+              "effect": "AoE 3d8 (1/SR)"
+            },
+            {
+              "name": "Phantom Edge",
+              "effect": "Add PB force dmg (1/turn)"
+            },
+            {
+              "name": "Auto-Parry Routine",
+              "effect": "+2 AC vs one attack"
+            },
+            {
+              "name": "Synergy Matrix",
+              "effect": "Crit fi ally attack"
+            },
+            {
+              "name": "Dual-Channel Conductor",
+              "effect": "+1d6 force when dual wield"
+            },
+            {
+              "name": "Overclocked Processor",
+              "effect": "+1 attack roll per turn (not an extra attack)"
+            }
+          ]
+        }
+      },
+      "hilts": {
+        "description": "Lightsaber hilt types that affect handling and combat style",
+        "options": {
+          "tier1": [
+            {
+              "name": "Standard",
+              "effect": "Balanced"
+            },
+            {
+              "name": "Shoto",
+              "effect": "+1 off-hand dmg"
+            },
+            {
+              "name": "Extended Grip",
+              "effect": "+5 ft shove"
+            },
+            {
+              "name": "Artisan Wrap",
+              "effect": "Adv Persuasion vs Force-users"
+            },
+            {
+              "name": "Guarded Emitter",
+              "effect": "+1 AC (two-handed)"
+            },
+            {
+              "name": "Ventilated Pommel",
+              "effect": "+1 initiative"
+            }
+          ],
+          "tier2": [
+            {
+              "name": "Curved Makashi",
+              "effect": "+2 hit (Dex melee)"
+            },
+            {
+              "name": "Dual-Emitter",
+              "effect": "+1d6 vs grappled"
+            },
+            {
+              "name": "Balance-Core",
+              "effect": "+2 initiative"
+            },
+            {
+              "name": "Ataru Leaping",
+              "effect": "+1d8 after 10 ft move"
+            },
+            {
+              "name": "Defender Hilt",
+              "effect": "+2 AC after Dodge"
+            },
+            {
+              "name": "Crushguard Lattice",
+              "effect": "+1 damage vs large creatures"
+            }
+          ],
+          "tier3": [
+            {
+              "name": "Ancient Jedi",
+              "effect": "+2 dmg; heal 2d8 (LR)"
+            },
+            {
+              "name": "Sith Warforged",
+              "effect": "+2d6 necrotic/turn"
+            },
+            {
+              "name": "Crossguard Master",
+              "effect": "Reaction attack on miss"
+            },
+            {
+              "name": "Double-Saber",
+              "effect": "Bonus action strike"
+            },
+            {
+              "name": "Force-Conductive",
+              "effect": "+2 Force DC"
+            },
+            {
+              "name": "Echo Resonance Frame",
+              "effect": "+PB to first attack each combat"
+            }
+          ]
+        }
+      }
+    },
+    "defaultBuild": {
+      "tier": 1,
+      "crystal": "blue",
+      "enhancement": null,
+      "mod": null,
+      "hilt": "standard"
+    }
+  }
+}

@@ -574,6 +574,87 @@ textarea {
   width: 100%;
 }
 
+.equipment-module-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: start;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+#lightsaberModuleCards {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.equipment-choice-card {
+  border: 1px solid #7A5B3F;
+  border-radius: 8px;
+  background: rgba(20, 12, 10, 0.22);
+  padding: 8px;
+}
+
+.equipment-choice-title {
+  margin: 0 0 6px;
+  color: #E8DCC8;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.equipment-choice-help {
+  margin: 0 0 8px;
+  color: #C7B6A2;
+  font-size: 0.72rem;
+}
+
+.equipment-choice-list {
+  display: grid;
+  gap: 6px;
+}
+
+.equipment-choice-option {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #6B5344;
+  border-radius: 8px;
+  background: rgba(20, 12, 10, 0.28);
+  color: #E8DCC8;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.equipment-choice-option:hover {
+  border-color: #A07B57;
+  background: rgba(20, 12, 10, 0.4);
+}
+
+.equipment-choice-option.active {
+  border-color: #D4A05F;
+  background: rgba(82, 56, 28, 0.4);
+}
+
+.equipment-choice-option-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.equipment-choice-option-effect {
+  margin-top: 4px;
+  color: #C7B6A2;
+  font-size: 0.72rem;
+}
+
+@media (max-width: 760px) {
+  .equipment-module-cards {
+    grid-template-columns: 1fr;
+  }
+
+  #lightsaberModuleCards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .character-archetype-tabs-wrap {
   display: flex;
   flex-direction: column;

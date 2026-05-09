@@ -48,6 +48,11 @@ ARCHETYPE_HINT_WORDS = {
     "WAY",
 }
 
+ARCHETYPE_PREFIX_PATTERNS = (
+    "way of ",
+    "path of ",
+)
+
 NAME_LINE_RE = re.compile(r"^[A-Za-z][A-Za-z'\- ]{1,50}$")
 
 
@@ -110,6 +115,23 @@ def is_upper_heading(line: str) -> bool:
     return bool(line) and line == line.upper() and bool(NAME_LINE_RE.match(line))
 
 
+def looks_like_archetype_name(line: str) -> bool:
+    normalized = clean_line(line)
+    if not normalized:
+        return False
+
+    words = normalized.split()
+    if len(words) < 2 or len(words) > 6:
+        return False
+
+    lower = normalized.lower()
+    if any(lower.startswith(prefix) for prefix in ARCHETYPE_PREFIX_PATTERNS):
+        return True
+
+    tail = words[-1].upper()
+    return tail in ARCHETYPE_HINT_WORDS
+
+
 def extract_archetypes_from_pdf(pdf_path: Path) -> list[dict]:
     doc = fitz.open(pdf_path)
     try:
@@ -123,7 +145,7 @@ def extract_archetypes_from_pdf(pdf_path: Path) -> list[dict]:
                     continue
                 if any(skip in upper for skip in ARCHETYPE_SKIP_TERMS):
                     continue
-                if not any(hint in upper for hint in ARCHETYPE_HINT_WORDS):
+                if not looks_like_archetype_name(line):
                     continue
 
                 name = smart_title(line)
@@ -138,6 +160,48 @@ def extract_archetypes_from_pdf(pdf_path: Path) -> list[dict]:
         return results
     finally:
         doc.close()
+
+
+def extract_archetypes_from_all_pdfs(pdf_paths: list[Path]) -> list[dict]:
+    merged: dict[str, dict] = {}
+
+    for pdf_path in pdf_paths:
+        for entry in extract_archetypes_from_pdf(pdf_path):
+            name = entry.get("name", "")
+            normalized = str(name).strip().lower()
+            if not normalized:
+                continue
+
+            existing = merged.get(normalized)
+            if existing is None:
+                merged[normalized] = {
+                    "name": str(name).strip(),
+                    "sourcePages": sorted(set(entry.get("sourcePages", []))),
+                    "sourceFile": pdf_path.name,
+                    "sources": [
+                        {
+                            "fileName": pdf_path.name,
+                            "sourcePages": sorted(set(entry.get("sourcePages", []))),
+                        }
+                    ],
+                }
+                continue
+
+            existing_sources = existing.setdefault("sources", [])
+            existing_sources.append(
+                {
+                    "fileName": pdf_path.name,
+                    "sourcePages": sorted(set(entry.get("sourcePages", []))),
+                }
+            )
+
+    results = sorted(merged.values(), key=lambda item: item["name"])
+    for item in results:
+        item["sources"] = sorted(
+            item.get("sources", []),
+            key=lambda source: (str(source.get("fileName", "")), source.get("sourcePages", [0])[0] if source.get("sourcePages") else 0),
+        )
+    return results
 
 
 def find_pdf_by_keyword(keyword: str) -> Path | None:
@@ -196,7 +260,7 @@ def main() -> None:
 
     species_names = extract_toc_names_from_first_page(species_pdf) if species_pdf else []
     background_names = extract_toc_names_from_first_page(backgrounds_pdf) if backgrounds_pdf else []
-    archetype_entries = extract_archetypes_from_pdf(archetypes_pdf) if archetypes_pdf else []
+    archetype_entries = extract_archetypes_from_all_pdfs(all_pdfs)
 
     species_output = {
         "generatedFrom": [species_pdf.name] if species_pdf else [],
@@ -209,7 +273,7 @@ def main() -> None:
         "backgrounds": [{"name": name} for name in background_names],
     }
     archetypes_output = {
-        "generatedFrom": [archetypes_pdf.name] if archetypes_pdf else [],
+        "generatedFrom": [pdf.name for pdf in all_pdfs],
         "count": len(archetype_entries),
         "archetypes": archetype_entries,
     }

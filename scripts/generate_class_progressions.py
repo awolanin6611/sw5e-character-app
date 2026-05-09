@@ -10,6 +10,7 @@ import fitz
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 OUTPUT_PATH = DATA_DIR / "class-progressions.json"
+ARCHETYPES_PATH = DATA_DIR / "archetypes-reference.json"
 
 CLASS_NAMES = [
     "Berserker",
@@ -30,6 +31,19 @@ LEVEL_RE = re.compile(r"^(?:[1-9]|1[0-9]|20)(?:st|nd|rd|th)?$")
 PB_RE = re.compile(r"^[+-]\d+$")
 RESOURCE_RE = re.compile(r"^(?:[+-]\d+|\d+|—|Unlimited|At-will|(?:[1-9]|1[0-9]|20)(?:st|nd|rd|th))$")
 DICE_RE = re.compile(r"^d(?:4|6|8|10|12)$", re.IGNORECASE)
+
+CLASS_ARCHETYPE_HINTS = {
+    "berserker": ["approach"],
+    "consular": ["way", "tradition"],
+    "engineer": ["engineering"],
+    "fighter": ["specialist"],
+    "guardian": ["form"],
+    "monk": ["order"],
+    "operative": ["practice"],
+    "scholar": ["pursuit"],
+    "scout": ["technique"],
+    "sentinel": ["path"],
+}
 
 
 def find_handbook_pdf(data_dir: Path) -> Path:
@@ -259,10 +273,72 @@ def build_output() -> dict:
             "featureDescriptions": feature_descriptions,
         }
 
+    augment_subclasses_with_expanded_archetypes(classes)
+
     return {
         "generatedFrom": [handbook_pdf.name],
         "classes": classes,
     }
+
+
+def infer_class_key_for_archetype(name: str) -> str | None:
+    normalized = str(name or "").strip().lower()
+    if not normalized:
+        return None
+
+    for class_key, hints in CLASS_ARCHETYPE_HINTS.items():
+        for hint in hints:
+            if re.search(rf"\b{re.escape(hint)}\b", normalized):
+                return class_key
+
+    return None
+
+
+def augment_subclasses_with_expanded_archetypes(classes: dict) -> None:
+    if not ARCHETYPES_PATH.exists():
+        return
+
+    try:
+        raw = json.loads(ARCHETYPES_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return
+
+    archetype_entries = raw.get("archetypes", []) if isinstance(raw, dict) else []
+    if not isinstance(archetype_entries, list):
+        return
+
+    by_class: dict[str, list[dict]] = {key: [] for key in classes.keys()}
+    for archetype in archetype_entries:
+        name = str((archetype or {}).get("name", "")).strip()
+        if not name:
+            continue
+
+        class_key = infer_class_key_for_archetype(name)
+        if not class_key or class_key not in by_class:
+            continue
+
+        source_pages = (archetype or {}).get("sourcePages", [])
+        page = source_pages[0] if isinstance(source_pages, list) and source_pages else None
+        if page is None:
+            continue
+
+        by_class[class_key].append({"name": name, "page": page})
+
+    for class_key, additions in by_class.items():
+        if not additions:
+            continue
+
+        existing = classes[class_key].get("subclasses", [])
+        seen = {str(item.get("name", "")).strip().lower() for item in existing}
+        for entry in additions:
+            normalized_name = str(entry.get("name", "")).strip().lower()
+            if normalized_name in seen:
+                continue
+            existing.append(entry)
+            seen.add(normalized_name)
+
+        existing.sort(key=lambda item: str(item.get("name", "")))
+        classes[class_key]["subclasses"] = existing
 
 
 def main() -> None:

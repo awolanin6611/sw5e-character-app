@@ -1,0 +1,11 @@
+{
+  "notes": "Manual allow/deny rules for archetype casting overrides. Use lowercase classKey values from class-progressions.json.",
+  "allow": {
+    "force": [],
+    "tech": []
+  },
+  "deny": {
+    "force": [],
+    "tech": []
+  }
+}

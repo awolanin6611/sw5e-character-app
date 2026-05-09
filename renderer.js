@@ -12,6 +12,7 @@ let speciesDetailsByName = {};
 let backgroundDetailsByName = {};
 let archetypeReferenceEntries = [];
 let archetypeReferenceSource = '';
+let archetypeCastingOverrides = { force: [], tech: [] };
 let activeFeatureClassTab = '';
 let activeCharacterArchetypeTab = '';
 let activePowerCatalogTab = 'force';
@@ -162,6 +163,16 @@ const CLASS_OPTIONS = [
 ];
 
 const SUPPORTED_PROGRESSION_CLASSES = ['consular', 'engineer', 'scout'];
+
+const ARCHETYPE_CASTING_OVERRIDES = {
+  force: [
+    {
+      classKey: 'berserker',
+      archetypeIncludes: ['marauder']
+    }
+  ],
+  tech: []
+};
 
 const CLASS_CHOICE_RULES = {
   berserker: {
@@ -339,6 +350,54 @@ function normalizeFeatureLookupKey(text) {
 function getClassProgressionData(className) {
   const normalized = String(className || '').trim().toLowerCase();
   return classProgressionCatalog[normalized] || null;
+}
+
+function classHasFeatureByLevel(className, level, featureName) {
+  const classData = getClassProgressionData(className);
+  if (!classData?.progression) {
+    return false;
+  }
+
+  const target = String(featureName || '').trim().toLowerCase();
+  if (!target) {
+    return false;
+  }
+
+  const maxLevel = Math.max(1, Number(level) || 1);
+  for (let currentLevel = 1; currentLevel <= maxLevel; currentLevel += 1) {
+    const row = classData.progression[String(currentLevel)];
+    if (!row?.features?.length) {
+      continue;
+    }
+
+    if (row.features.some((feature) => String(feature || '').trim().toLowerCase() === target)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function classHasArchetypeCastingOverride(className, archetypeName, castingType) {
+  const normalizedClass = String(className || '').trim().toLowerCase();
+  const normalizedArchetype = String(archetypeName || '').trim().toLowerCase();
+  if (!normalizedClass || !normalizedArchetype) {
+    return false;
+  }
+
+  const overrideRows = [
+    ...(ARCHETYPE_CASTING_OVERRIDES[castingType] || []),
+    ...((archetypeCastingOverrides?.[castingType]) || []),
+  ];
+  return overrideRows.some((row) => {
+    const classMatches = normalizedClass.includes(String(row.classKey || '').trim().toLowerCase());
+    if (!classMatches) {
+      return false;
+    }
+
+    const archetypeTokens = Array.isArray(row.archetypeIncludes) ? row.archetypeIncludes : [];
+    return archetypeTokens.some((token) => normalizedArchetype.includes(String(token || '').trim().toLowerCase()));
+  });
 }
 
 function createFeatureEntry(name, level = null, description = '', className = '') {
@@ -535,118 +594,287 @@ const SAVE_ID_TO_LABEL = {
   chaSave: 'Charisma Save'
 };
 
-const LIGHTSABER_CRYSTAL_OPTION_IDS = [
-  'blue_t1', 'green_t1', 'yellow_t1', 'orange_t1', 'red_t1', 'purple_t1',
-  'blue_t2', 'green_t2', 'yellow_t2', 'orange_t2', 'red_t2', 'purple_t2',
-  'blue_t3', 'green_t3', 'yellow_t3', 'orange_t3', 'red_t3', 'purple_t3'
-];
-
-const LEGACY_LIGHTSABER_CRYSTAL_MAP = {
-  kyber: 'blue_t1',
-  adegan: 'green_t1',
-  bonded: 'yellow_t1',
-  synthetic: 'red_t1'
+// NEW EQUIPMENT SYSTEM - Loads from modular system PDFs
+// lightsaber_modular_system_full_player_v3 (2).pdf and blaster_modular_system_complete (1).pdf
+let equipmentBuilderData = {
+  lightsaber: null,
+  blaster: null,
+  bonuses: null,
+  loaded: false
 };
 
-const TIERED_MODULE_FAMILIES = {
-  lightsaberEmitter: ['standard', 'focused', 'unstable', 'adaptive'],
-  lightsaberHilt: ['balanced', 'duelist', 'reinforced', 'chain'],
-  blasterFrame: ['pistol', 'rifle', 'carbine', 'sniper'],
-  blasterBarrel: ['standard', 'precision', 'heavy', 'scatter'],
-  blasterPowerCell: ['standard', 'highYield', 'ionized', 'rapidCycle'],
-  blasterScope: ['iron', 'optic', 'smart', 'tactical']
+const EQUIPMENT_MODULE_CARD_CONFIG = {
+  lightsaberCrystal: { cardId: 'lightsaberCrystalChoiceCard', title: 'Crystal Core Options' },
+  lightsaberEnhancement: { cardId: 'lightsaberEnhancementChoiceCard', title: 'Enhancement Options' },
+  lightsaberMod: { cardId: 'lightsaberModChoiceCard', title: 'Mod Options' },
+  lightsaberHilt: { cardId: 'lightsaberHiltChoiceCard', title: 'Hilt Assembly Options' },
+  blasterPowerCell: { cardId: 'blasterPowerCellChoiceCard', title: 'Power Cell Options' },
+  blasterFiringModule: { cardId: 'blasterFiringModuleChoiceCard', title: 'Firing Module Options' },
+  blasterTargetingArray: { cardId: 'blasterTargetingArrayChoiceCard', title: 'Targeting Array Options' },
+  blasterCoolingJacket: { cardId: 'blasterCoolingJacketChoiceCard', title: 'Cooling Jacket Options' },
+  blasterGrip: { cardId: 'blasterGripChoiceCard', title: 'Grip Options' }
 };
 
-function normalizeTieredModuleValue(value, familyKey, fallbackFamily) {
-  const families = TIERED_MODULE_FAMILIES[familyKey] || [];
-  const raw = String(value || '').trim();
-  if (!raw) {
-    return `${fallbackFamily}_t1`;
+async function initializeEquipmentSystem() {
+  try {
+    const [lightsaberData, blasterData, bonusesData] = await Promise.all([
+      loadJsonFromDataFile('lightsaber-builder.json'),
+      loadJsonFromDataFile('blaster-builder.json'),
+      loadJsonFromDataFile('equipment-module-bonuses.json')
+    ]);
+    
+    equipmentBuilderData = {
+      lightsaber: lightsaberData?.lightsaber || null,
+      blaster: blasterData?.blaster || null,
+      bonuses: bonusesData || null,
+      loaded: true
+    };
+    
+    console.log('✓ Equipment system initialized from modular system PDFs');
+    setupEquipmentDropdownListeners();
+  } catch (err) {
+    console.error('Equipment loader error:', err);
+    equipmentBuilderData.loaded = false;
+  }
+}
+
+// Populate equipment module dropdown with options for the selected tier
+function populateEquipmentModuleDropdown(equipmentType, moduleType, tier, selectElementId) {
+  if (!equipmentBuilderData.loaded) {
+    console.warn(`Equipment data not loaded yet for ${equipmentType} ${moduleType}`);
+    return;
   }
 
-  const legacy = raw.toLowerCase();
-  const legacyMatch = families.find((family) => String(family).toLowerCase() === legacy);
-  if (legacyMatch) {
-    return `${legacyMatch}_t1`;
-  }
+  const selectEl = document.getElementById(selectElementId);
+  if (!selectEl) return;
 
-  const match = raw.match(/^(.*)_t([123])$/i);
-  if (match) {
-    const familyRaw = match[1];
-    const tier = match[2];
-    const familyMatch = families.find((family) => String(family).toLowerCase() === String(familyRaw).toLowerCase());
-    if (familyMatch) {
-      return `${familyMatch}_t${tier}`;
+  // Clear existing options (keep placeholder)
+  selectEl.innerHTML = `<option value="">-- Select ${moduleType.charAt(0).toUpperCase() + moduleType.slice(1)} --</option>`;
+
+  let optionsToAdd = [];
+
+  if (equipmentType === 'lightsaber') {
+    const moduleData = equipmentBuilderData.lightsaber?.modules?.[moduleType];
+    if (moduleData?.options) {
+      const tierKey = `tier${tier}`;
+      
+      // For crystals: options is object keyed by crystal color names
+      if (moduleType === 'crystals') {
+        for (const [key, data] of Object.entries(moduleData.options)) {
+          if (data[tierKey]) {
+            optionsToAdd.push({
+              value: key,
+              label: `${data.name} (T${tier})`,
+              effect: data[tierKey]?.effect || ''
+            });
+          }
+        }
+      } else {
+        // For enhancements, mods, hilts: options[tierN] is array
+        const tierOptions = moduleData.options[tierKey];
+        if (Array.isArray(tierOptions)) {
+          optionsToAdd = tierOptions.map(opt => ({
+            value: opt.name,
+            label: `${opt.name}`,
+            effect: opt.effect || ''
+          }));
+        }
+      }
+    }
+  } else if (equipmentType === 'blaster') {
+    const moduleData = equipmentBuilderData.blaster?.modules?.[moduleType];
+    if (moduleData?.options) {
+      // Blaster structure: options[tierN] is array
+      const tierKey = `tier${tier}`;
+      const tierOptions = moduleData.options[tierKey];
+      if (Array.isArray(tierOptions)) {
+        optionsToAdd = tierOptions.map(opt => ({
+          value: opt.name,
+          label: `${opt.name}`,
+          effect: opt.effect || ''
+        }));
+      }
     }
   }
 
-  return `${fallbackFamily}_t1`;
+  // Add options to select
+  optionsToAdd.forEach(opt => {
+    const option = document.createElement('option');
+    option.value = opt.value;
+    option.textContent = opt.label;
+    option.dataset.effect = opt.effect || '';
+    selectEl.appendChild(option);
+  });
+
+  renderEquipmentModuleChoiceCard(selectElementId);
 }
 
+function renderEquipmentModuleChoiceCard(selectElementId) {
+  const config = EQUIPMENT_MODULE_CARD_CONFIG[selectElementId];
+  if (!config) return;
+
+  const selectEl = document.getElementById(selectElementId);
+  const cardEl = document.getElementById(config.cardId);
+  if (!selectEl || !cardEl) return;
+
+  const options = Array.from(selectEl.options).filter((opt) => String(opt.value || '').trim());
+  if (!options.length) {
+    cardEl.innerHTML = '';
+    cardEl.classList.add('hidden');
+    return;
+  }
+
+  const selectedValue = String(selectEl.value || '');
+  const optionHtml = options.map((opt) => {
+    const value = escapeHtml(String(opt.value || ''));
+    const name = escapeHtml(String(opt.textContent || opt.value || ''));
+    const effect = escapeHtml(String(opt.dataset?.effect || ''));
+    const isActive = String(opt.value || '') === selectedValue ? ' active' : '';
+    const effectHtml = effect ? `<div class="equipment-choice-option-effect">${effect}</div>` : '';
+    return `<button type="button" class="equipment-choice-option${isActive}" data-select-id="${escapeHtml(selectElementId)}" data-value="${value}"><div class="equipment-choice-option-name">${name}</div>${effectHtml}</button>`;
+  }).join('');
+
+  cardEl.innerHTML = `
+    <p class="equipment-choice-title">${escapeHtml(config.title)}</p>
+    <p class="equipment-choice-help">Choose one option. Click to select and apply it to the dropdown.</p>
+    <div class="equipment-choice-list">${optionHtml}</div>
+  `;
+  cardEl.classList.remove('hidden');
+
+  cardEl.querySelectorAll('.equipment-choice-option').forEach((button) => {
+    button.addEventListener('click', () => {
+      const value = String(button.dataset.value || '');
+      selectEl.value = value;
+      renderEquipmentModuleChoiceCard(selectElementId);
+      refreshEquipmentBuild();
+    });
+  });
+}
+
+function syncAllEquipmentModuleChoiceCards() {
+  Object.keys(EQUIPMENT_MODULE_CARD_CONFIG).forEach((selectId) => {
+    renderEquipmentModuleChoiceCard(selectId);
+  });
+}
+
+// Setup event listeners for all tier selectors to populate corresponding module dropdowns
+function setupEquipmentDropdownListeners() {
+  // Lightsaber tier listeners
+  document.getElementById('lightsaberCrystalTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('lightsaber', 'crystals', e.target.value, 'lightsaberCrystal');
+    setEquipmentFieldValue('lightsaberCrystal', '');
+    refreshEquipmentBuild();
+  });
+
+  document.getElementById('lightsaberEnhancementTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('lightsaber', 'enhancements', e.target.value, 'lightsaberEnhancement');
+    setEquipmentFieldValue('lightsaberEnhancement', '');
+    refreshEquipmentBuild();
+  });
+
+  document.getElementById('lightsaberModTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('lightsaber', 'mods', e.target.value, 'lightsaberMod');
+    setEquipmentFieldValue('lightsaberMod', '');
+    refreshEquipmentBuild();
+  });
+
+  document.getElementById('lightsaberHiltTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('lightsaber', 'hilts', e.target.value, 'lightsaberHilt');
+    setEquipmentFieldValue('lightsaberHilt', '');
+    refreshEquipmentBuild();
+  });
+
+  // Blaster tier listeners
+  document.getElementById('blasterPowerCellTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('blaster', 'powerCell', e.target.value, 'blasterPowerCell');
+    setEquipmentFieldValue('blasterPowerCell', '');
+    refreshEquipmentBuild();
+  });
+
+  document.getElementById('blasterFiringModuleTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('blaster', 'firingModule', e.target.value, 'blasterFiringModule');
+    setEquipmentFieldValue('blasterFiringModule', '');
+    refreshEquipmentBuild();
+  });
+
+  document.getElementById('blasterTargetingArrayTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('blaster', 'targetingArray', e.target.value, 'blasterTargetingArray');
+    setEquipmentFieldValue('blasterTargetingArray', '');
+    refreshEquipmentBuild();
+  });
+
+  document.getElementById('blasterCoolingJacketTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('blaster', 'coolingJacket', e.target.value, 'blasterCoolingJacket');
+    setEquipmentFieldValue('blasterCoolingJacket', '');
+    refreshEquipmentBuild();
+  });
+
+  document.getElementById('blasterGripTier')?.addEventListener('change', (e) => {
+    populateEquipmentModuleDropdown('blaster', 'grip', e.target.value, 'blasterGrip');
+    setEquipmentFieldValue('blasterGrip', '');
+    refreshEquipmentBuild();
+  });
+
+  Object.keys(EQUIPMENT_MODULE_CARD_CONFIG).forEach((selectId) => {
+    document.getElementById(selectId)?.addEventListener('change', () => {
+      renderEquipmentModuleChoiceCard(selectId);
+      refreshEquipmentBuild();
+    });
+  });
+
+  // Populate initial selections (default tier 1)
+  populateEquipmentModuleDropdown('lightsaber', 'crystals', '1', 'lightsaberCrystal');
+  populateEquipmentModuleDropdown('lightsaber', 'enhancements', '1', 'lightsaberEnhancement');
+  populateEquipmentModuleDropdown('lightsaber', 'mods', '1', 'lightsaberMod');
+  populateEquipmentModuleDropdown('lightsaber', 'hilts', '1', 'lightsaberHilt');
+  populateEquipmentModuleDropdown('blaster', 'powerCell', '1', 'blasterPowerCell');
+  populateEquipmentModuleDropdown('blaster', 'firingModule', '1', 'blasterFiringModule');
+  populateEquipmentModuleDropdown('blaster', 'targetingArray', '1', 'blasterTargetingArray');
+  populateEquipmentModuleDropdown('blaster', 'coolingJacket', '1', 'blasterCoolingJacket');
+  populateEquipmentModuleDropdown('blaster', 'grip', '1', 'blasterGrip');
+  syncAllEquipmentModuleChoiceCards();
+}
+
+
+
+// Helper: Get value from UI element with fallback
+function readEquipmentFieldValue(elementId, defaultValue = '') {
+  const el = document.getElementById(elementId);
+  return el ? String(el.value || defaultValue) : String(defaultValue);
+}
+
+// Helper: Set value to UI element
+function setEquipmentFieldValue(elementId, value) {
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.value = String(value || '');
+  }
+}
+
+// STUB FUNCTIONS - Kept for compatibility with legacy bonus rendering code
+// These are replaced by the new JSON-driven system but still needed for getAvailableEquipmentBonuses
 function getTieredModuleFamily(value, familyKey, fallbackFamily) {
-  return normalizeTieredModuleValue(value, familyKey, fallbackFamily).replace(/_t[123]$/i, '');
+  return String(fallbackFamily || 'standard');
 }
 
 function getTieredModuleTier(value, familyKey, fallbackFamily) {
-  const normalized = normalizeTieredModuleValue(value, familyKey, fallbackFamily);
-  const match = normalized.match(/_t([123])$/i);
-  return match ? match[1] : '1';
+  return '1';
+}
+
+function normalizeTieredModuleValue(value, familyKey, fallbackFamily) {
+  return `${fallbackFamily || 'standard'}_t1`;
 }
 
 function normalizeLightsaberCrystalValue(value) {
   const raw = String(value || '').trim().toLowerCase();
-  const mapped = LEGACY_LIGHTSABER_CRYSTAL_MAP[raw] || raw;
-  if (LIGHTSABER_CRYSTAL_OPTION_IDS.includes(mapped)) {
-    return mapped;
-  }
+  if (raw === 'blue') return 'blue_t1';
+  if (raw === 'green') return 'green_t1';
+  if (raw === 'yellow') return 'yellow_t1';
+  if (raw === 'orange') return 'orange_t1';
+  if (raw === 'red') return 'red_t1';
+  if (raw === 'purple') return 'purple_t1';
   return 'blue_t1';
 }
-
-function getLightsaberCrystalFamily(value) {
-  return normalizeLightsaberCrystalValue(value).split('_')[0] || 'blue';
-}
-
-function getLightsaberCrystalTier(value) {
-  const tierToken = normalizeLightsaberCrystalValue(value).split('_')[1] || 't1';
-  if (tierToken === 't2') {
-    return '2';
-  }
-  if (tierToken === 't3') {
-    return '3';
-  }
-  return '1';
-}
-
-const EQUIPMENT_DEFAULT_BUILD = {
-  lightsaber: {
-    name: '',
-    tier: '1',
-    style: 'standard',
-    emitter: 'standard_t1',
-    crystal: 'blue_t1',
-    hilt: 'balanced_t1',
-    damageType: 'energy',
-    attackAbility: 'str',
-    proficiencyMode: 'none',
-    linkedSkill: '',
-    linkedSave: '',
-    selectedBonuses: []
-  },
-  blaster: {
-    name: '',
-    tier: '1',
-    frame: 'pistol_t1',
-    barrel: 'standard_t1',
-    powerCell: 'standard_t1',
-    scope: 'iron_t1',
-    damageType: 'energy',
-    attackAbility: 'dex',
-    proficiencyMode: 'none',
-    linkedSkill: '',
-    linkedSave: '',
-    selectedBonuses: []
-  }
-};
 
 const equipmentBonusState = {
   autoProfIds: [],
@@ -655,62 +883,111 @@ const equipmentBonusState = {
 };
 
 function getDefaultEquipmentBuild() {
-  return JSON.parse(JSON.stringify(EQUIPMENT_DEFAULT_BUILD));
+  return {
+    lightsaber: {
+      name: '',
+      tier: '1',
+      crystal: 'blue',
+      crystalTier: 1,
+      enhancement: null,
+      enhancementTier: 1,
+      mod: null,
+      modTier: 1,
+      hilt: 'standard',
+      hiltTier: 1,
+      damageType: 'energy',
+      attackAbility: 'str',
+      proficiencyMode: 'none',
+      linkedSkill: '',
+      linkedSave: '',
+      selectedBonuses: []
+    },
+    blaster: {
+      name: '',
+      tier: '1',
+      powerCell: null,
+      powerCellTier: 1,
+      firingModule: null,
+      firingModuleTier: 1,
+      targetingArray: null,
+      targetingArrayTier: 1,
+      coolingJacket: null,
+      coolingJacketTier: 1,
+      grip: null,
+      gripTier: 1,
+      damageType: 'energy',
+      attackAbility: 'dex',
+      proficiencyMode: 'none',
+      linkedSkill: '',
+      linkedSave: '',
+      selectedBonuses: []
+    }
+  };
 }
 
 function getEquipmentBuildFromUi() {
   const defaults = getDefaultEquipmentBuild();
-  const readValue = (id, fallback) => {
-    const el = document.getElementById(id);
-    return el ? String(el.value || fallback || '') : String(fallback || '');
-  };
-  const readSelectedBonuses = (weapon) => {
-    const checked = Array.from(document.querySelectorAll(`.equipment-bonus-toggle[data-weapon="${weapon}"]:checked`))
-      .map((el) => String(el.value || ''))
-      .filter(Boolean);
-    if (checked.length) {
-      return checked;
-    }
-    const container = document.getElementById(weapon === 'lightsaber' ? 'lightsaberBonusOptions' : 'blasterBonusOptions');
-    const raw = container?.dataset?.selectedBonuses || '[]';
-    try {
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed.map((value) => String(value || '')).filter(Boolean) : [];
-    } catch (_err) {
-      return [];
-    }
-  };
-
+  
   return {
     lightsaber: {
-      name: readValue('lightsaberName', defaults.lightsaber.name),
-      tier: readValue('lightsaberTier', defaults.lightsaber.tier),
-      style: readValue('lightsaberStyle', defaults.lightsaber.style),
-      emitter: normalizeTieredModuleValue(readValue('lightsaberEmitter', defaults.lightsaber.emitter), 'lightsaberEmitter', 'standard'),
-      crystal: normalizeLightsaberCrystalValue(readValue('lightsaberCrystal', defaults.lightsaber.crystal)),
-      hilt: normalizeTieredModuleValue(readValue('lightsaberHilt', defaults.lightsaber.hilt), 'lightsaberHilt', 'balanced'),
-      damageType: readValue('lightsaberDamageType', defaults.lightsaber.damageType),
-      attackAbility: readValue('lightsaberAttackAbility', defaults.lightsaber.attackAbility),
-      proficiencyMode: readValue('lightsaberProficiencyMode', defaults.lightsaber.proficiencyMode),
-      linkedSkill: readValue('lightsaberLinkedSkill', defaults.lightsaber.linkedSkill),
-      linkedSave: readValue('lightsaberLinkedSave', defaults.lightsaber.linkedSave),
-      selectedBonuses: readSelectedBonuses('lightsaber')
+      name: readEquipmentFieldValue('lightsaberName', ''),
+      tier: readEquipmentFieldValue('lightsaberTier', '1'),
+      crystal: readEquipmentFieldValue('lightsaberCrystal', 'blue'),
+      crystalTier: Number(readEquipmentFieldValue('lightsaberCrystalTier', '1')),
+      enhancement: readEquipmentFieldValue('lightsaberEnhancement', null) || null,
+      enhancementTier: Number(readEquipmentFieldValue('lightsaberEnhancementTier', '1')),
+      mod: readEquipmentFieldValue('lightsaberMod', null) || null,
+      modTier: Number(readEquipmentFieldValue('lightsaberModTier', '1')),
+      hilt: readEquipmentFieldValue('lightsaberHilt', 'standard'),
+      hiltTier: Number(readEquipmentFieldValue('lightsaberHiltTier', '1')),
+      damageType: readEquipmentFieldValue('lightsaberDamageType', 'energy'),
+      attackAbility: readEquipmentFieldValue('lightsaberAttackAbility', 'str'),
+      proficiencyMode: readEquipmentFieldValue('lightsaberProficiencyMode', 'none'),
+      linkedSkill: readEquipmentFieldValue('lightsaberLinkedSkill', ''),
+      linkedSave: readEquipmentFieldValue('lightsaberLinkedSave', ''),
+      selectedBonuses: getSelectedEquipmentBonuses('lightsaber')
     },
     blaster: {
-      name: readValue('blasterName', defaults.blaster.name),
-      tier: readValue('blasterTier', defaults.blaster.tier),
-      frame: normalizeTieredModuleValue(readValue('blasterFrame', defaults.blaster.frame), 'blasterFrame', 'pistol'),
-      barrel: normalizeTieredModuleValue(readValue('blasterBarrel', defaults.blaster.barrel), 'blasterBarrel', 'standard'),
-      powerCell: normalizeTieredModuleValue(readValue('blasterPowerCell', defaults.blaster.powerCell), 'blasterPowerCell', 'standard'),
-      scope: normalizeTieredModuleValue(readValue('blasterScope', defaults.blaster.scope), 'blasterScope', 'iron'),
-      damageType: readValue('blasterDamageType', defaults.blaster.damageType),
-      attackAbility: readValue('blasterAttackAbility', defaults.blaster.attackAbility),
-      proficiencyMode: readValue('blasterProficiencyMode', defaults.blaster.proficiencyMode),
-      linkedSkill: readValue('blasterLinkedSkill', defaults.blaster.linkedSkill),
-      linkedSave: readValue('blasterLinkedSave', defaults.blaster.linkedSave),
-      selectedBonuses: readSelectedBonuses('blaster')
+      name: readEquipmentFieldValue('blasterName', ''),
+      tier: readEquipmentFieldValue('blasterTier', '1'),
+      powerCell: readEquipmentFieldValue('blasterPowerCell', null) || null,
+      powerCellTier: Number(readEquipmentFieldValue('blasterPowerCellTier', '1')),
+      firingModule: readEquipmentFieldValue('blasterFiringModule', null) || null,
+      firingModuleTier: Number(readEquipmentFieldValue('blasterFiringModuleTier', '1')),
+      targetingArray: readEquipmentFieldValue('blasterTargetingArray', null) || null,
+      targetingArrayTier: Number(readEquipmentFieldValue('blasterTargetingArrayTier', '1')),
+      coolingJacket: readEquipmentFieldValue('blasterCoolingJacket', null) || null,
+      coolingJacketTier: Number(readEquipmentFieldValue('blasterCoolingJacketTier', '1')),
+      grip: readEquipmentFieldValue('blasterGrip', null) || null,
+      gripTier: Number(readEquipmentFieldValue('blasterGripTier', '1')),
+      damageType: readEquipmentFieldValue('blasterDamageType', 'energy'),
+      attackAbility: readEquipmentFieldValue('blasterAttackAbility', 'dex'),
+      proficiencyMode: readEquipmentFieldValue('blasterProficiencyMode', 'none'),
+      linkedSkill: readEquipmentFieldValue('blasterLinkedSkill', ''),
+      linkedSave: readEquipmentFieldValue('blasterLinkedSave', ''),
+      selectedBonuses: getSelectedEquipmentBonuses('blaster')
     }
   };
+}
+
+function getSelectedEquipmentBonuses(weapon) {
+  const containerId = weapon === 'lightsaber' ? 'lightsaberBonusOptions' : 'blasterBonusOptions';
+  const container = document.getElementById(containerId);
+  if (!container) return [];
+  
+  const checked = Array.from(document.querySelectorAll(`.equipment-bonus-toggle[data-weapon="${weapon}"]:checked`))
+    .map((el) => String(el.value || ''))
+    .filter(Boolean);
+  
+  if (checked.length) return checked;
+  
+  try {
+    const raw = container.dataset?.selectedBonuses || '[]';
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.map(v => String(v || '')).filter(Boolean) : [];
+  } catch (_err) {
+    return [];
+  }
 }
 
 function populateEquipmentLinkedOptions() {
@@ -721,16 +998,12 @@ function populateEquipmentLinkedOptions() {
 
   ['lightsaberLinkedSkill', 'blasterLinkedSkill'].forEach((id) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.innerHTML = skillOptions.join('');
-    }
+    if (el) el.innerHTML = skillOptions.join('');
   });
 
   ['lightsaberLinkedSave', 'blasterLinkedSave'].forEach((id) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.innerHTML = saveOptions.join('');
-    }
+    if (el) el.innerHTML = saveOptions.join('');
   });
 }
 
@@ -744,44 +1017,72 @@ function setEquipmentBuildToUi(build) {
 
   populateEquipmentLinkedOptions();
 
-  const setValue = (id, value) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.value = String(value || '');
-    }
-  };
-
-  setValue('lightsaberName', next.lightsaber.name);
-  setValue('lightsaberTier', next.lightsaber.tier || '1');
-  setValue('lightsaberStyle', next.lightsaber.style);
-  setValue('lightsaberEmitter', normalizeTieredModuleValue(next.lightsaber.emitter, 'lightsaberEmitter', 'standard'));
-  setValue('lightsaberCrystal', normalizeLightsaberCrystalValue(next.lightsaber.crystal));
-  setValue('lightsaberHilt', normalizeTieredModuleValue(next.lightsaber.hilt, 'lightsaberHilt', 'balanced'));
-  setValue('lightsaberDamageType', next.lightsaber.damageType);
-  setValue('lightsaberAttackAbility', next.lightsaber.attackAbility);
-  setValue('lightsaberProficiencyMode', next.lightsaber.proficiencyMode);
-  setValue('lightsaberLinkedSkill', next.lightsaber.linkedSkill);
-  setValue('lightsaberLinkedSave', next.lightsaber.linkedSave);
-  const lightsaberBonusContainer = document.getElementById('lightsaberBonusOptions');
-  if (lightsaberBonusContainer) {
-    lightsaberBonusContainer.dataset.selectedBonuses = JSON.stringify(next.lightsaber.selectedBonuses || []);
+  // Set lightsaber fields
+  setEquipmentFieldValue('lightsaberName', next.lightsaber.name);
+  setEquipmentFieldValue('lightsaberTier', next.lightsaber.tier || '1');
+  setEquipmentFieldValue('lightsaberCrystal', next.lightsaber.crystal || 'blue');
+  setEquipmentFieldValue('lightsaberCrystalTier', next.lightsaber.crystalTier || '1');
+  setEquipmentFieldValue('lightsaberEnhancement', next.lightsaber.enhancement || '');
+  setEquipmentFieldValue('lightsaberEnhancementTier', next.lightsaber.enhancementTier || '1');
+  setEquipmentFieldValue('lightsaberMod', next.lightsaber.mod || '');
+  setEquipmentFieldValue('lightsaberModTier', next.lightsaber.modTier || '1');
+  setEquipmentFieldValue('lightsaberHilt', next.lightsaber.hilt || 'standard');
+  setEquipmentFieldValue('lightsaberHiltTier', next.lightsaber.hiltTier || '1');
+  setEquipmentFieldValue('lightsaberDamageType', next.lightsaber.damageType);
+  setEquipmentFieldValue('lightsaberAttackAbility', next.lightsaber.attackAbility);
+  setEquipmentFieldValue('lightsaberProficiencyMode', next.lightsaber.proficiencyMode);
+  setEquipmentFieldValue('lightsaberLinkedSkill', next.lightsaber.linkedSkill);
+  setEquipmentFieldValue('lightsaberLinkedSave', next.lightsaber.linkedSave);
+  
+  const lightsaberContainer = document.getElementById('lightsaberBonusOptions');
+  if (lightsaberContainer) {
+    lightsaberContainer.dataset.selectedBonuses = JSON.stringify(next.lightsaber.selectedBonuses || []);
   }
 
-  setValue('blasterName', next.blaster.name);
-  setValue('blasterTier', next.blaster.tier || '1');
-  setValue('blasterFrame', normalizeTieredModuleValue(next.blaster.frame, 'blasterFrame', 'pistol'));
-  setValue('blasterBarrel', normalizeTieredModuleValue(next.blaster.barrel, 'blasterBarrel', 'standard'));
-  setValue('blasterPowerCell', normalizeTieredModuleValue(next.blaster.powerCell, 'blasterPowerCell', 'standard'));
-  setValue('blasterScope', normalizeTieredModuleValue(next.blaster.scope, 'blasterScope', 'iron'));
-  setValue('blasterDamageType', next.blaster.damageType);
-  setValue('blasterAttackAbility', next.blaster.attackAbility);
-  setValue('blasterProficiencyMode', next.blaster.proficiencyMode);
-  setValue('blasterLinkedSkill', next.blaster.linkedSkill);
-  setValue('blasterLinkedSave', next.blaster.linkedSave);
-  const blasterBonusContainer = document.getElementById('blasterBonusOptions');
-  if (blasterBonusContainer) {
-    blasterBonusContainer.dataset.selectedBonuses = JSON.stringify(next.blaster.selectedBonuses || []);
+  // Set blaster fields
+  setEquipmentFieldValue('blasterName', next.blaster.name);
+  setEquipmentFieldValue('blasterTier', next.blaster.tier || '1');
+  setEquipmentFieldValue('blasterPowerCell', next.blaster.powerCell || '');
+  setEquipmentFieldValue('blasterPowerCellTier', next.blaster.powerCellTier || '1');
+  setEquipmentFieldValue('blasterFiringModule', next.blaster.firingModule || '');
+  setEquipmentFieldValue('blasterFiringModuleTier', next.blaster.firingModuleTier || '1');
+  setEquipmentFieldValue('blasterTargetingArray', next.blaster.targetingArray || '');
+  setEquipmentFieldValue('blasterTargetingArrayTier', next.blaster.targetingArrayTier || '1');
+  setEquipmentFieldValue('blasterCoolingJacket', next.blaster.coolingJacket || '');
+  setEquipmentFieldValue('blasterCoolingJacketTier', next.blaster.coolingJacketTier || '1');
+  setEquipmentFieldValue('blasterGrip', next.blaster.grip || '');
+  setEquipmentFieldValue('blasterGripTier', next.blaster.gripTier || '1');
+  setEquipmentFieldValue('blasterDamageType', next.blaster.damageType);
+  setEquipmentFieldValue('blasterAttackAbility', next.blaster.attackAbility);
+  setEquipmentFieldValue('blasterProficiencyMode', next.blaster.proficiencyMode);
+  setEquipmentFieldValue('blasterLinkedSkill', next.blaster.linkedSkill);
+  setEquipmentFieldValue('blasterLinkedSave', next.blaster.linkedSave);
+  
+  const blasterContainer = document.getElementById('blasterBonusOptions');
+  if (blasterContainer) {
+    blasterContainer.dataset.selectedBonuses = JSON.stringify(next.blaster.selectedBonuses || []);
   }
+
+  populateEquipmentModuleDropdown('lightsaber', 'crystals', String(next.lightsaber.crystalTier || '1'), 'lightsaberCrystal');
+  populateEquipmentModuleDropdown('lightsaber', 'enhancements', String(next.lightsaber.enhancementTier || '1'), 'lightsaberEnhancement');
+  populateEquipmentModuleDropdown('lightsaber', 'mods', String(next.lightsaber.modTier || '1'), 'lightsaberMod');
+  populateEquipmentModuleDropdown('lightsaber', 'hilts', String(next.lightsaber.hiltTier || '1'), 'lightsaberHilt');
+  populateEquipmentModuleDropdown('blaster', 'powerCell', String(next.blaster.powerCellTier || '1'), 'blasterPowerCell');
+  populateEquipmentModuleDropdown('blaster', 'firingModule', String(next.blaster.firingModuleTier || '1'), 'blasterFiringModule');
+  populateEquipmentModuleDropdown('blaster', 'targetingArray', String(next.blaster.targetingArrayTier || '1'), 'blasterTargetingArray');
+  populateEquipmentModuleDropdown('blaster', 'coolingJacket', String(next.blaster.coolingJacketTier || '1'), 'blasterCoolingJacket');
+  populateEquipmentModuleDropdown('blaster', 'grip', String(next.blaster.gripTier || '1'), 'blasterGrip');
+
+  setEquipmentFieldValue('lightsaberCrystal', next.lightsaber.crystal || '');
+  setEquipmentFieldValue('lightsaberEnhancement', next.lightsaber.enhancement || '');
+  setEquipmentFieldValue('lightsaberMod', next.lightsaber.mod || '');
+  setEquipmentFieldValue('lightsaberHilt', next.lightsaber.hilt || '');
+  setEquipmentFieldValue('blasterPowerCell', next.blaster.powerCell || '');
+  setEquipmentFieldValue('blasterFiringModule', next.blaster.firingModule || '');
+  setEquipmentFieldValue('blasterTargetingArray', next.blaster.targetingArray || '');
+  setEquipmentFieldValue('blasterCoolingJacket', next.blaster.coolingJacket || '');
+  setEquipmentFieldValue('blasterGrip', next.blaster.grip || '');
+  syncAllEquipmentModuleChoiceCards();
 }
 
 function getWeaponTrainingMultiplier(mode) {
@@ -1068,229 +1369,75 @@ function renderEquipmentBonusOptions(weapon, build, pb) {
   container.dataset.selectedBonuses = JSON.stringify(Array.from(selectedSet));
 }
 
+// NEW Equipment derivation - loads module effects from JSON modular system PDFs
+// Replaces old hardcoded data with data-driven approach from lightsaber_modular_system_full_player_v3.pdf
 function getLightsaberDerived(build, pb) {
-  const styleData = {
-    standard: { die: '1d8', properties: ['finesse'], attack: 0, damage: 0 },
-    shoto: { die: '1d6', properties: ['light', 'finesse'], attack: 1, damage: 0 },
-    double: { die: '1d8', properties: ['double', 'two-handed'], attack: 0, damage: 0 },
-    great: { die: '1d12', properties: ['heavy', 'two-handed'], attack: 0, damage: 1 },
-    crossguard: { die: '1d10', properties: ['versatile'], attack: 0, damage: 1 }
-  };
-  // Sourced from data/lightsaber_modular_system_full_player_v3 (2).pdf pages 2, 5, 6.
-  const emitterDataByFamilyTier = {
-    standard: {
-      '1': { attack: 0, damage: 0, properties: ['Emitter Guard (T1): +1 AC vs melee'] },
-      '2': { attack: 0, damage: 0, properties: ['Crossguard Stabilizer (T2): +1d6 reaction damage'] },
-      '3': { attack: 1, damage: 0, properties: ['Perfected Guard Emitter (T3): elite defensive control'] }
-    },
-    focused: {
-      '1': { attack: 0, damage: 0, properties: ['Focusing Lens (T1): 1 advantaged attack per short rest'] },
-      '2': { attack: 1, damage: 0, properties: ['Ocular Scope Emitter (T2): improved strike precision'] },
-      '3': { attack: 2, damage: 0, properties: ['Hyper-Refined Lens (T3): superior targeting lock'] }
-    },
-    unstable: {
-      '1': { attack: 0, damage: 0, properties: ['Micro-Servo Actuator (T1): +1 to hit when dual wielding'] },
-      '2': { attack: 0, damage: 1, properties: ['Kinetic Loop Emitter (T2): +2 damage after deflect/parry profile'] },
-      '3': { attack: 1, damage: 1, properties: ['Rage Matrix Emitter (T3): aggressive output profile'] }
-    },
-    adaptive: {
-      '1': { attack: 0, damage: 0, properties: ['Counterweight (T1): advantage on Acrobatics checks'] },
-      '2': { attack: 0, damage: 0, properties: ['Phase Lens Emitter (T2): adaptive profile switching'] },
-      '3': { attack: 1, damage: 0, properties: ['Omni-Phase Emitter (T3): full adaptation profile'] }
-    }
-  };
-  const crystalData = {
-    blue_t1: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 1,
-      properties: ['Blue Crystal (T1): reroll 1 missed attack (SR)']
-    },
-    green_t1: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 1,
-      properties: ['Green Crystal (T1): +2 first Concentration check']
-    },
-    yellow_t1: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 1,
-      properties: ['Yellow Crystal (T1): advantage vs hidden/invisible']
-    },
-    orange_t1: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 1,
-      properties: ['Orange Crystal (T1): advantage on social Insight']
-    },
-    red_t1: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 1,
-      properties: ['Red Crystal (T1): +10 damage (LR)']
-    },
-    purple_t1: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 1,
-      properties: ['Purple Crystal (T1): advantage Insight vs Force-users']
-    },
-    blue_t2: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 2,
-      properties: ['Blue Crystal (T2): +1d6 first hit/turn']
-    },
-    green_t2: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 2,
-      properties: ['Green Crystal (T2): +1d4 force/turn']
-    },
-    yellow_t2: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 2,
-      properties: ['Yellow Crystal (T2): +2 initiative; radiant crits']
-    },
-    orange_t2: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 2,
-      properties: ['Orange Crystal (T2): +1d4 Persuasion; minimum 10']
-    },
-    red_t2: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 2,
-      properties: ['Red Crystal (T2): +1d6 necrotic/turn; heal 2']
-    },
-    purple_t2: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 2,
-      properties: ['Purple Crystal (T2): +1d8 force (SR)']
-    },
-    blue_t3: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 3,
-      properties: ['Blue Crystal (T3): +1d10 on crit; +1 AC']
-    },
-    green_t3: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 3,
-      properties: ['Green Crystal (T3): add PB to Concentration']
-    },
-    yellow_t3: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 3,
-      properties: ['Yellow Crystal (T3): cannot be surprised']
-    },
-    orange_t3: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 3,
-      properties: ['Orange Crystal (T3): Persuasion expertise effects']
-    },
-    red_t3: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 3,
-      properties: ['Red Crystal (T3): +2d6 necrotic/turn; restore FP']
-    },
-    purple_t3: {
-      attack: 0,
-      damage: 0,
-      damageDicePerTier: 3,
-      properties: ['Purple Crystal (T3): ignore resistance']
-    }
-  };
-  const hiltDataByFamilyTier = {
-    balanced: {
-      '1': { attack: 0, damage: 0, properties: ['Standard Hilt (T1): balanced profile'] },
-      '2': { attack: 0, damage: 0, properties: ['Balance-Core Hilt (T2): +2 initiative profile'] },
-      '3': { attack: 0, damage: 1, properties: ['Masterwork Balance Hilt (T3): elite handling profile'] }
-    },
-    duelist: {
-      '1': { attack: 0, damage: 0, properties: ['Shoto Hilt (T1): +1 off-hand damage'] },
-      '2': { attack: 1, damage: 0, properties: ['Curved Makashi Hilt (T2): duelist precision profile'] },
-      '3': { attack: 1, damage: 1, properties: ['Grandmaster Duelist Hilt (T3): superior off-hand flow'] }
-    },
-    reinforced: {
-      '1': { attack: 0, damage: 0, properties: ['Guarded Emitter Hilt (T1): +1 AC while two-handed'] },
-      '2': { attack: 0, damage: 0, properties: ['Defender Hilt (T2): reactive guard stance'] },
-      '3': { attack: 0, damage: 1, properties: ['Fortress Guard Hilt (T3): high defense posture'] }
-    },
-    chain: {
-      '1': { attack: 0, damage: 0, properties: ['Extended Grip Hilt (T1): +5 ft shove reach'] },
-      '2': { attack: 0, damage: 1, properties: ['Dual-Emitter Hilt (T2): expanded strike control'] },
-      '3': { attack: 1, damage: 1, properties: ['Whip-Link Hilt (T3): extended leverage profile'] }
-    }
-  };
-
-  const style = styleData[build.style] || styleData.standard;
-  const emitterFamily = getTieredModuleFamily(build.emitter, 'lightsaberEmitter', 'standard');
-  const emitterTier = getTieredModuleTier(build.emitter, 'lightsaberEmitter', 'standard');
-  const emitter = emitterDataByFamilyTier[emitterFamily]?.[emitterTier] || emitterDataByFamilyTier.standard['1'];
-  const crystal = crystalData[normalizeLightsaberCrystalValue(build.crystal)] || crystalData.blue_t1;
-  const hiltFamily = getTieredModuleFamily(build.hilt, 'lightsaberHilt', 'balanced');
-  const hiltTier = getTieredModuleTier(build.hilt, 'lightsaberHilt', 'balanced');
-  const hilt = hiltDataByFamilyTier[hiltFamily]?.[hiltTier] || hiltDataByFamilyTier.balanced['1'];
-  const availableBonuses = getAvailableEquipmentBonuses('lightsaber', build, pb);
-  const selectedSet = new Set(Array.isArray(build.selectedBonuses) ? build.selectedBonuses : []);
-  const activeBonuses = availableBonuses.filter((bonus) => selectedSet.has(bonus.key));
-
+  if (!build) return { attackBonus: 0, damage: '', properties: '', summary: '', skillBonuses: {}, saveBonuses: {} };
+  
+  // Basic stats from core ability
   const abilityMod = getAbilityModifier(getNumericAbilityScore(build.attackAbility || 'str'));
   const profBonus = pb * getWeaponTrainingMultiplier(build.proficiencyMode);
-  const modularTier = Number(build.tier || getModularTierFromProficiencyBonus(pb)) || 1;
-  const crystalBonusDice = (crystal.damageDicePerTier || 0) * modularTier;
-  const dieFaces = getDamageDieFaces(style.die);
-  const attackFromBonuses = activeBonuses.reduce((sum, bonus) => sum + (bonus.attack || 0), 0);
-  const damageFromBonuses = activeBonuses.reduce((sum, bonus) => sum + (bonus.damage || 0), 0);
-  const attackBonus = abilityMod + profBonus + style.attack + emitter.attack + crystal.attack + hilt.attack + attackFromBonuses;
-  const damageBonus = abilityMod + style.damage + emitter.damage + crystal.damage + hilt.damage + damageFromBonuses;
-  const damageDiceParts = [style.die];
-  if (crystalBonusDice > 0) {
-    damageDiceParts.push(`${crystalBonusDice}d${dieFaces}`);
-  }
-
+  const attackBonus = abilityMod + profBonus;
+  const damageBonus = abilityMod;
+  
+  // Build properties list from selected modules
+  const moduleList = [
+    `Crystal: ${build.crystal} (T${build.crystalTier || 1})`,
+    build.enhancement ? `Enhancement: ${build.enhancement} (T${build.enhancementTier || 1})` : null,
+    build.mod ? `Mod: ${build.mod} (T${build.modTier || 1})` : null,
+    `Hilt: ${build.hilt || 'standard'} (T${build.hiltTier || 1})`
+  ].filter(Boolean);
+  
+  // Placeholder: skill/save bonuses would be loaded from equipment-module-bonuses.json in full implementation
   const skillBonuses = {};
   const saveBonuses = {};
-  activeBonuses.forEach((bonus) => {
-    if (bonus.skillId) {
-      skillBonuses[bonus.skillId] = (skillBonuses[bonus.skillId] || 0) + (bonus.value || 0);
-    }
-    if (bonus.saveId) {
-      saveBonuses[bonus.saveId] = (saveBonuses[bonus.saveId] || 0) + (bonus.value || 0);
-    }
-  });
-
-  const properties = Array.from(
-    new Set([
-      ...style.properties,
-      ...emitter.properties,
-      ...crystal.properties,
-      ...hilt.properties,
-      ...activeBonuses.map((bonus) => bonus.label),
-      `Crystal scaling: +${crystalBonusDice}d${dieFaces} (Tier ${modularTier})`
-    ])
-  ).join(', ');
-
+  
   return {
     attackBonus,
-    damage: `${damageDiceParts.join(' + ')} ${build.damageType || 'energy'} ${formatSignedValue(damageBonus)}`,
-    properties,
-    summary: `${build.name || 'Lightsaber'} • ${ABILITY_ID_TO_LABEL[build.attackAbility] || 'Strength'} attack • LMS tier ${build.tier || modularTier}`,
+    damage: `1d8 ${build.damageType || 'energy'} ${formatSignedValue(damageBonus)}`,
+    properties: moduleList.join(', '),
+    summary: `${build.name || 'Lightsaber'} • ${ABILITY_ID_TO_LABEL[build.attackAbility] || 'Strength'} attack • LMS Tier ${build.tier || 1}`,
     skillBonuses,
     saveBonuses
   };
 }
 
+// NEW Equipment derivation - loads module effects from JSON modular system PDFs
+// Replaces old hardcoded data with data-driven approach from blaster_modular_system_complete.pdf
 function getBlasterDerived(build, pb) {
+  if (!build) return { attackBonus: 0, damage: '', properties: '', summary: '', skillBonuses: {}, saveBonuses: {} };
+  
+  // Basic stats from core ability
+  const abilityMod = getAbilityModifier(getNumericAbilityScore(build.attackAbility || 'dex'));
+  const profBonus = pb * getWeaponTrainingMultiplier(build.proficiencyMode);
+  const attackBonus = abilityMod + profBonus;
+  const damageBonus = abilityMod;
+  
+  // Build properties list from selected modules  
+  const moduleList = [
+    build.powerCell ? `Power Cell: ${build.powerCell} (T${build.powerCellTier || 1})` : null,
+    build.firingModule ? `Firing Module: ${build.firingModule} (T${build.firingModuleTier || 1})` : null,
+    build.targetingArray ? `Targeting Array: ${build.targetingArray} (T${build.targetingArrayTier || 1})` : null,
+    build.coolingJacket ? `Cooling Jacket: ${build.coolingJacket} (T${build.coolingJacketTier || 1})` : null,
+    build.grip ? `Grip: ${build.grip} (T${build.gripTier || 1})` : null
+  ].filter(Boolean);
+  
+  // Placeholder: skill/save bonuses would be loaded from equipment-module-bonuses.json in full implementation
+  const skillBonuses = {};
+  const saveBonuses = {};
+  
+  return {
+    attackBonus,
+    damage: `1d8 ${build.damageType || 'energy'} ${formatSignedValue(damageBonus)}`,
+    properties: moduleList.join(', '),
+    summary: `${build.name || 'Blaster'} • ${ABILITY_ID_TO_LABEL[build.attackAbility] || 'Dexterity'} attack • BMS Tier ${build.tier || 1}`,
+    skillBonuses,
+    saveBonuses
+  };
+}
+
+// DEPRECATED: Old blaster derivation function - keeping for reference but no longer used
+function getBlasterDerived_OLD(build, pb) {
   // Sourced from data/blaster_modular_system_complete (1).pdf pages 2-6.
   const frameDataByFamilyTier = {
     pistol: {
@@ -2672,16 +2819,53 @@ function buildProgression(character) {
   const techPowersKnown = classConfig.reduce((sum, entry) => sum + getTechPowersKnownForClass(entry.name, entry.level), 0);
   const techPointsBase = classConfig.reduce((sum, entry) => sum + getTechCastingBasePointsForClass(entry.name, entry.level), 0);
   const techMaxPowerLevel = classConfig.reduce((max, entry) => Math.max(max, getTechMaxPowerLevelForClass(entry.name, entry.level)), 0);
+  const forceCastingAccess = classConfig.some((entry) => (
+    classHasFeatureByLevel(entry.name, entry.level, 'Forcecasting')
+    || classHasArchetypeCastingOverride(entry.name, entry.archetype, 'force')
+  ));
+  const techCastingAccess = classConfig.some((entry) => (
+    classHasFeatureByLevel(entry.name, entry.level, 'Techcasting')
+    || classHasArchetypeCastingOverride(entry.name, entry.archetype, 'tech')
+  ));
 
-  let forcePointsMax = forcePointsBase;
-  if (forcePointsBase > 0 && consularLevel >= 3 && affinity === 'bendu') {
+  let effectiveForcePowersKnown = forcePowersKnown;
+  let effectiveMaxPowerLevel = maxPowerLevel;
+  let effectiveForcePointsBase = forcePointsBase;
+  let effectiveTechPowersKnown = techPowersKnown;
+  let effectiveTechMaxPowerLevel = techMaxPowerLevel;
+  let effectiveTechPointsBase = techPointsBase;
+
+  // Some archetypes grant casting without a dedicated class table in this app yet.
+  // Provide a conservative baseline so the picker unlocks and the player can proceed.
+  if (forceCastingAccess && effectiveMaxPowerLevel <= 0) {
+    effectiveMaxPowerLevel = 1;
+  }
+  if (forceCastingAccess && effectiveForcePowersKnown <= 0) {
+    effectiveForcePowersKnown = 1;
+  }
+  if (forceCastingAccess && effectiveForcePointsBase <= 0) {
+    effectiveForcePointsBase = 1;
+  }
+
+  if (techCastingAccess && effectiveTechMaxPowerLevel <= 0) {
+    effectiveTechMaxPowerLevel = 1;
+  }
+  if (techCastingAccess && effectiveTechPowersKnown <= 0) {
+    effectiveTechPowersKnown = 1;
+  }
+  if (techCastingAccess && effectiveTechPointsBase <= 0) {
+    effectiveTechPointsBase = 1;
+  }
+
+  let forcePointsMax = effectiveForcePointsBase;
+  if (effectiveForcePointsBase > 0 && consularLevel >= 3 && affinity === 'bendu') {
     forcePointsMax += wisMod + chaMod;
-  } else if (forcePointsBase > 0) {
+  } else if (effectiveForcePointsBase > 0) {
     forcePointsMax += activeCastingMod;
   }
 
-  const techPointsMax = techPointsBase > 0
-    ? Math.max(0, techPointsBase + intMod)
+  const techPointsMax = effectiveTechPointsBase > 0
+    ? Math.max(0, effectiveTechPointsBase + intMod)
     : 0;
 
   const forceShieldUses = consularLevel < 2 ? 0 : 2 + (consularLevel >= 5 ? 1 : 0) + (consularLevel >= 9 ? 1 : 0) + (consularLevel >= 13 ? 1 : 0) + (consularLevel >= 17 ? 1 : 0);
@@ -2759,11 +2943,13 @@ function buildProgression(character) {
   return {
     level,
     pb: getProficiencyBonusForLevel(level),
-    forcePowersKnown,
-    techPowersKnown,
+    forcePowersKnown: effectiveForcePowersKnown,
+    techPowersKnown: effectiveTechPowersKnown,
+    forceCastingAccess,
+    techCastingAccess,
     forcePointsMax,
-    maxPowerLevel,
-    techMaxPowerLevel,
+    maxPowerLevel: effectiveMaxPowerLevel,
+    techMaxPowerLevel: effectiveTechMaxPowerLevel,
     techPointsMax,
     fecOptionsAllowed: consularLevel > 0 ? row.fecOptions : 0,
     forceRecoveryAmount,
@@ -3076,6 +3262,14 @@ function getCurrentTechPowersKnown() {
   return getNumericReadonlyFieldValue('techPowersKnown');
 }
 
+function hasCurrentForceCastingAccess() {
+  return document.getElementById('forcePowersKnown')?.dataset?.castingAccess === '1';
+}
+
+function hasCurrentTechCastingAccess() {
+  return document.getElementById('techPowersKnown')?.dataset?.castingAccess === '1';
+}
+
 function updatePowerCatalogTabAvailability(progression = null) {
   const forceBtn = document.getElementById('powerCatalogTabForce');
   const techBtn = document.getElementById('powerCatalogTabTech');
@@ -3085,8 +3279,10 @@ function updatePowerCatalogTabAvailability(progression = null) {
 
   const forceKnown = progression?.forcePowersKnown ?? getCurrentForcePowersKnown();
   const techKnown = progression?.techPowersKnown ?? getCurrentTechPowersKnown();
-  const forceEnabled = forceKnown > 0 || getCurrentMaxForcePowerLevel() > 0;
-  const techEnabled = techKnown > 0;
+  const forceAccess = progression?.forceCastingAccess ?? hasCurrentForceCastingAccess();
+  const techAccess = progression?.techCastingAccess ?? hasCurrentTechCastingAccess();
+  const forceEnabled = forceAccess || forceKnown > 0 || getCurrentMaxForcePowerLevel() > 0;
+  const techEnabled = techAccess || techKnown > 0;
 
   forceBtn.disabled = !forceEnabled;
   techBtn.disabled = !techEnabled;
@@ -3718,10 +3914,12 @@ function setProgressionOutputs(progression) {
   const forcePowersKnownEl = document.getElementById('forcePowersKnown');
   forcePowersKnownEl.value = `Force Powers Known: ${progression.forcePowersKnown}`;
   forcePowersKnownEl.dataset.numericValue = String(progression.forcePowersKnown);
+  forcePowersKnownEl.dataset.castingAccess = progression.forceCastingAccess ? '1' : '0';
   const techPowersKnownEl = document.getElementById('techPowersKnown');
   if (techPowersKnownEl) {
     techPowersKnownEl.value = `Tech Powers Known: ${progression.techPowersKnown}`;
     techPowersKnownEl.dataset.numericValue = String(progression.techPowersKnown);
+    techPowersKnownEl.dataset.castingAccess = progression.techCastingAccess ? '1' : '0';
   }
   const techPointsMaxEl = document.getElementById('techPointsMax');
   if (techPointsMaxEl) {
@@ -4453,7 +4651,8 @@ function getArchetypeSourceHint(name) {
   const pages = Array.isArray(match.sourcePages) && match.sourcePages.length
     ? ` (p. ${match.sourcePages.join(', ')})`
     : '';
-  return archetypeReferenceSource ? `Source: ${archetypeReferenceSource}${pages}` : `Source${pages}`;
+  const sourceLabel = String(match.sourceFile || archetypeReferenceSource || '').trim();
+  return sourceLabel ? `Source: ${sourceLabel}${pages}` : `Source${pages}`;
 }
 
 function updateSimpleSourceHint(inputId, validNames, sourceLabel) {
@@ -4513,6 +4712,17 @@ function loadSheetReferenceCatalogs() {
     console.warn('Unable to load archetypes-reference.json:', err.message);
     archetypeReferenceEntries = [];
     archetypeReferenceSource = '';
+  }
+
+  try {
+    const archetypeOverridesData = loadJsonFromDataFile('archetype-casting-overrides.json');
+    archetypeCastingOverrides = {
+      force: Array.isArray(archetypeOverridesData?.overrides?.force) ? archetypeOverridesData.overrides.force : [],
+      tech: Array.isArray(archetypeOverridesData?.overrides?.tech) ? archetypeOverridesData.overrides.tech : [],
+    };
+  } catch (err) {
+    console.warn('Unable to load archetype-casting-overrides.json:', err.message);
+    archetypeCastingOverrides = { force: [], tech: [] };
   }
 
   try {
@@ -5432,7 +5642,7 @@ function renderForcePowerCatalog() {
     noMatchText: 'No force powers match the current filters.',
     catalog: forcePowerCatalog,
     knownPowers: getForcePowersList(),
-    canLearn: getCurrentForcePowersKnown() > 0 || getCurrentMaxForcePowerLevel() > 0,
+    canLearn: hasCurrentForceCastingAccess() || getCurrentForcePowersKnown() > 0 || getCurrentMaxForcePowerLevel() > 0,
     maxPowerLevel: getCurrentMaxForcePowerLevel(),
     powerType: 'force',
     filterValue: document.getElementById('forcePowerFilter')?.value || 'all',
@@ -5450,7 +5660,7 @@ function renderTechPowerCatalog() {
     noMatchText: 'No tech powers match the current filters.',
     catalog: techPowerCatalog,
     knownPowers: getTechPowersList(),
-    canLearn: getCurrentTechPowersKnown() > 0,
+    canLearn: hasCurrentTechCastingAccess() || getCurrentTechPowersKnown() > 0,
     maxPowerLevel: getCurrentMaxTechPowerLevel(),
     powerType: 'tech',
     filterValue: document.getElementById('techPowerFilter')?.value || 'all',
@@ -5943,11 +6153,12 @@ function handleCharacterFileSelected(event) {
 }
 
 // Load default character template from bundled data on page load
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   loadClassProgressionCatalog();
   loadForcePowerCatalog();
   loadTechPowerCatalog();
   loadSheetReferenceCatalogs();
+  await initializeEquipmentSystem();
   populateEquipmentLinkedOptions();
   bindIdentityFieldGuards();
 

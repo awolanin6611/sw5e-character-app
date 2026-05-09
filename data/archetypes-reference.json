@@ -1,477 +1,1734 @@
 {
   "generatedFrom": [
-    "EC 03 - Archetypes _ GM Binder.pdf"
+    "blaster_modular_system_complete (1).pdf",
+    "EC 02 - Species _ GM Binder.pdf",
+    "EC 03 - Archetypes _ GM Binder.pdf",
+    "EC 04 - Backgrounds _ GM Binder.pdf",
+    "Expanded Force Powers _ GM Binder.pdf",
+    "Expanded Tech Powers _ GM Binder.pdf",
+    "Heretic's Guide to the Galaxy _ GM Binder.pdf",
+    "lightsaber_modular_system_full_player_v3 (2).pdf",
+    "Shipyards of the Galaxy _ GM Binder.pdf",
+    "SW5e - Player's Handbook.pdf",
+    "SW5e - Scum and Villainy - 20191105.pdf",
+    "SW5e - Starships of the Galaxy - 20210316.pdf",
+    "SW5e - Wretched Hives - 20220419.pdf"
   ],
-  "count": 78,
+  "count": 113,
   "archetypes": [
+    {
+      "name": "Acquisitions Practice",
+      "sourcePages": [
+        112
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            112
+          ]
+        }
+      ]
+    },
     {
       "name": "Addicted Approach",
       "sourcePages": [
         5
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            5
+          ]
+        }
       ]
     },
     {
       "name": "Adept Specialist",
       "sourcePages": [
         46
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            46
+          ]
+        }
       ]
     },
     {
       "name": "Aing-Tii Order",
       "sourcePages": [
         71
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            71
+          ]
+        }
       ]
     },
     {
       "name": "Aqinos Form",
       "sourcePages": [
         59
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            59
+          ]
+        },
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            205
+          ]
+        }
       ]
     },
     {
       "name": "Archaeologist Pursuit",
       "sourcePages": [
         95
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            95
+          ]
+        }
       ]
     },
     {
       "name": "Armored Approach",
       "sourcePages": [
         6
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Armormech Engineering",
+      "sourcePages": [
+        70
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Armstech Engineering",
+      "sourcePages": [
+        73
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            73
+          ]
+        }
       ]
     },
     {
       "name": "Artificer Engineering",
       "sourcePages": [
         25
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Assault Specialist",
+      "sourcePages": [
+        85
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            85
+          ]
+        }
       ]
     },
     {
       "name": "Astrotech Engineering",
       "sourcePages": [
         28
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            28
+          ]
+        }
       ]
     },
     {
       "name": "Ataru Form",
       "sourcePages": [
         60
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            60
+          ]
+        }
       ]
     },
     {
       "name": "Audiotech Engineering",
       "sourcePages": [
         32
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ballistic Approach",
+      "sourcePages": [
+        54
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            54
+          ]
+        }
       ]
     },
     {
       "name": "Beastmaster Approach",
       "sourcePages": [
         7
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Beguiler Practice",
+      "sourcePages": [
+        113
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            113
+          ]
+        }
       ]
     },
     {
       "name": "Biochem Engineering",
       "sourcePages": [
         35
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            35
+          ]
+        }
       ]
     },
     {
       "name": "Biotech Engineering",
       "sourcePages": [
         38
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Blademaster Specialist",
+      "sourcePages": [
+        86
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            86
+          ]
+        }
       ]
     },
     {
       "name": "Bloodstorm Approach",
       "sourcePages": [
         9
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            9
+          ]
+        }
       ]
     },
     {
       "name": "Bolstering Practice",
       "sourcePages": [
         83
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            83
+          ]
+        }
       ]
     },
     {
       "name": "Brawling Approach",
       "sourcePages": [
         10
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            10
+          ]
+        }
       ]
     },
     {
       "name": "Champion Approach",
       "sourcePages": [
         11
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            11
+          ]
+        }
       ]
     },
     {
       "name": "Chef Pursuit",
       "sourcePages": [
         97
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            97
+          ]
+        }
       ]
     },
     {
       "name": "Construction Engineering",
       "sourcePages": [
         41
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Crimson Order",
+      "sourcePages": [
+        103
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            103
+          ]
+        }
       ]
     },
     {
       "name": "Cybertech Engineering",
       "sourcePages": [
         43
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cyclone Approach",
+      "sourcePages": [
+        55
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            55
+          ]
+        }
       ]
     },
     {
       "name": "Demolitions Specialist",
       "sourcePages": [
         48
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Deployment Order",
+      "sourcePages": [
+        105
+      ],
+      "sourceFile": "SW5e - Starships of the Galaxy - 20210316.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Starships of the Galaxy - 20210316.pdf",
+          "sourcePages": [
+            105
+          ]
+        }
       ]
     },
     {
       "name": "Detective Pursuit",
       "sourcePages": [
         99
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            99
+          ]
+        }
       ]
     },
     {
       "name": "Disabling Practice",
       "sourcePages": [
         84
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Echani Order",
+      "sourcePages": [
+        104
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            104
+          ]
+        }
       ]
     },
     {
       "name": "Enhancement Specialist",
       "sourcePages": [
         49
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            49
+          ]
+        }
       ]
     },
     {
       "name": "Exhibition Specialist",
       "sourcePages": [
         51
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            51
+          ]
+        }
       ]
     },
     {
       "name": "Explorer Pursuit",
       "sourcePages": [
         100
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            100
+          ]
+        }
       ]
     },
     {
       "name": "Fireteam Specialist",
       "sourcePages": [
         52
-      ]
-    },
-    {
-      "name": "Form Basics",
-      "sourcePages": [
-        62,
-        67,
-        68
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            52
+          ]
+        }
       ]
     },
     {
       "name": "Frenzied Approach",
       "sourcePages": [
         12
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Gadgeteer Engineering",
+      "sourcePages": [
+        76
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Gambler Pursuit",
+      "sourcePages": [
+        122
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            122
+          ]
+        }
       ]
     },
     {
       "name": "Geneticist Pursuit",
       "sourcePages": [
         101
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            101
+          ]
+        }
       ]
     },
     {
       "name": "Heavy Weapons Specialist",
       "sourcePages": [
         54
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            54
+          ]
+        }
       ]
     },
     {
       "name": "Industrial Approach",
       "sourcePages": [
         13
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            13
+          ]
+        }
       ]
     },
     {
       "name": "Jal Shey Order",
       "sourcePages": [
         72
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            72
+          ]
+        }
       ]
     },
     {
       "name": "Jar'Kai Form",
       "sourcePages": [
         61
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Juggernaut Approach",
+      "sourcePages": [
+        56
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            56
+          ]
+        }
       ]
     },
     {
       "name": "Kage Order",
       "sourcePages": [
         73
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            73
+          ]
+        }
       ]
     },
     {
       "name": "Kro Var Order",
       "sourcePages": [
         75
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            75
+          ]
+        }
       ]
     },
     {
       "name": "Kyuzo Order",
       "sourcePages": [
         74
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            74
+          ]
+        }
       ]
     },
     {
       "name": "Lethality Practice",
       "sourcePages": [
         85
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            85
+          ]
+        },
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Makashi Form",
+      "sourcePages": [
+        93
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            93
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Marauder Approach",
+      "sourcePages": [
+        57
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            57
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Matukai Order",
+      "sourcePages": [
+        105
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            105
+          ]
+        }
       ]
     },
     {
       "name": "Maverick Practice",
       "sourcePages": [
         86
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            86
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monastic Order",
+      "sourcePages": [
+        101
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            101
+          ]
+        }
       ]
     },
     {
       "name": "Mounted Specialist",
       "sourcePages": [
         55
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nightsister Order",
+      "sourcePages": [
+        106
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            106
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Niman Form",
+      "sourcePages": [
+        94,
+        206
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            94,
+            206
+          ]
+        }
       ]
     },
     {
       "name": "Occultist Pursuit",
       "sourcePages": [
         103
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            103
+          ]
+        }
       ]
     },
     {
       "name": "Path of Communion",
       "sourcePages": [
         122
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            122
+          ]
+        }
       ]
     },
     {
       "name": "Path of Ethereality",
       "sourcePages": [
         124
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            124
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Path of Focus",
+      "sourcePages": [
+        140
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            140
+          ]
+        }
       ]
     },
     {
       "name": "Path of Iron",
       "sourcePages": [
         125
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            125
+          ]
+        }
       ]
     },
     {
       "name": "Path of Meditation",
       "sourcePages": [
         126
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            126
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Path of Shadows",
+      "sourcePages": [
+        142
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            142
+          ]
+        }
       ]
     },
     {
       "name": "Path of Synthesis",
       "sourcePages": [
         127
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            127
+          ]
+        }
       ]
     },
     {
       "name": "Path of Tenacity",
       "sourcePages": [
         128
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            128
+          ]
+        }
       ]
     },
     {
       "name": "Path of Witchcraft",
       "sourcePages": [
         129
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            129
+          ]
+        }
       ]
     },
     {
       "name": "Path of the Corsair",
       "sourcePages": [
         123
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            123
+          ]
+        },
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            139
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Path of the Forceblade",
+      "sourcePages": [
+        141
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            141
+          ]
+        }
       ]
     },
     {
       "name": "Performance Practice",
       "sourcePages": [
         87
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            87
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Physician Pursuit",
+      "sourcePages": [
+        123
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            123
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Politician Pursuit",
+      "sourcePages": [
+        125
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            125
+          ]
+        }
       ]
     },
     {
       "name": "Praetorian Specialist",
       "sourcePages": [
         56
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            56
+          ]
+        }
       ]
     },
     {
       "name": "Precision Approach",
       "sourcePages": [
         15
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            15
+          ]
+        }
       ]
     },
     {
       "name": "Pugnacity Practice",
       "sourcePages": [
         88
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            88
+          ]
+        }
       ]
     },
     {
       "name": "Rakatan Order",
       "sourcePages": [
         79
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            79
+          ]
+        }
       ]
     },
     {
       "name": "Ruffian Practice",
       "sourcePages": [
         89
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            89
+          ]
+        }
       ]
     },
     {
       "name": "Saboteur Practice",
       "sourcePages": [
         90
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            90
+          ]
+        }
       ]
     },
     {
       "name": "Sawbones Practice",
       "sourcePages": [
         92
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            92
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Scanner Specialist",
+      "sourcePages": [
+        95
+      ],
+      "sourceFile": "SW5e - Starships of the Galaxy - 20210316.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Starships of the Galaxy - 20210316.pdf",
+          "sourcePages": [
+            95
+          ]
+        }
       ]
     },
     {
       "name": "Scrapper Practice",
       "sourcePages": [
         93
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            93
+          ]
+        }
       ]
     },
     {
       "name": "Shadow Killer Practice",
       "sourcePages": [
         94
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            94
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sharpshooter Practice",
+      "sourcePages": [
+        116
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            116
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shield Specialist",
+      "sourcePages": [
+        87
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            87
+          ]
+        }
       ]
     },
     {
       "name": "Shii-Cho Form",
       "sourcePages": [
         64
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            64
+          ]
+        }
       ]
     },
     {
       "name": "Slicer Pursuit",
       "sourcePages": [
         105
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            105
+          ]
+        }
       ]
     },
     {
       "name": "Sokan Form",
       "sourcePages": [
         65
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Soresu Form",
+      "sourcePages": [
+        97
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            97
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tactical Specialist",
+      "sourcePages": [
+        88
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            88
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tactician Pursuit",
+      "sourcePages": [
+        126
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            126
+          ]
+        }
       ]
     },
     {
       "name": "Teras Kasi Order",
       "sourcePages": [
         80
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            80
+          ]
+        }
       ]
     },
     {
       "name": "Totem Specialist",
       "sourcePages": [
         57
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            57
+          ]
+        }
       ]
     },
     {
       "name": "Trakata Form",
       "sourcePages": [
         66
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            66
+          ]
+        }
       ]
     },
     {
       "name": "Trickster Order",
       "sourcePages": [
         81
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            81
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Unstable Engineering",
+      "sourcePages": [
+        79
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            79
+          ]
+        }
       ]
     },
     {
       "name": "Warchief Approach",
       "sourcePages": [
         16
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Way of Balance",
+      "sourcePages": [
+        63
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            63
+          ]
+        }
       ]
     },
     {
       "name": "Way of Confluence",
       "sourcePages": [
         17
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            17
+          ]
+        }
       ]
     },
     {
       "name": "Way of Endurance",
       "sourcePages": [
         18
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Way of Lightning",
+      "sourcePages": [
+        64
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            64
+          ]
+        }
       ]
     },
     {
       "name": "Way of Manipulation",
       "sourcePages": [
         19
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            19
+          ]
+        }
       ]
     },
     {
       "name": "Way of Negation",
       "sourcePages": [
         20
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Way of Suggestion",
+      "sourcePages": [
+        66
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            66
+          ]
+        }
       ]
     },
     {
       "name": "Way of Technology",
       "sourcePages": [
         22
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            22
+          ]
+        }
       ]
     },
     {
       "name": "Way of Telekinetics",
       "sourcePages": [
         23
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            23
+          ]
+        }
       ]
     },
     {
       "name": "Way of Tutelage",
       "sourcePages": [
         24
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Way of the Sage",
+      "sourcePages": [
+        65
+      ],
+      "sourceFile": "SW5e - Player's Handbook.pdf",
+      "sources": [
+        {
+          "fileName": "SW5e - Player's Handbook.pdf",
+          "sourcePages": [
+            65
+          ]
+        }
       ]
     },
     {
       "name": "Way of the Seer",
       "sourcePages": [
         21
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            21
+          ]
+        }
       ]
     },
     {
       "name": "Whills Order",
       "sourcePages": [
         82
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            82
+          ]
+        }
       ]
     },
     {
       "name": "Ysannanite Form",
       "sourcePages": [
         70
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            70
+          ]
+        }
       ]
     },
     {
       "name": "Zoologist Pursuit",
       "sourcePages": [
         107
+      ],
+      "sourceFile": "EC 03 - Archetypes _ GM Binder.pdf",
+      "sources": [
+        {
+          "fileName": "EC 03 - Archetypes _ GM Binder.pdf",
+          "sourcePages": [
+            107
+          ]
+        }
       ]
     }
   ]

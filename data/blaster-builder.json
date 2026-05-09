@@ -1,0 +1,430 @@
+{
+  "blaster": {
+    "description": "Blaster modular system from blaster_modular_system_complete.pdf",
+    "modules": {
+      "powerCell": {
+        "description": "Power cell mods that enhance damage and add effects",
+        "options": {
+          "tier1": [
+            {
+              "name": "Overcharged Cell",
+              "effect": "+1 damage"
+            },
+            {
+              "name": "Balanced Power Cell",
+              "effect": "+1 to hit"
+            },
+            {
+              "name": "Pulse-Regulator Cell",
+              "effect": "Reroll 1 damage die once/turn"
+            },
+            {
+              "name": "Thermal Buffer Cell",
+              "effect": "Reduce misfire chance by 1"
+            },
+            {
+              "name": "Compact Efficiency Cell",
+              "effect": "+1 damage on your first hit/turn"
+            },
+            {
+              "name": "Conduction Stabilizer",
+              "effect": "Treat 1 on damage dice as 2"
+            }
+          ],
+          "tier2": [
+            {
+              "name": "Cycling Surge Cell",
+              "effect": "+2 dice to one attack (SR)"
+            },
+            {
+              "name": "Harmonic Output Cell",
+              "effect": "+1d8 crit damage"
+            },
+            {
+              "name": "Dual-Phase Capacitor",
+              "effect": "Add +1 die once per turn"
+            },
+            {
+              "name": "Ion-Shift Capacitor",
+              "effect": "Ignore resistance to energy/ion"
+            },
+            {
+              "name": "High-Drain Feed",
+              "effect": "+1 AC after hitting"
+            },
+            {
+              "name": "Reverb Pulse Cell",
+              "effect": "Miss fi +1 die on next hit this turn"
+            }
+          ],
+          "tier3": [
+            {
+              "name": "Quantum Channel Array",
+              "effect": "+PB damage once/turn"
+            },
+            {
+              "name": "Supercharged Phase Cell",
+              "effect": "+2d6 on first hit each turn"
+            },
+            {
+              "name": "Perfect Energy Core",
+              "effect": "+1d6 damage on every hit"
+            },
+            {
+              "name": "Ionic Harmonics Matrix",
+              "effect": "Ignore resistance + immunity (1/SR)"
+            },
+            {
+              "name": "Photon Loadout Cell",
+              "effect": "One attack deals max damage"
+            },
+            {
+              "name": "Cascade Overdrive Core",
+              "effect": "Drop a target fi bonus-action blaster attack"
+            }
+          ]
+        }
+      },
+      "firingModule": {
+        "description": "Firing module mods that change attack patterns and effects",
+        "options": {
+          "tier1": [
+            {
+              "name": "Rapid-Cycle Module",
+              "effect": "+1 damage die once/turn"
+            },
+            {
+              "name": "Stabilized Discharge",
+              "effect": "Reroll 1 damage die"
+            },
+            {
+              "name": "Short-Haul Burst Module",
+              "effect": "+1 to hit within 30 ft"
+            },
+            {
+              "name": "Pulse Breaker",
+              "effect": "+1 damage vs targets in cover"
+            },
+            {
+              "name": "Micro-Repeater Node",
+              "effect": "Once/turn, treat a 2 as a 3 on damage"
+            },
+            {
+              "name": "Low-Recoil Chamber",
+              "effect": "+1 AC after firing"
+            }
+          ],
+          "tier2": [
+            {
+              "name": "Burst-Fire Module",
+              "effect": "10 ft cone (SR)"
+            },
+            {
+              "name": "Repeater Linkage",
+              "effect": "Extra attack (SR)"
+            },
+            {
+              "name": "Piercing Beam Matrix",
+              "effect": "+2 to hit at long range"
+            },
+            {
+              "name": "Stun Pulse Generator",
+              "effect": "Con save stun (SR)"
+            },
+            {
+              "name": "Adaptive Spread Module",
+              "effect": "Cone attacks deal +1 die"
+            },
+            {
+              "name": "Shatter-Cycle Module",
+              "effect": "+1d6 vs shields or droids"
+            }
+          ],
+          "tier3": [
+            {
+              "name": "Overclocked Repeater Array",
+              "effect": "+1 attack roll per turn"
+            },
+            {
+              "name": "Wide-Angle Disruptor",
+              "effect": "25 ft line attack (SR)"
+            },
+            {
+              "name": "Cascade Burst Engine",
+              "effect": "Hit two adjacent targets for half damage"
+            },
+            {
+              "name": "Perfected Beam Synchronizer",
+              "effect": "Crits auto-hit second target"
+            },
+            {
+              "name": "Stormfire Lattice",
+              "effect": "Three attacks per turn once (LR)"
+            },
+            {
+              "name": "Ionstorm Ventilator",
+              "effect": "First hit each fight ignores AC bonus from cover"
+            }
+          ]
+        }
+      },
+      "targetingArray": {
+        "description": "Targeting array mods that improve accuracy and targeting",
+        "options": {
+          "tier1": [
+            {
+              "name": "Micro-Calibration Array",
+              "effect": "+1 hit"
+            },
+            {
+              "name": "Precision Optics",
+              "effect": "Advantage 1/SR"
+            },
+            {
+              "name": "Gyro-Lock Array",
+              "effect": "Ignore long-range disadvantage once/turn"
+            },
+            {
+              "name": "Thermal Sight",
+              "effect": "+1 to hit vs invisible/hidden"
+            },
+            {
+              "name": "Target-Line Indicator",
+              "effect": "First shot each turn adds +1 damage"
+            },
+            {
+              "name": "Ocular Stabilizer",
+              "effect": "+1 initiative"
+            }
+          ],
+          "tier2": [
+            {
+              "name": "Auto-Lock Sequence",
+              "effect": "+1 crit range"
+            },
+            {
+              "name": "Predictive Targeting AI",
+              "effect": "Auto-hit (10+mods) 1/SR"
+            },
+            {
+              "name": "Multi-Spectrum Targeter",
+              "effect": "Ignore light obscurement"
+            },
+            {
+              "name": "Motion-Track Array",
+              "effect": "+2 to hit if target moved this turn"
+            },
+            {
+              "name": "Thermal Imaging Array",
+              "effect": "Ignore invisibility (SR)"
+            },
+            {
+              "name": "Harmonic Rangefinder",
+              "effect": "+1d6 damage beyond 30 ft"
+            }
+          ],
+          "tier3": [
+            {
+              "name": "Quantum Sight Processor",
+              "effect": "Once/turn, add PB to hit"
+            },
+            {
+              "name": "Perfected Optics Engine",
+              "effect": "Crits auto-deal max dice"
+            },
+            {
+              "name": "Omni-Lock AI",
+              "effect": "All attacks ignore cover"
+            },
+            {
+              "name": "Spectral Analyzer",
+              "effect": "+2d6 radiant/energy vs hidden foes"
+            },
+            {
+              "name": "Apex Tracking Suite",
+              "effect": "Gain advantage for entire turn (1/SR)"
+            },
+            {
+              "name": "Refractor Pulse Sensor",
+              "effect": "First miss each fight becomes a hit"
+            }
+          ]
+        }
+      },
+      "coolingJacket": {
+        "description": "Cooling jacket mods that provide defensive and utility effects",
+        "options": {
+          "tier1": [
+            {
+              "name": "Thermal Suppression",
+              "effect": "Resist malfunction"
+            },
+            {
+              "name": "Quiet-Vent Jacket",
+              "effect": "Adv stealth"
+            },
+            {
+              "name": "Vent Surge",
+              "effect": "+1 initiative"
+            },
+            {
+              "name": "Cryo-Flow Lines",
+              "effect": "Reduce fire damage by 2"
+            },
+            {
+              "name": "Heat-Bleed Mesh",
+              "effect": "Shots produce no visible muzzle flash"
+            },
+            {
+              "name": "Overheat Buffer",
+              "effect": "Reroll nat 1 on attack"
+            }
+          ],
+          "tier2": [
+            {
+              "name": "Shock-Dispersion Jacket",
+              "effect": "Reduce lightning damage by 5"
+            },
+            {
+              "name": "Phase-Coolant Tubing",
+              "effect": "+1 AC after being hit"
+            },
+            {
+              "name": "Mag-Pressure Jacket",
+              "effect": "+2 Dex saves"
+            },
+            {
+              "name": "Silent-Vector Shroud",
+              "effect": "Attacks cannot be reacted to (1/SR)"
+            },
+            {
+              "name": "Frostline Core",
+              "effect": "+1d6 cold on crits"
+            },
+            {
+              "name": "Heat Vent Matrix",
+              "effect": "Reduce overheat cooldown by 1"
+            }
+          ],
+          "tier3": [
+            {
+              "name": "Perfect Coolant Core",
+              "effect": "Immunity to misfire"
+            },
+            {
+              "name": "Ghostfire Jacket",
+              "effect": "Attacks cannot be tracked (invisible muzzle)"
+            },
+            {
+              "name": "Cryo-Overload Lattice",
+              "effect": "+2d6 cold once/turn"
+            },
+            {
+              "name": "Thermal Nullifier",
+              "effect": "Ignore fire/heat terrain effects"
+            },
+            {
+              "name": "Phase-Shift Jacket",
+              "effect": "Once/turn reduce damage taken by PB"
+            },
+            {
+              "name": "Zero-Point Coolant Engine",
+              "effect": "Cooldowns refresh twice as fast"
+            }
+          ]
+        }
+      },
+      "grip": {
+        "description": "Grip mods that enhance handling and combat effectiveness",
+        "options": {
+          "tier1": [
+            {
+              "name": "Ergonomic Grip",
+              "effect": "+1 hit"
+            },
+            {
+              "name": "Weighted Grip",
+              "effect": "+1 damage"
+            },
+            {
+              "name": "Counterweight Grip",
+              "effect": "+1 AC"
+            },
+            {
+              "name": "Recoil Grip",
+              "effect": "Ignore recoil penalty"
+            },
+            {
+              "name": "Quick-Draw Grip",
+              "effect": "Free draw/stow"
+            },
+            {
+              "name": "Sniper's Grip",
+              "effect": "Adv first attack each combat"
+            }
+          ],
+          "tier2": [
+            {
+              "name": "Dual-Channel Grip",
+              "effect": "Bonus-action attack (SR)"
+            },
+            {
+              "name": "Adaptive Grip",
+              "effect": "+1 Dex or Wis"
+            },
+            {
+              "name": "Stability Grip",
+              "effect": "+2 to Dex saves"
+            },
+            {
+              "name": "Rebound Grip",
+              "effect": "Once/turn add +1d4 to damage"
+            },
+            {
+              "name": "Crush-Hold Tactical Grip",
+              "effect": "+1d6 damage vs large creatures"
+            },
+            {
+              "name": "Phase-Grip Anchor",
+              "effect": "Cannot be disarmed except on crit"
+            }
+          ],
+          "tier3": [
+            {
+              "name": "Ancient Marksman Frame",
+              "effect": "+2 damage"
+            },
+            {
+              "name": "Hunter-Killer Grip",
+              "effect": "+PB damage on first hit each combat"
+            },
+            {
+              "name": "Overwatch Master Grip",
+              "effect": "Free reaction attack 1/SR"
+            },
+            {
+              "name": "Echo Stabilizer Grip",
+              "effect": "Add +2 to hit when you haven't moved"
+            },
+            {
+              "name": "Apex Gunner's Grip",
+              "effect": "Crits restore 1d4 HP"
+            },
+            {
+              "name": "High-Conductive Frame",
+              "effect": "+2 to Force/Tech DCs (if applicable)"
+            }
+          ]
+        }
+      }
+    },
+    "defaultBuild": {
+      "tier": 1,
+      "powerCell": null,
+      "firingModule": null,
+      "targetingArray": null,
+      "coolingJacket": null,
+      "grip": null
+    }
+  }
+}

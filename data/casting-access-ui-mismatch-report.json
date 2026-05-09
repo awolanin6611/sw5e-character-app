@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-09",
+  "scope": "Leveling tab Force/Tech access buttons by class and class-specific archetype at level 20",
+  "auditMethod": "Interactive browser sweep using app UI controls and applied progression",
+  "summary": {
+    "scannedScenarios": 133,
+    "mismatchCount": 0,
+    "requestedNotSelectableCount": 5
+  },
+  "byClass": {
+    "Berserker": { "scanned": 16, "mismatches": 0 },
+    "Consular": { "scanned": 13, "mismatches": 0 },
+    "Engineer": { "scanned": 13, "mismatches": 0 },
+    "Fighter": { "scanned": 15, "mismatches": 0 },
+    "Guardian": { "scanned": 13, "mismatches": 0 },
+    "Monk": { "scanned": 16, "mismatches": 0 },
+    "Operative": { "scanned": 16, "mismatches": 0 },
+    "Scholar": { "scanned": 13, "mismatches": 0 },
+    "Scout": { "scanned": 6, "mismatches": 0 },
+    "Sentinel": { "scanned": 12, "mismatches": 0 }
+  },
+  "mismatches": [],
+  "requestedNotSelectableExamples": [
+    { "className": "Berserker", "requestedArchetype": "Path of Witchcraft", "selectedArchetype": "(none)" },
+    { "className": "Engineer", "requestedArchetype": "Way of Tutelage", "selectedArchetype": "(none)" },
+    { "className": "Guardian", "requestedArchetype": "Totem Specialist", "selectedArchetype": "(none)" },
+    { "className": "Operative", "requestedArchetype": "Whills Order", "selectedArchetype": "(none)" },
+    { "className": "Scout", "requestedArchetype": "Zoologist Pursuit", "selectedArchetype": "(none)" }
+  ],
+  "notes": [
+    "No Force/Tech access mismatches were found in the audited scenarios.",
+    "Some requested archetypes are not selectable under certain classes when set via direct automation (likely class-option filtering behavior)."
+  ]
+}

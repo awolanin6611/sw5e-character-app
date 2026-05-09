@@ -1,0 +1,997 @@
+{
+  "lightsaber": {
+    "crystal_blue_t1": {
+      "type": "crystal",
+      "name": "Blue (Kyber) (T1)",
+      "effect": "Reroll 1 missed attack (SR)",
+      "damageDicePerTier": 1,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_blue_t2": {
+      "type": "crystal",
+      "name": "Blue (Kyber) (T2)",
+      "effect": "+1d6 first hit/turn",
+      "damageDicePerTier": 2,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_blue_t3": {
+      "type": "crystal",
+      "name": "Blue (Kyber) (T3)",
+      "effect": "+1d10 on crit; +1 AC",
+      "damageDicePerTier": 3,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_green_t1": {
+      "type": "crystal",
+      "name": "Green (Adegan) (T1)",
+      "effect": "+2 to the first Concentration check",
+      "damageDicePerTier": 1,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_green_t2": {
+      "type": "crystal",
+      "name": "Green (Adegan) (T2)",
+      "effect": "+1d4 force/turn",
+      "damageDicePerTier": 2,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_green_t3": {
+      "type": "crystal",
+      "name": "Green (Adegan) (T3)",
+      "effect": "PB to Concentration",
+      "damageDicePerTier": 3,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_yellow_t1": {
+      "type": "crystal",
+      "name": "Yellow (T1)",
+      "effect": "Advantage vs hidden/invisible",
+      "damageDicePerTier": 1,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_yellow_t2": {
+      "type": "crystal",
+      "name": "Yellow (T2)",
+      "effect": "+2 initiative; radiant crits",
+      "damageDicePerTier": 2,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_yellow_t3": {
+      "type": "crystal",
+      "name": "Yellow (T3)",
+      "effect": "Cannot be surprised",
+      "damageDicePerTier": 3,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_orange_t1": {
+      "type": "crystal",
+      "name": "Orange (T1)",
+      "effect": "Advantage on Insight (social)",
+      "damageDicePerTier": 1,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_orange_t2": {
+      "type": "crystal",
+      "name": "Orange (T2)",
+      "effect": "+1d4 Persuasion; min 10",
+      "damageDicePerTier": 2,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_orange_t3": {
+      "type": "crystal",
+      "name": "Orange (T3)",
+      "effect": "Neutralize hostiles; Persuasion expertise",
+      "damageDicePerTier": 3,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_red_t1": {
+      "type": "crystal",
+      "name": "Red (Synthetic) (T1)",
+      "effect": "+10 damage (LR)",
+      "damageDicePerTier": 1,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_red_t2": {
+      "type": "crystal",
+      "name": "Red (Synthetic) (T2)",
+      "effect": "+1d6 necrotic/turn; heal 2",
+      "damageDicePerTier": 2,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_red_t3": {
+      "type": "crystal",
+      "name": "Red (Synthetic) (T3)",
+      "effect": "+2d6 necrotic/turn; restore FP",
+      "damageDicePerTier": 3,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_purple_t1": {
+      "type": "crystal",
+      "name": "Purple (T1)",
+      "effect": "Adv Insight vs Force-users",
+      "damageDicePerTier": 1,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_purple_t2": {
+      "type": "crystal",
+      "name": "Purple (T2)",
+      "effect": "+1d8 force/SR",
+      "damageDicePerTier": 2,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "crystal_purple_t3": {
+      "type": "crystal",
+      "name": "Purple (T3)",
+      "effect": "Ignore resistance",
+      "damageDicePerTier": 3,
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_stabilization_matrix_t1": {
+      "type": "enhancement",
+      "name": "Stabilization Matrix (T1)",
+      "effect": "Reduce crit-fail chance",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_heat_vent_t1": {
+      "type": "enhancement",
+      "name": "Heat Vent (T1)",
+      "effect": "+1d4 once/turn",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_insulated_wiring_t1": {
+      "type": "enhancement",
+      "name": "Insulated Wiring (T1)",
+      "effect": "Advantage vs disarm",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_basic_dual-phase_t1": {
+      "type": "enhancement",
+      "name": "Basic Dual-Phase (T1)",
+      "effect": "10 ft reach (1 round)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_anti-armor_t1": {
+      "type": "enhancement",
+      "name": "Anti-Armor (T1)",
+      "effect": "+3 vs droids/armor",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_energy_bypass_t1": {
+      "type": "enhancement",
+      "name": "Energy Bypass (T1)",
+      "effect": "+1 damage vs shields",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_refined_power_cell_t2": {
+      "type": "enhancement",
+      "name": "Refined Power Cell (T2)",
+      "effect": "+1d8/SR",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_hyper-resonance_t2": {
+      "type": "enhancement",
+      "name": "Hyper-Resonance (T2)",
+      "effect": "+1d10 crit",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_force_pulse_t2": {
+      "type": "enhancement",
+      "name": "Force Pulse (T2)",
+      "effect": "1d4 when hit",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_advanced_dual-phase_t2": {
+      "type": "enhancement",
+      "name": "Advanced Dual-Phase (T2)",
+      "effect": "Free reach mode",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_overload_regulator_t2": {
+      "type": "enhancement",
+      "name": "Overload Regulator (T2)",
+      "effect": "+2 damage if you spent FP this turn",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_stability_bracket_t2": {
+      "type": "enhancement",
+      "name": "Stability Bracket (T2)",
+      "effect": "+1 to hit if you haven't moved",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_perfect_power_core_t3": {
+      "type": "enhancement",
+      "name": "Perfect Power Core (T3)",
+      "effect": "+1d6 every hit",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_ionic_harmonics_t3": {
+      "type": "enhancement",
+      "name": "Ionic Harmonics (T3)",
+      "effect": "Ignore resist/immunity (1/SR)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_photon_edge_t3": {
+      "type": "enhancement",
+      "name": "Photon Edge (T3)",
+      "effect": "Cuts like adamantine",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_force_matrix_t3": {
+      "type": "enhancement",
+      "name": "Force Matrix (T3)",
+      "effect": "+4 reaction to Force/Concentration",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_supercharged_dual-phase_t3": {
+      "type": "enhancement",
+      "name": "Supercharged Dual-Phase (T3)",
+      "effect": "+2d6 first reach hit",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "enhancement_quantum_channel_t3": {
+      "type": "enhancement",
+      "name": "Quantum Channel (T3)",
+      "effect": "Once per turn, add +PB damage of chosen type",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_emitter_guard_t1": {
+      "type": "mod",
+      "name": "Emitter Guard (T1)",
+      "effect": "+1 AC vs melee",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_counterweight_t1": {
+      "type": "mod",
+      "name": "Counterweight (T1)",
+      "effect": "Adv Acrobatics",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_focusing_lens_t1": {
+      "type": "mod",
+      "name": "Focusing Lens (T1)",
+      "effect": "1 advantaged attack (SR)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_perceptive_module_t1": {
+      "type": "mod",
+      "name": "Perceptive Module (T1)",
+      "effect": "+1 Wis; adv Perception",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_agile_coupling_t1": {
+      "type": "mod",
+      "name": "Agile Coupling (T1)",
+      "effect": "+1 Dex; +1 init",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_micro-servo_actuator_t1": {
+      "type": "mod",
+      "name": "Micro-Servo Actuator (T1)",
+      "effect": "+1 to hit if dual wielding",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_crossguard_stabilizer_t2": {
+      "type": "mod",
+      "name": "Crossguard Stabilizer (T2)",
+      "effect": "+1d6 reaction damage",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_kinetic_loop_t2": {
+      "type": "mod",
+      "name": "Kinetic Loop (T2)",
+      "effect": "+2 dmg after parry/deflect",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_ocular_scope_t2": {
+      "type": "mod",
+      "name": "Ocular Scope (T2)",
+      "effect": "+2 to hit w/ disadvantage",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_mag-seal_t2": {
+      "type": "mod",
+      "name": "Mag-Seal (T2)",
+      "effect": "Only disarmed on crit",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_evasion_gyroscope_t2": {
+      "type": "mod",
+      "name": "Evasion Gyroscope (T2)",
+      "effect": "+1 Dex; shift 5 ft on miss",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_targeting_subprocessor_t2": {
+      "type": "mod",
+      "name": "Targeting Subprocessor (T2)",
+      "effect": "+1 damage on all off-hand attacks",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_inquisitor_disk_t3": {
+      "type": "mod",
+      "name": "Inquisitor Disk (T3)",
+      "effect": "AoE 3d8 (1/SR)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_phantom_edge_t3": {
+      "type": "mod",
+      "name": "Phantom Edge (T3)",
+      "effect": "Add PB force dmg (1/turn)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_auto-parry_routine_t3": {
+      "type": "mod",
+      "name": "Auto-Parry Routine (T3)",
+      "effect": "+2 AC vs one attack",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_synergy_matrix_t3": {
+      "type": "mod",
+      "name": "Synergy Matrix (T3)",
+      "effect": "Crit fi ally attack",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_dual-channel_conductor_t3": {
+      "type": "mod",
+      "name": "Dual-Channel Conductor (T3)",
+      "effect": "+1d6 force when dual wield",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "mod_overclocked_processor_t3": {
+      "type": "mod",
+      "name": "Overclocked Processor (T3)",
+      "effect": "+1 attack roll per turn (not an extra attack)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_standard_t1": {
+      "type": "hilt",
+      "name": "Standard (T1)",
+      "effect": "Balanced",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_shoto_t1": {
+      "type": "hilt",
+      "name": "Shoto (T1)",
+      "effect": "+1 off-hand dmg",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_extended_grip_t1": {
+      "type": "hilt",
+      "name": "Extended Grip (T1)",
+      "effect": "+5 ft shove",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_artisan_wrap_t1": {
+      "type": "hilt",
+      "name": "Artisan Wrap (T1)",
+      "effect": "Adv Persuasion vs Force-users",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_guarded_emitter_t1": {
+      "type": "hilt",
+      "name": "Guarded Emitter (T1)",
+      "effect": "+1 AC (two-handed)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_ventilated_pommel_t1": {
+      "type": "hilt",
+      "name": "Ventilated Pommel (T1)",
+      "effect": "+1 initiative",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_curved_makashi_t2": {
+      "type": "hilt",
+      "name": "Curved Makashi (T2)",
+      "effect": "+2 hit (Dex melee)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_dual-emitter_t2": {
+      "type": "hilt",
+      "name": "Dual-Emitter (T2)",
+      "effect": "+1d6 vs grappled",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_balance-core_t2": {
+      "type": "hilt",
+      "name": "Balance-Core (T2)",
+      "effect": "+2 initiative",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_ataru_leaping_t2": {
+      "type": "hilt",
+      "name": "Ataru Leaping (T2)",
+      "effect": "+1d8 after 10 ft move",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_defender_hilt_t2": {
+      "type": "hilt",
+      "name": "Defender Hilt (T2)",
+      "effect": "+2 AC after Dodge",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_crushguard_lattice_t2": {
+      "type": "hilt",
+      "name": "Crushguard Lattice (T2)",
+      "effect": "+1 damage vs large creatures",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_ancient_jedi_t3": {
+      "type": "hilt",
+      "name": "Ancient Jedi (T3)",
+      "effect": "+2 dmg; heal 2d8 (LR)",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_sith_warforged_t3": {
+      "type": "hilt",
+      "name": "Sith Warforged (T3)",
+      "effect": "+2d6 necrotic/turn",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_crossguard_master_t3": {
+      "type": "hilt",
+      "name": "Crossguard Master (T3)",
+      "effect": "Reaction attack on miss",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_double-saber_t3": {
+      "type": "hilt",
+      "name": "Double-Saber (T3)",
+      "effect": "Bonus action strike",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_force-conductive_t3": {
+      "type": "hilt",
+      "name": "Force-Conductive (T3)",
+      "effect": "+2 Force DC",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    },
+    "hilt_echo_resonance_frame_t3": {
+      "type": "hilt",
+      "name": "Echo Resonance Frame (T3)",
+      "effect": "+PB to first attack each combat",
+      "source": "lightsaber_modular_system_full_player_v3.pdf"
+    }
+  },
+  "blaster": {
+    "powerCell_overcharged_cell_t1": {
+      "type": "powerCell",
+      "name": "Overcharged Cell (T1)",
+      "effect": "+1 damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_balanced_power_cell_t1": {
+      "type": "powerCell",
+      "name": "Balanced Power Cell (T1)",
+      "effect": "+1 to hit",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_pulse-regulator_cell_t1": {
+      "type": "powerCell",
+      "name": "Pulse-Regulator Cell (T1)",
+      "effect": "Reroll 1 damage die once/turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_thermal_buffer_cell_t1": {
+      "type": "powerCell",
+      "name": "Thermal Buffer Cell (T1)",
+      "effect": "Reduce misfire chance by 1",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_compact_efficiency_cell_t1": {
+      "type": "powerCell",
+      "name": "Compact Efficiency Cell (T1)",
+      "effect": "+1 damage on your first hit/turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_conduction_stabilizer_t1": {
+      "type": "powerCell",
+      "name": "Conduction Stabilizer (T1)",
+      "effect": "Treat 1 on damage dice as 2",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_cycling_surge_cell_t2": {
+      "type": "powerCell",
+      "name": "Cycling Surge Cell (T2)",
+      "effect": "+2 dice to one attack (SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_harmonic_output_cell_t2": {
+      "type": "powerCell",
+      "name": "Harmonic Output Cell (T2)",
+      "effect": "+1d8 crit damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_dual-phase_capacitor_t2": {
+      "type": "powerCell",
+      "name": "Dual-Phase Capacitor (T2)",
+      "effect": "Add +1 die once per turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_ion-shift_capacitor_t2": {
+      "type": "powerCell",
+      "name": "Ion-Shift Capacitor (T2)",
+      "effect": "Ignore resistance to energy/ion",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_high-drain_feed_t2": {
+      "type": "powerCell",
+      "name": "High-Drain Feed (T2)",
+      "effect": "+1 AC after hitting",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_reverb_pulse_cell_t2": {
+      "type": "powerCell",
+      "name": "Reverb Pulse Cell (T2)",
+      "effect": "Miss fi +1 die on next hit this turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_quantum_channel_array_t3": {
+      "type": "powerCell",
+      "name": "Quantum Channel Array (T3)",
+      "effect": "+PB damage once/turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_supercharged_phase_cell_t3": {
+      "type": "powerCell",
+      "name": "Supercharged Phase Cell (T3)",
+      "effect": "+2d6 on first hit each turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_perfect_energy_core_t3": {
+      "type": "powerCell",
+      "name": "Perfect Energy Core (T3)",
+      "effect": "+1d6 damage on every hit",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_ionic_harmonics_matrix_t3": {
+      "type": "powerCell",
+      "name": "Ionic Harmonics Matrix (T3)",
+      "effect": "Ignore resistance + immunity (1/SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_photon_loadout_cell_t3": {
+      "type": "powerCell",
+      "name": "Photon Loadout Cell (T3)",
+      "effect": "One attack deals max damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "powerCell_cascade_overdrive_core_t3": {
+      "type": "powerCell",
+      "name": "Cascade Overdrive Core (T3)",
+      "effect": "Drop a target fi bonus-action blaster attack",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_rapid-cycle_module_t1": {
+      "type": "firingModule",
+      "name": "Rapid-Cycle Module (T1)",
+      "effect": "+1 damage die once/turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_stabilized_discharge_t1": {
+      "type": "firingModule",
+      "name": "Stabilized Discharge (T1)",
+      "effect": "Reroll 1 damage die",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_short-haul_burst_module_t1": {
+      "type": "firingModule",
+      "name": "Short-Haul Burst Module (T1)",
+      "effect": "+1 to hit within 30 ft",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_pulse_breaker_t1": {
+      "type": "firingModule",
+      "name": "Pulse Breaker (T1)",
+      "effect": "+1 damage vs targets in cover",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_micro-repeater_node_t1": {
+      "type": "firingModule",
+      "name": "Micro-Repeater Node (T1)",
+      "effect": "Once/turn, treat a 2 as a 3 on damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_low-recoil_chamber_t1": {
+      "type": "firingModule",
+      "name": "Low-Recoil Chamber (T1)",
+      "effect": "+1 AC after firing",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_burst-fire_module_t2": {
+      "type": "firingModule",
+      "name": "Burst-Fire Module (T2)",
+      "effect": "10 ft cone (SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_repeater_linkage_t2": {
+      "type": "firingModule",
+      "name": "Repeater Linkage (T2)",
+      "effect": "Extra attack (SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_piercing_beam_matrix_t2": {
+      "type": "firingModule",
+      "name": "Piercing Beam Matrix (T2)",
+      "effect": "+2 to hit at long range",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_stun_pulse_generator_t2": {
+      "type": "firingModule",
+      "name": "Stun Pulse Generator (T2)",
+      "effect": "Con save stun (SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_adaptive_spread_module_t2": {
+      "type": "firingModule",
+      "name": "Adaptive Spread Module (T2)",
+      "effect": "Cone attacks deal +1 die",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_shatter-cycle_module_t2": {
+      "type": "firingModule",
+      "name": "Shatter-Cycle Module (T2)",
+      "effect": "+1d6 vs shields or droids",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_overclocked_repeater_array_t3": {
+      "type": "firingModule",
+      "name": "Overclocked Repeater Array (T3)",
+      "effect": "+1 attack roll per turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_wide-angle_disruptor_t3": {
+      "type": "firingModule",
+      "name": "Wide-Angle Disruptor (T3)",
+      "effect": "25 ft line attack (SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_cascade_burst_engine_t3": {
+      "type": "firingModule",
+      "name": "Cascade Burst Engine (T3)",
+      "effect": "Hit two adjacent targets for half damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_perfected_beam_synchronizer_t3": {
+      "type": "firingModule",
+      "name": "Perfected Beam Synchronizer (T3)",
+      "effect": "Crits auto-hit second target",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_stormfire_lattice_t3": {
+      "type": "firingModule",
+      "name": "Stormfire Lattice (T3)",
+      "effect": "Three attacks per turn once (LR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "firingModule_ionstorm_ventilator_t3": {
+      "type": "firingModule",
+      "name": "Ionstorm Ventilator (T3)",
+      "effect": "First hit each fight ignores AC bonus from cover",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_micro-calibration_array_t1": {
+      "type": "targetingArray",
+      "name": "Micro-Calibration Array (T1)",
+      "effect": "+1 hit",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_precision_optics_t1": {
+      "type": "targetingArray",
+      "name": "Precision Optics (T1)",
+      "effect": "Advantage 1/SR",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_gyro-lock_array_t1": {
+      "type": "targetingArray",
+      "name": "Gyro-Lock Array (T1)",
+      "effect": "Ignore long-range disadvantage once/turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_thermal_sight_t1": {
+      "type": "targetingArray",
+      "name": "Thermal Sight (T1)",
+      "effect": "+1 to hit vs invisible/hidden",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_target-line_indicator_t1": {
+      "type": "targetingArray",
+      "name": "Target-Line Indicator (T1)",
+      "effect": "First shot each turn adds +1 damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_ocular_stabilizer_t1": {
+      "type": "targetingArray",
+      "name": "Ocular Stabilizer (T1)",
+      "effect": "+1 initiative",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_auto-lock_sequence_t2": {
+      "type": "targetingArray",
+      "name": "Auto-Lock Sequence (T2)",
+      "effect": "+1 crit range",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_predictive_targeting_ai_t2": {
+      "type": "targetingArray",
+      "name": "Predictive Targeting AI (T2)",
+      "effect": "Auto-hit (10+mods) 1/SR",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_multi-spectrum_targeter_t2": {
+      "type": "targetingArray",
+      "name": "Multi-Spectrum Targeter (T2)",
+      "effect": "Ignore light obscurement",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_motion-track_array_t2": {
+      "type": "targetingArray",
+      "name": "Motion-Track Array (T2)",
+      "effect": "+2 to hit if target moved this turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_thermal_imaging_array_t2": {
+      "type": "targetingArray",
+      "name": "Thermal Imaging Array (T2)",
+      "effect": "Ignore invisibility (SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_harmonic_rangefinder_t2": {
+      "type": "targetingArray",
+      "name": "Harmonic Rangefinder (T2)",
+      "effect": "+1d6 damage beyond 30 ft",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_quantum_sight_processor_t3": {
+      "type": "targetingArray",
+      "name": "Quantum Sight Processor (T3)",
+      "effect": "Once/turn, add PB to hit",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_perfected_optics_engine_t3": {
+      "type": "targetingArray",
+      "name": "Perfected Optics Engine (T3)",
+      "effect": "Crits auto-deal max dice",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_omni-lock_ai_t3": {
+      "type": "targetingArray",
+      "name": "Omni-Lock AI (T3)",
+      "effect": "All attacks ignore cover",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_spectral_analyzer_t3": {
+      "type": "targetingArray",
+      "name": "Spectral Analyzer (T3)",
+      "effect": "+2d6 radiant/energy vs hidden foes",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_apex_tracking_suite_t3": {
+      "type": "targetingArray",
+      "name": "Apex Tracking Suite (T3)",
+      "effect": "Gain advantage for entire turn (1/SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "targetingArray_refractor_pulse_sensor_t3": {
+      "type": "targetingArray",
+      "name": "Refractor Pulse Sensor (T3)",
+      "effect": "First miss each fight becomes a hit",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_thermal_suppression_t1": {
+      "type": "coolingJacket",
+      "name": "Thermal Suppression (T1)",
+      "effect": "Resist malfunction",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_quiet-vent_jacket_t1": {
+      "type": "coolingJacket",
+      "name": "Quiet-Vent Jacket (T1)",
+      "effect": "Adv stealth",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_vent_surge_t1": {
+      "type": "coolingJacket",
+      "name": "Vent Surge (T1)",
+      "effect": "+1 initiative",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_cryo-flow_lines_t1": {
+      "type": "coolingJacket",
+      "name": "Cryo-Flow Lines (T1)",
+      "effect": "Reduce fire damage by 2",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_heat-bleed_mesh_t1": {
+      "type": "coolingJacket",
+      "name": "Heat-Bleed Mesh (T1)",
+      "effect": "Shots produce no visible muzzle flash",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_overheat_buffer_t1": {
+      "type": "coolingJacket",
+      "name": "Overheat Buffer (T1)",
+      "effect": "Reroll nat 1 on attack",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_shock-dispersion_jacket_t2": {
+      "type": "coolingJacket",
+      "name": "Shock-Dispersion Jacket (T2)",
+      "effect": "Reduce lightning damage by 5",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_phase-coolant_tubing_t2": {
+      "type": "coolingJacket",
+      "name": "Phase-Coolant Tubing (T2)",
+      "effect": "+1 AC after being hit",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_mag-pressure_jacket_t2": {
+      "type": "coolingJacket",
+      "name": "Mag-Pressure Jacket (T2)",
+      "effect": "+2 Dex saves",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_silent-vector_shroud_t2": {
+      "type": "coolingJacket",
+      "name": "Silent-Vector Shroud (T2)",
+      "effect": "Attacks cannot be reacted to (1/SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_frostline_core_t2": {
+      "type": "coolingJacket",
+      "name": "Frostline Core (T2)",
+      "effect": "+1d6 cold on crits",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_heat_vent_matrix_t2": {
+      "type": "coolingJacket",
+      "name": "Heat Vent Matrix (T2)",
+      "effect": "Reduce overheat cooldown by 1",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_perfect_coolant_core_t3": {
+      "type": "coolingJacket",
+      "name": "Perfect Coolant Core (T3)",
+      "effect": "Immunity to misfire",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_ghostfire_jacket_t3": {
+      "type": "coolingJacket",
+      "name": "Ghostfire Jacket (T3)",
+      "effect": "Attacks cannot be tracked (invisible muzzle)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_cryo-overload_lattice_t3": {
+      "type": "coolingJacket",
+      "name": "Cryo-Overload Lattice (T3)",
+      "effect": "+2d6 cold once/turn",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_thermal_nullifier_t3": {
+      "type": "coolingJacket",
+      "name": "Thermal Nullifier (T3)",
+      "effect": "Ignore fire/heat terrain effects",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_phase-shift_jacket_t3": {
+      "type": "coolingJacket",
+      "name": "Phase-Shift Jacket (T3)",
+      "effect": "Once/turn reduce damage taken by PB",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "coolingJacket_zero-point_coolant_engine_t3": {
+      "type": "coolingJacket",
+      "name": "Zero-Point Coolant Engine (T3)",
+      "effect": "Cooldowns refresh twice as fast",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_ergonomic_grip_t1": {
+      "type": "grip",
+      "name": "Ergonomic Grip (T1)",
+      "effect": "+1 hit",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_weighted_grip_t1": {
+      "type": "grip",
+      "name": "Weighted Grip (T1)",
+      "effect": "+1 damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_counterweight_grip_t1": {
+      "type": "grip",
+      "name": "Counterweight Grip (T1)",
+      "effect": "+1 AC",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_recoil_grip_t1": {
+      "type": "grip",
+      "name": "Recoil Grip (T1)",
+      "effect": "Ignore recoil penalty",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_quick-draw_grip_t1": {
+      "type": "grip",
+      "name": "Quick-Draw Grip (T1)",
+      "effect": "Free draw/stow",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_sniper's_grip_t1": {
+      "type": "grip",
+      "name": "Sniper's Grip (T1)",
+      "effect": "Adv first attack each combat",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_dual-channel_grip_t2": {
+      "type": "grip",
+      "name": "Dual-Channel Grip (T2)",
+      "effect": "Bonus-action attack (SR)",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_adaptive_grip_t2": {
+      "type": "grip",
+      "name": "Adaptive Grip (T2)",
+      "effect": "+1 Dex or Wis",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_stability_grip_t2": {
+      "type": "grip",
+      "name": "Stability Grip (T2)",
+      "effect": "+2 to Dex saves",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_rebound_grip_t2": {
+      "type": "grip",
+      "name": "Rebound Grip (T2)",
+      "effect": "Once/turn add +1d4 to damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_crush-hold_tactical_grip_t2": {
+      "type": "grip",
+      "name": "Crush-Hold Tactical Grip (T2)",
+      "effect": "+1d6 damage vs large creatures",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_phase-grip_anchor_t2": {
+      "type": "grip",
+      "name": "Phase-Grip Anchor (T2)",
+      "effect": "Cannot be disarmed except on crit",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_ancient_marksman_frame_t3": {
+      "type": "grip",
+      "name": "Ancient Marksman Frame (T3)",
+      "effect": "+2 damage",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_hunter-killer_grip_t3": {
+      "type": "grip",
+      "name": "Hunter-Killer Grip (T3)",
+      "effect": "+PB damage on first hit each combat",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_overwatch_master_grip_t3": {
+      "type": "grip",
+      "name": "Overwatch Master Grip (T3)",
+      "effect": "Free reaction attack 1/SR",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_echo_stabilizer_grip_t3": {
+      "type": "grip",
+      "name": "Echo Stabilizer Grip (T3)",
+      "effect": "Add +2 to hit when you haven't moved",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_apex_gunner's_grip_t3": {
+      "type": "grip",
+      "name": "Apex Gunner's Grip (T3)",
+      "effect": "Crits restore 1d4 HP",
+      "source": "blaster_modular_system_complete.pdf"
+    },
+    "grip_high-conductive_frame_t3": {
+      "type": "grip",
+      "name": "High-Conductive Frame (T3)",
+      "effect": "+2 to Force/Tech DCs (if applicable)",
+      "source": "blaster_modular_system_complete.pdf"
+    }
+  },
+  "description": "Master bonus lookup table for all equipment modules from the modular system PDFs"
+}

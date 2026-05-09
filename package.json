@@ -10,6 +10,8 @@
     "index:pdf-all": "python scripts/index_pdf_sources.py && python scripts/build_pdf_corpus.py",
     "extract:sheet-reference": "python scripts/extract_sheet_reference_data.py",
     "build:class-progressions": "python scripts/generate_class_progressions.py",
+    "build:archetype-casting-overrides": "python scripts/build_archetype_casting_overrides.py",
+    "build:data-from-pdfs": "python scripts/index_pdf_sources.py && python scripts/build_pdf_corpus.py && python scripts/extract_sheet_reference_data.py && python scripts/generate_class_progressions.py && python scripts/build_archetype_casting_overrides.py",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --win nsis portable",
     "release": "electron-builder --win nsis --publish always"
