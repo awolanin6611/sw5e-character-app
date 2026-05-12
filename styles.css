@@ -199,6 +199,52 @@ textarea {
   gap: 8px;
 }
 
+.asi-feat-panel {
+  margin-top: 12px;
+}
+
+#featDescriptionPreview {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  min-height: 92px;
+  resize: vertical;
+}
+
+.asi-history-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.asi-history-item {
+  background: #3E2723;
+  border: 1px solid #6B5344;
+  border-radius: 8px;
+  padding: 9px 11px;
+}
+
+.asi-history-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.asi-history-item-title {
+  color: #DAA520;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.asi-history-item-desc {
+  margin: 6px 0 0;
+  color: #E8DCC8;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
 .validation {
   min-height: 20px;
   color: #E8C26B;
@@ -2555,6 +2601,11 @@ main {
   gap: 8px;
 }
 
+.level-choice-card.feature-choice-missing {
+  background: linear-gradient(180deg, #4a2a25 0%, #3d2219 100%);
+  border: 1px solid #a0573c;
+}
+
 .level-choice-card-header {
   display: flex;
   justify-content: space-between;
@@ -2578,6 +2629,18 @@ main {
   letter-spacing: 0.05em;
 }
 
+.level-choice-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.level-choice-badge-warning {
+  color: #fbe9e7;
+  background: #b03a2e;
+}
+
 .level-choice-description {
   color: #D2B48C;
   font-size: 0.84rem;
@@ -2593,6 +2656,34 @@ main {
   color: #3E2723;
   font-weight: 600;
   padding: 8px 36px 8px 12px;
+}
+
+.feature-choice-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.feature-choice-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #D2B48C;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.feature-choice-checkbox-label:hover {
+  color: #F5E6D3;
+}
+
+.feature-choice-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #DAA520;
 }
 
 .class-level-row {

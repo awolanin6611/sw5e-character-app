@@ -179,14 +179,14 @@
     </div>
     <input id="fecChosen" type="hidden" value="">
 
-    <div id="consularFecDisplaySection" class="fec-display-section">
+    <div id="consularFecDisplaySection" class="fec-display-section" hidden>
       <h3>Force-Empowered Casting</h3>
       <div id="fecDisplay" class="fec-display-panel">
         <p class="fec-empty-msg">No Force-Empowered options chosen. Select options in the Leveling tab.</p>
       </div>
     </div>
 
-    <div id="consularAffinityDisplaySection" class="affinity-display-section">
+    <div id="consularAffinityDisplaySection" class="affinity-display-section" hidden>
       <h3>Force Affinity Effect</h3>
       <div id="affinityInfo" class="affinity-info-panel">
         <h4 id="affinityInfoTitle" class="affinity-info-title">No Affinity Chosen</h4>
@@ -487,6 +487,15 @@
             <p class="features-empty">No class-specific choices unlocked at the current levels.</p>
           </div>
         </div>
+        <div class="level-choice-panel">
+          <div class="level-choice-panel-header">
+            <h3>Class Feature Choices</h3>
+            <span class="fp-used-label">Choose options for unlocked class features from levels 1-20.</span>
+          </div>
+          <div id="featureChoiceList" class="level-choice-list">
+            <p class="features-empty">No class feature choices required at the current levels.</p>
+          </div>
+        </div>
         <div class="level-unlocked-panel">
           <div class="level-choice-panel-header">
             <h3>Class Feature Unlocks</h3>
@@ -499,15 +508,15 @@
         <p class="leveling-help-text">Set one or more classes here for multiclassing. Class features and archetype options are driven by the class progression catalog, while Force/Tech point calculations apply where relevant.</p>
       </div>
     </div>
-    <div id="consularConfigSection">
-      <div class="row">
+    <div id="consularConfigSection" hidden>
+      <div id="consularCastingAbilityRow" class="row">
         <label for="castingAbility">Universal Force Ability</label>
         <select id="castingAbility">
           <option value="wis">Wisdom</option>
           <option value="cha">Charisma</option>
         </select>
       </div>
-      <div class="row">
+      <div id="consularAffinityRow" class="row">
         <label for="forceAffinity">Force Affinity</label>
         <select id="forceAffinity">
           <option value="none">Not Chosen</option>
@@ -543,7 +552,30 @@
       <button type="button" onclick="applyAsi('+1/+1')">Apply +1/+1</button>
       <button type="button" onclick="undoAsi()">Undo Last ASI</button>
     </div>
-    <div id="consularFecOptionsSection">
+    <div class="level-choice-panel asi-feat-panel">
+      <div class="level-choice-panel-header">
+        <h3>Feat Selection (Consumes ASI Slot)</h3>
+        <span class="fp-used-label">Choose from PDF-derived feats or add your own custom feat entry.</span>
+      </div>
+      <div class="grid-two">
+        <input id="featSearch" type="text" placeholder="Search feats..." oninput="renderFeatSelectionOptions()">
+        <select id="featSelect" onchange="updateFeatDescriptionPreview()">
+          <option value="">Select a feat...</option>
+        </select>
+      </div>
+      <div id="customFeatFields" class="row" hidden>
+        <input id="customFeatName" type="text" placeholder="Custom feature name">
+      </div>
+      <textarea id="featDescriptionPreview" readonly rows="5" placeholder="Select a feat to see its description."></textarea>
+      <span id="featSourceLabel" class="fp-used-label">Source: —</span>
+      <div class="actions">
+        <button type="button" onclick="applyFeatSelection()">Add Feature</button>
+      </div>
+      <div id="asiHistoryList" class="asi-history-list">
+        <p class="features-empty">No ASI or feat selections recorded yet.</p>
+      </div>
+    </div>
+    <div id="consularFecOptionsSection" hidden>
       <h3>Force-Empowered Casting Options</h3>
       <p class="fec-slots-label">Slots available at your level: <strong id="fecSlotsLabel">—</strong></p>
       <div class="fec-checklist">
@@ -557,6 +589,7 @@
         <label class="fec-check-row"><input type="checkbox" class="fec-checkbox" value="Twinned Power" onchange="updateFecChosen()"> <span class="fec-option-name">Twinned Power</span></label>
       </div>
     </div>
+    <input id="featureChoices" type="hidden" value="{}">
     <h3>Experience Progress</h3>
     <div class="xp-counter">
       <div class="xp-display">
@@ -983,7 +1016,7 @@
     <button class="footer-btn roster-open-btn" onclick="openRosterPanel()">&#9776; Characters</button>
     <button class="footer-btn" onclick="saveCharacter()">Save Character</button>
     <button class="footer-btn" onclick="importCharacterFromFile()">Import Builder JSON</button>
-    <button class="footer-btn" onclick="resetCharacter()">Reset to Template</button>
+    <button class="footer-btn" onclick="resetCharacter()">Reset to Blank Template</button>
     <input id="characterImportInput" type="file" accept=".json,application/json" hidden>
   </footer>
 

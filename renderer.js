@@ -3,6 +3,7 @@ let fs, path, app, dataPath;
 let storageBackend = 'none';
 let forcePowerCatalog = [];
 let techPowerCatalog = [];
+let featCatalog = [];
 let classProgressionCatalog = {};
 let speciesReferenceNames = [];
 let speciesReferenceSource = '';
@@ -16,10 +17,12 @@ let archetypeCastingOverrides = { force: [], tech: [] };
 let activeFeatureClassTab = '';
 let activeCharacterArchetypeTab = '';
 let activePowerCatalogTab = 'force';
+let featCatalogLoaded = false;
 let classProgressionCatalogLoaded = false;
 const LOCAL_STORAGE_KEY = 'sw5e.character';
 const ROSTER_STORAGE_KEY = 'sw5e.roster';
 const ABILITY_IDS = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+const MAX_CHARACTER_LEVEL = 20;
 const ABILITY_NAME_TO_ID = {
   strength: 'str',
   dexterity: 'dex',
@@ -172,6 +175,262 @@ const ARCHETYPE_CASTING_OVERRIDES = {
     }
   ],
   tech: []
+};
+
+// Comprehensive feature choice system covering all classes, levels, and feature types
+const FEATURE_CHOICE_RULES = {
+  berserker: {
+    2: [
+      {
+        featureKey: 'instincts',
+        label: 'Berserker Instincts',
+        choiceType: 'multi',
+        count: 2,
+        description: 'You hone two instincts at 2nd level (and more at 7th, 11th, 13th, 17th levels)',
+        options: ['Acklay\'s Instinct', 'Bantha\'s Instinct', 'Blurrg\'s Instinct', 'Boggdo\'s Instinct', 'Chirodactyl\'s Instinct', 'Dewback\'s Instinct', 'Fighter\'s Instinct', 'Fyrnock\'s Instinct', 'Hawk\'s Instinct', 'Katarn\'s Instinct', 'Loth-Cat\'s Instinct', 'Predator\'s Instinct', 'Rancor\'s Instinct', 'Tactician\'s Instinct', 'Tracker\'s Instinct', 'Terentatek\'s Instinct', 'Varactyl\'s Instinct']
+      }
+    ],
+    3: [
+      {
+        featureKey: 'approach',
+        label: 'Approach',
+        choiceType: 'single',
+        description: 'You choose an approach that shapes the nature of your rage.',
+        options: ['Ballistic Approach', 'Cyclone Approach', 'Juggernaut Approach', 'Marauder Approach']
+      }
+    ]
+  },
+  consular: {
+    3: [
+      {
+        featureKey: 'affinity',
+        label: 'Force Affinity',
+        choiceType: 'single',
+        description: 'You choose one aspect of the Force: Ashla, Bendu, or Bogan.',
+        options: ['Ashla', 'Bendu', 'Bogan']
+      },
+      {
+        featureKey: 'tradition',
+        label: 'Tradition',
+        choiceType: 'single',
+        description: 'You choose a consular tradition (Way) that shapes your power usage.',
+        options: ['Way of Balance', 'Way of Confluence', 'Way of Endurance', 'Way of Lightning', 'Way of Manipulation', 'Way of Negation', 'Way of Suggestion', 'Way of Technology', 'Way of Telekinetics', 'Way of Tutelage', 'Way of the Sage', 'Way of the Seer']
+      }
+    ],
+    20: [
+      {
+        featureKey: 'signature_power',
+        label: 'Signature Force Power',
+        choiceType: 'single',
+        description: 'You choose one 3rd-level force power to cast once without expending force points.',
+        options: ['(Select force power from character knowledge)']
+      }
+    ]
+  },
+  engineer: {
+    3: [
+      {
+        featureKey: 'discipline',
+        label: 'Engineering Discipline',
+        choiceType: 'single',
+        description: 'You choose your engineering discipline.',
+        options: ['Armormech', 'Armstech', 'Artificer', 'Astrotech', 'Audiotech', 'Biochem', 'Biotech', 'Construction', 'Cybertech', 'Gadgeteer', 'Unstable']
+      }
+    ]
+  },
+  fighter: {
+    1: [
+      {
+        featureKey: 'fighting_style',
+        label: 'Fighting Style',
+        choiceType: 'single',
+        description: 'You adopt a particular style of fighting as your specialty.',
+        options: ['Archery', 'Archery Caster', 'Defense', 'Dual Wielding', 'Entertainer', 'Great Weapon Fighting', 'Marksmanship', 'Mounted Combatant', 'Shield Fighting', 'Thrown Weapon Fighting', 'Two-Weapon Fighting', 'Unarmed Fighting']
+      }
+    ],
+    2: [
+      {
+        featureKey: 'superiority_maneuver',
+        label: 'Combat Superiority Maneuver',
+        choiceType: 'multi',
+        count: 1,
+        description: 'You learn 1 maneuver using superiority dice (additional at higher levels).',
+        options: ['(30+ maneuvers available - selection handled in combat)']
+      }
+    ],
+    3: [
+      {
+        featureKey: 'specialty',
+        label: 'Specialty',
+        choiceType: 'single',
+        description: 'You choose a specialty that reflects your combat approach.',
+        options: ['Adept', 'Assault', 'Blademaster', 'Demolitions', 'Enhancement', 'Exhibition', 'Fireteam', 'Heavy Weapons', 'Mounted', 'Praetorian', 'Scanner', 'Shield', 'Tactical', 'Totem']
+      }
+    ]
+  },
+  guardian: {
+    2: [
+      {
+        featureKey: 'fighting_style',
+        label: 'Fighting Style',
+        choiceType: 'single',
+        description: 'You adopt a particular style of fighting as your specialty.',
+        options: ['Archery', 'Archery Caster', 'Defense', 'Dual Wielding', 'Entertainer', 'Great Weapon Fighting', 'Marksmanship', 'Mounted Combatant', 'Shield Fighting', 'Thrown Weapon Fighting', 'Two-Weapon Fighting', 'Unarmed Fighting']
+      }
+    ],
+    3: [
+      {
+        featureKey: 'aura',
+        label: 'Guardian Aura',
+        choiceType: 'single',
+        description: 'You choose one aura that provides benefits to nearby allies (additional auras at levels 6, 11, 14, 18).',
+        options: ['Aura of Conquest', 'Aura of Conviction', 'Aura of Hatred', 'Aura of Presence', 'Aura of Protection', 'Aura of Vigor', 'Aura of Warding']
+      },
+      {
+        featureKey: 'focus',
+        label: 'Guardian Focus (Lightsaber Form)',
+        choiceType: 'single',
+        description: 'You choose a lightsaber form (Form) to master.',
+        options: ['Aqinos Form', 'Ataru Form', 'Jar\'Kai Form', 'Makashi Form', 'Niman Form', 'Shien/Djem So Form', 'Shii-Cho Form', 'Sokan Form', 'Soresu Form', 'Trakata Form', 'Ysannanite Form']
+      }
+    ]
+  },
+  monk: {
+    2: [
+      {
+        featureKey: 'focus_ability',
+        label: 'Focus Ability',
+        choiceType: 'single',
+        description: 'Choose which ability modifier determines your focus capabilities.',
+        options: ['Wisdom', 'Charisma']
+      },
+      {
+        featureKey: 'vows',
+        label: 'Monastic Vows',
+        choiceType: 'multi',
+        count: 2,
+        description: 'You swear 2 vows (additional vows at levels 7, 13, 17).',
+        options: ['Vow of Deflection', 'Vow of the Devoted', 'Vow of Fate', 'Vow of the Fighter', 'Vow of the Focused', 'Vow of Fortitude', 'Vow of Freedom', 'Vow of Intuition', 'Vow of the Limber', 'Vow of the Nemesis', 'Vow of the Open Mind', 'Vow of Precision', 'Vow of Requital', 'Vow of Restoration', 'Vow of the Sentry', 'Vow of Serenity', 'Vow of Spirit', 'Vow of the Versatile']
+      }
+    ],
+    3: [
+      {
+        featureKey: 'order',
+        label: 'Monastic Order',
+        choiceType: 'single',
+        description: 'You commit yourself to one monastic order.',
+        options: ['Aing-Tii Order', 'Crimson Order', 'Deployment Order', 'Echani Order', 'Jal Shey Order', 'Kage Order', 'Kro Var Order', 'Kyuzo Order', 'Matukai Order', 'Monastic Order', 'Nightsister Order', 'Rakatan Order', 'Teras Kasi Order', 'Trickster Order', 'Whills Order']
+      }
+    ]
+  },
+  operative: {
+    1: [
+      {
+        featureKey: 'expertise',
+        label: 'Expertise (Skills)',
+        choiceType: 'multi',
+        count: 2,
+        description: 'Choose 2 skill proficiencies, or 1 skill + 1 tool, or 2 tools for expertise (additional choices at 6th, 10th levels).',
+        options: ['Acrobatics', 'Animal Handling', 'Arcana', 'Athletics', 'Deception', 'History', 'Insight', 'Intimidation', 'Investigation', 'Medicine', 'Perception', 'Performance', 'Persuasion', 'Piloting', 'Sleight of Hand', 'Stealth', 'Survival', 'Technology']
+      }
+    ],
+    2: [
+      {
+        featureKey: 'exploits',
+        label: 'Operative Exploits',
+        choiceType: 'multi',
+        count: 2,
+        description: 'You adopt 2 exploits (additional at levels 7, 13, 17).',
+        options: ['Commander\'s Exploit', 'Explorer\'s Exploit', 'Fate\'s Exploit', 'Fighter\'s Exploit', 'Freedom\'s Exploit', 'Guerrilla\'s Exploit', 'Learner\'s Exploit', 'Mentor\'s Exploit', 'Skill\'s Exploit', 'Technologist\'s Exploit', 'Weaponmaster\'s Exploit']
+      }
+    ],
+    3: [
+      {
+        featureKey: 'practice',
+        label: 'Operative Practice',
+        choiceType: 'single',
+        description: 'You choose a practice that you emulate in your operative abilities.',
+        options: ['Acquisitions', 'Beguiler', 'Bolstering', 'Disabling', 'Lethality', 'Maverick', 'Performance', 'Pugnacity', 'Ruffian', 'Saboteur', 'Sawbones', 'Scrapper', 'Shadow Killer', 'Sharpshooter']
+      }
+    ]
+  },
+  scholar: {
+    2: [
+      {
+        featureKey: 'discoveries',
+        label: 'Discoveries',
+        choiceType: 'multi',
+        count: 2,
+        description: 'You master 2 discoveries (additional at 3rd, 5th, 9th, 13th, 17th levels; can replace 1 per level).',
+        options: ['Academic Memory', 'Adaptive', 'Ambassador', 'Clever Applications', 'Expert\'s Advice', 'Hardened Mind', 'Lifelong Learning', 'Lingering Advice', 'Malleable Maneuvering', 'Master\'s Advice', 'Mental Prowess', 'Moderately Armored', 'Perfect Maneuver', 'Quick Analysis', 'Rancor\'s Discipline', 'Reliable Sources', 'Resolute', 'Running on Fumes', 'Survival Expert', 'Targeted Analysis', 'Tech Amateur', 'Universal Language', 'Versatile Maneuvers']
+      }
+    ],
+    3: [
+      {
+        featureKey: 'expertise',
+        label: 'Expertise (Skills)',
+        choiceType: 'multi',
+        count: 2,
+        description: 'Choose 2 skill proficiencies, or 1 skill + 1 tool, or 2 tools for expertise (additional choice at 10th level).',
+        options: ['Acrobatics', 'Animal Handling', 'Arcana', 'Athletics', 'Deception', 'History', 'Insight', 'Intimidation', 'Investigation', 'Medicine', 'Perception', 'Performance', 'Persuasion', 'Piloting', 'Sleight of Hand', 'Stealth', 'Survival', 'Technology']
+      },
+      {
+        featureKey: 'pursuit',
+        label: 'Academic Pursuit',
+        choiceType: 'single',
+        description: 'You choose a pursuit that represents your field of study.',
+        options: ['Archaeologist', 'Chef', 'Detective', 'Explorer', 'Gambler', 'Geneticist', 'Occultist', 'Physician', 'Politician', 'Slicer', 'Tactician', 'Zoologist']
+      }
+    ]
+  },
+  scout: {
+    2: [
+      {
+        featureKey: 'fighting_style',
+        label: 'Fighting Style',
+        choiceType: 'single',
+        description: 'You adopt a particular style of fighting as your specialty.',
+        options: ['Archery', 'Archery Caster', 'Defense', 'Dual Wielding', 'Entertainer', 'Great Weapon Fighting', 'Marksmanship', 'Mounted Combatant', 'Shield Fighting', 'Thrown Weapon Fighting', 'Two-Weapon Fighting', 'Unarmed Fighting']
+      }
+    ],
+    3: [
+      {
+        featureKey: 'routine',
+        label: 'Scout Routine',
+        choiceType: 'single',
+        description: 'You develop one routine (additional at levels 6, 10, 14, 18).',
+        options: ['Adaptability Routine', 'Maven\'s Routine', 'Mesmer\'s Routine', 'Nomad\'s Routine', 'Responder\'s Routine', 'Sharpshooter\'s Routine', 'Strider\'s Routine', 'Warden\'s Routine']
+      },
+      {
+        featureKey: 'technique',
+        label: 'Scout Technique',
+        choiceType: 'single',
+        description: 'You choose a scout technique to focus on.',
+        options: ['Bulwark', 'Hunter', 'Slayer', 'Stalker']
+      }
+    ]
+  },
+  sentinel: {
+    2: [
+      {
+        featureKey: 'ideals',
+        label: 'Sentinel Ideals',
+        choiceType: 'multi',
+        count: 2,
+        description: 'You adopt 2 ideals (additional at levels 3, 6, 10, 15, 18).',
+        options: ['Ideal of the Agile', 'Ideal of the Artisan', 'Ideal of the Contender', 'Ideal of the Fighter', 'Ideal of the Hunter', 'Ideal of the Steadfast', 'Ideal of the Titan', 'Ideal of the Tranquil', 'Ideal of the Vigorous']
+      }
+    ],
+    3: [
+      {
+        featureKey: 'calling',
+        label: 'Sentinel Calling (Path)',
+        choiceType: 'single',
+        description: 'You choose a sentinel calling that defines your path.',
+        options: ['Path of Communion', 'Path of Ethereality', 'Path of Focus', 'Path of Iron', 'Path of Meditation', 'Path of Shadows', 'Path of Synthesis', 'Path of Tenacity', 'Path of Witchcraft', 'Path of the Corsair', 'Path of the Forceblade']
+      }
+    ]
+  }
 };
 
 const CLASS_CHOICE_RULES = {
@@ -335,7 +594,7 @@ const XP_THRESHOLDS = {
 };
 
 function clampLevel(level) {
-  return Math.max(1, Math.min(20, Number(level) || 1));
+  return Math.max(1, Math.min(MAX_CHARACTER_LEVEL, Number(level) || 1));
 }
 
 function getAsiSlots(level) {
@@ -1825,10 +2084,11 @@ function updateAbilityModifiers() {
 
 function updateAsiStatus(level, asiHistory) {
   const classConfig = getClassLevelConfig();
-  const available = classConfig.reduce((sum, entry) => sum + getAsiSlotsForClass(entry.name, entry.level), 0);
+  const totalAvailable = classConfig.reduce((sum, entry) => sum + getAsiSlotsForClass(entry.name, entry.level), 0);
   const spent = asiHistory.length;
+  const remaining = Math.max(0, totalAvailable - spent);
   document.getElementById('asiSpent').value = `ASI Spent: ${spent}`;
-  document.getElementById('asiAvailable').value = `ASI Available: ${available}`;
+  document.getElementById('asiAvailable').value = `ASI Available: ${remaining}/${totalAvailable}`;
 }
 
 function getAsiHistoryFromUi() {
@@ -1842,7 +2102,321 @@ function getAsiHistoryFromUi() {
 }
 
 function setAsiHistoryToUi(history) {
-  document.getElementById('asiHistory').value = JSON.stringify(history || []);
+  const normalizedHistory = Array.isArray(history) ? history : [];
+  document.getElementById('asiHistory').value = JSON.stringify(normalizedHistory);
+  renderAsiHistoryPanel(normalizedHistory);
+  updateAsiStatus(clampLevel(document.getElementById('level')?.value || 1), normalizedHistory);
+}
+
+function normalizeFeatCatalogEntries(entries) {
+  return (Array.isArray(entries) ? entries : [])
+    .map((entry) => ({
+      name: String(entry?.name || '').trim(),
+      description: String(entry?.description || '').replace(/\s+/g, ' ').trim(),
+      source: String(entry?.source || '').trim()
+    }))
+    .filter((entry) => entry.name)
+    .filter((entry, idx, arr) => arr.findIndex((item) => item.name.toLowerCase() === entry.name.toLowerCase()) === idx)
+    .sort((left, right) => left.name.localeCompare(right.name));
+}
+
+function extractFeatCatalogFromPdfCorpus(fileText) {
+  const lines = String(fileText || '').split(/\r?\n/);
+  const relevantText = [];
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed[0] !== '{') {
+      return;
+    }
+
+    try {
+      const row = JSON.parse(trimmed);
+      const isHandbook = String(row?.fileName || '').toLowerCase().includes("player's handbook");
+      const page = Number(row?.page) || 0;
+
+      if (!isHandbook || page < 187 || page > 194) {
+        return;
+      }
+
+      const text = String(row?.text || '').replace(/\s+/g, ' ').trim();
+      if (text) {
+        relevantText.push(text);
+      }
+    } catch (_err) {
+      // Ignore malformed rows in corpus.
+    }
+  });
+
+  const combined = relevantText.join(' ');
+  if (!combined) {
+    return [];
+  }
+
+  const headingPattern = /\b([A-Z][A-Z'\/-]*(?:\s+[A-Z][A-Z'\/-]*){0,4})\b(?=\s+(?:Prerequisite:|[A-Z][a-z]))/g;
+  const blockedHeadings = new Set([
+    'FEATS', 'CHAPTER', 'CUSTOMIZATION OPTIONS', 'MULTICLASSING', 'PREREQUISITES', 'EXPERIENCE POINTS',
+    'HIT POINTS AND HIT DICE', 'PROFICIENCY BONUS', 'CHAPTER 6', 'FIGHTING STYLES', 'FIGHTING MASTERIES',
+    'LIGHTSABER FORMS'
+  ]);
+
+  const candidates = [];
+  let match;
+  while ((match = headingPattern.exec(combined)) !== null) {
+    const name = String(match[1] || '').trim();
+    if (!name || name.length > 40 || blockedHeadings.has(name)) {
+      continue;
+    }
+    if (/\d/.test(name) || name.includes('|')) {
+      continue;
+    }
+    candidates.push({ name, index: match.index });
+  }
+
+  const entries = [];
+  for (let i = 0; i < candidates.length; i += 1) {
+    const current = candidates[i];
+    const next = candidates[i + 1];
+    const block = combined.slice(current.index + current.name.length, next ? next.index : combined.length).trim();
+    if (!block || block.length < 20) {
+      continue;
+    }
+    if (!/You\s+gain|You\s+have|Prerequisite:/i.test(block)) {
+      continue;
+    }
+
+    const description = block
+      .replace(/CHAPTER\s+6\s*\|\s*CUSTOMIZATION OPTIONS\s*\|\s*FEATS\s*\d+/gi, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 800);
+
+    entries.push({
+      name: current.name,
+      description,
+      source: "SW5e - Player's Handbook (Chapter 6 Feats)"
+    });
+  }
+
+  return normalizeFeatCatalogEntries(entries);
+}
+
+function loadFeatCatalog() {
+  const fallbackEntries = normalizeFeatCatalogEntries([
+    { name: 'Acrobat', description: 'You become more nimble and gain Acrobatics-focused movement benefits and score increase options.', source: "SW5e - Player's Handbook" },
+    { name: 'Actor', description: 'Skilled at mimicry and dramatics, improving deceptive performance and vocal imitation.', source: "SW5e - Player's Handbook" },
+    { name: 'Alert', description: 'Always on the lookout for danger, with strong initiative and anti-ambush benefits.', source: "SW5e - Player's Handbook" },
+    { name: 'Athlete', description: 'Extensive physical training improves jumps, climbing, and recovery from prone.', source: "SW5e - Player's Handbook" },
+    { name: 'Brawny', description: 'Increases strength utility and improves Athletics capability and carrying limits.', source: "SW5e - Player's Handbook" },
+    { name: 'Charmer', description: 'Masters social charm and persuasion to influence nearby creatures.', source: "SW5e - Player's Handbook" },
+    { name: 'Crafter', description: 'Improves crafting output and expertise with selected artisan implements.', source: "SW5e - Player's Handbook" },
+    { name: 'Dungeon Delver', description: 'Specialized in traps and hidden dangers with improved dungeon survivability.', source: "SW5e - Player's Handbook" },
+    { name: 'Empathic', description: 'Provides superior insight into others and short-term tactical read advantages.', source: "SW5e - Player's Handbook" },
+    { name: 'Force-Sensitive', description: 'Grants limited forcecasting access and at-will force powers.', source: "SW5e - Player's Handbook" },
+    { name: 'Healer', description: 'Improves emergency stabilization and trauma kit healing output.', source: "SW5e - Player's Handbook" },
+    { name: 'Inspiring Leader', description: 'Allows pre-combat speeches that grant temporary hit points to allies.', source: "SW5e - Player's Handbook" },
+    { name: 'Lucky', description: 'Adds luck points to influence d20 outcomes.', source: "SW5e - Player's Handbook" },
+    { name: 'Mobile', description: 'Boosts speed and movement freedom in combat.', source: "SW5e - Player's Handbook" },
+    { name: 'Observant', description: 'Sharpens perception and investigation in passive and active scenarios.', source: "SW5e - Player's Handbook" },
+    { name: 'Performer', description: 'Enhances stagecraft and social distraction while performing.', source: "SW5e - Player's Handbook" }
+  ]);
+
+  try {
+    if (!fs || !path) {
+      throw new Error('fs/path unavailable in renderer');
+    }
+
+    const filePath = path.join(__dirname, 'data', 'pdf-corpus.jsonl');
+    const fileData = fs.readFileSync(filePath, 'utf-8');
+    const extracted = extractFeatCatalogFromPdfCorpus(fileData);
+    featCatalog = extracted.length ? extracted : fallbackEntries;
+  } catch (err) {
+    console.warn('Unable to load feat catalog from PDF corpus, using fallback list.', err?.message || err);
+    featCatalog = fallbackEntries;
+  }
+
+  featCatalogLoaded = true;
+  renderFeatSelectionOptions();
+}
+
+function renderFeatSelectionOptions() {
+  const selectEl = document.getElementById('featSelect');
+  if (!selectEl) {
+    return;
+  }
+
+  const searchEl = document.getElementById('featSearch');
+  const query = String(searchEl?.value || '').trim().toLowerCase();
+  const sourceEntries = Array.isArray(featCatalog) ? featCatalog : [];
+  const filtered = sourceEntries.filter((entry) => {
+    const name = String(entry?.name || '').toLowerCase();
+    const description = String(entry?.description || '').toLowerCase();
+    if (!query) {
+      return true;
+    }
+    return name.includes(query) || description.includes(query);
+  });
+
+  const previousSelection = String(selectEl.dataset.selectedFeatName || '').trim();
+  const hasPreviousInFiltered = previousSelection === '__custom__'
+    || filtered.some((entry) => String(entry?.name || '').trim() === previousSelection);
+
+  if (!hasPreviousInFiltered) {
+    selectEl.dataset.selectedFeatName = '';
+  }
+
+  const options = ['<option value="">Select a feat...</option>', '<option value="__custom__">Custom Feature (Manual Entry)</option>'];
+  if (query && !filtered.length) {
+    options.push('<option value="" disabled>No feats match that search</option>');
+  }
+
+  filtered.forEach((entry) => {
+    const selected = selectEl.dataset.selectedFeatName === entry.name ? ' selected' : '';
+    options.push(`<option value="${entry.name.replace(/"/g, '&quot;')}"${selected}>${entry.name}</option>`);
+  });
+
+  selectEl.innerHTML = options.join('');
+  updateFeatDescriptionPreview();
+}
+
+function updateFeatDescriptionPreview() {
+  const selectEl = document.getElementById('featSelect');
+  const previewEl = document.getElementById('featDescriptionPreview');
+  const sourceEl = document.getElementById('featSourceLabel');
+  const customFieldsEl = document.getElementById('customFeatFields');
+  if (!selectEl || !previewEl || !sourceEl) {
+    return;
+  }
+
+  const selectedName = String(selectEl.value || '').trim();
+  selectEl.dataset.selectedFeatName = selectedName;
+
+  if (!selectedName) {
+    if (customFieldsEl) {
+      customFieldsEl.hidden = true;
+    }
+    previewEl.readOnly = true;
+    previewEl.placeholder = 'Select a feat to see its description.';
+    previewEl.value = featCatalogLoaded
+      ? 'Select a feat to preview its description from the PDF-derived catalog.'
+      : 'Loading feat catalog...';
+    sourceEl.textContent = featCatalogLoaded ? 'Source: —' : 'Source: Loading...';
+    return;
+  }
+
+  if (selectedName === '__custom__') {
+    if (customFieldsEl) {
+      customFieldsEl.hidden = false;
+    }
+    previewEl.readOnly = false;
+    previewEl.placeholder = 'Add description here';
+    previewEl.value = '';
+    sourceEl.textContent = 'Source: Custom User Feature';
+    return;
+  }
+
+  if (customFieldsEl) {
+    customFieldsEl.hidden = true;
+  }
+  previewEl.readOnly = true;
+  previewEl.placeholder = 'Select a feat to see its description.';
+
+  const match = featCatalog.find((entry) => entry.name === selectedName);
+  previewEl.value = match?.description || 'No description available.';
+  sourceEl.textContent = `Source: ${match?.source || "SW5e - Player's Handbook"}`;
+}
+
+function renderAsiHistoryPanel(historyEntries) {
+  const container = document.getElementById('asiHistoryList');
+  if (!container) {
+    return;
+  }
+
+  const entries = Array.isArray(historyEntries) ? historyEntries : [];
+  if (!entries.length) {
+    container.innerHTML = '<p class="features-empty">No ASI or feat selections recorded yet.</p>';
+    return;
+  }
+
+  container.innerHTML = entries.map((entry, index) => {
+    const entryNumber = index + 1;
+    if (entry?.mode === 'feat') {
+      const name = String(entry?.featName || 'Unnamed Feat');
+      const desc = String(entry?.featDescription || 'No description provided.');
+      const typeLabel = entry?.featType === 'custom' ? 'Custom Feat' : 'Feat';
+      return `
+        <div class="asi-history-item">
+          <div class="asi-history-item-header">
+            <span class="asi-history-item-title">${entryNumber}. ${typeLabel}: ${name}</span>
+          </div>
+          <p class="asi-history-item-desc">${desc}</p>
+        </div>
+      `;
+    }
+
+    const modeLabel = entry?.mode === '+2'
+      ? `+2 ${ABILITY_ID_TO_LABEL[entry?.primary] || String(entry?.primary || '').toUpperCase()}`
+      : `+1 ${ABILITY_ID_TO_LABEL[entry?.primary] || String(entry?.primary || '').toUpperCase()} / +1 ${ABILITY_ID_TO_LABEL[entry?.secondary] || String(entry?.secondary || '').toUpperCase()}`;
+
+    return `
+      <div class="asi-history-item">
+        <div class="asi-history-item-header">
+          <span class="asi-history-item-title">${entryNumber}. ASI: ${modeLabel}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function applyFeatSelection() {
+  const level = clampLevel(document.getElementById('level').value);
+  const classConfig = getClassLevelConfig();
+  const available = classConfig.reduce((sum, entry) => sum + getAsiSlotsForClass(entry.name, entry.level), 0);
+  const existingHistory = getAsiHistoryFromUi();
+
+  if (existingHistory.length >= available) {
+    alert(`No ASI slots remaining at level ${level}.`);
+    return;
+  }
+
+  const selectedName = String(document.getElementById('featSelect')?.value || '').trim();
+  if (!selectedName) {
+    alert('Select a feat before applying.');
+    return;
+  }
+
+  if (selectedName === '__custom__') {
+    const customName = String(document.getElementById('customFeatName')?.value || '').trim();
+    const customDescription = String(document.getElementById('featDescriptionPreview')?.value || '').trim();
+    if (!customName) {
+      alert('Enter a custom feature name before applying.');
+      return;
+    }
+
+    existingHistory.push({
+      mode: 'feat',
+      featType: 'custom',
+      featName: customName,
+      featDescription: customDescription || 'No description provided.',
+      source: 'Custom User Feature'
+    });
+
+    setAsiHistoryToUi(existingHistory);
+    applyLevelProgression();
+    return;
+  }
+
+  const selectedFeat = featCatalog.find((entry) => entry.name === selectedName);
+  existingHistory.push({
+    mode: 'feat',
+    featType: 'catalog',
+    featName: selectedName,
+    featDescription: selectedFeat?.description || '',
+    source: selectedFeat?.source || "SW5e - Player's Handbook"
+  });
+
+  setAsiHistoryToUi(existingHistory);
+  applyLevelProgression();
 }
 
 function applyAsi(mode) {
@@ -1898,12 +2472,14 @@ function undoAsi() {
   }
 
   const last = historyEntries.pop();
-  setAbilityValue('str', last.before.str);
-  setAbilityValue('dex', last.before.dex);
-  setAbilityValue('con', last.before.con);
-  setAbilityValue('int', last.before.int);
-  setAbilityValue('wis', last.before.wis);
-  setAbilityValue('cha', last.before.cha);
+  if (last?.before) {
+    setAbilityValue('str', last.before.str);
+    setAbilityValue('dex', last.before.dex);
+    setAbilityValue('con', last.before.con);
+    setAbilityValue('int', last.before.int);
+    setAbilityValue('wis', last.before.wis);
+    setAbilityValue('cha', last.before.cha);
+  }
 
   setAsiHistoryToUi(historyEntries);
   updateAbilityModifiers();
@@ -2221,6 +2797,7 @@ function getBlankCharacterTemplate() {
       forceAffinity: 'none',
       fecChosen: []
     },
+    featureChoices: {},
     abilityScoreConfig: {
       asiHistory: []
     },
@@ -2234,6 +2811,89 @@ function getBlankCharacterTemplate() {
     forcePowers: [],
     techPowers: []
   };
+}
+
+// Get all active feature choices for a given class at a given level
+function getActiveFeatureChoices(classKey, level) {
+  const choices = [];
+  const rules = FEATURE_CHOICE_RULES[String(classKey).toLowerCase()];
+  
+  if (!rules) return choices;
+  
+  // Collect all choices that should be active at this level or earlier
+  for (let l = 1; l <= level; l++) {
+    if (rules[l]) {
+      rules[l].forEach(choice => {
+        // Only add if not already added (avoid duplicates)
+        if (!choices.find(c => c.featureKey === choice.featureKey)) {
+          choices.push(choice);
+        }
+      });
+    }
+  }
+  
+  return choices;
+}
+
+function isFeatureChoiceSatisfiedByArchetype(classKey, choice, cls) {
+  const normalizedClassKey = String(classKey || '').toLowerCase();
+  const choiceKey = String(choice?.featureKey || '').toLowerCase();
+  const hasArchetype = Boolean(String(cls?.archetype || '').trim());
+
+  if (!hasArchetype) {
+    return false;
+  }
+
+  if (normalizedClassKey === 'berserker' && choiceKey === 'approach') {
+    return true;
+  }
+
+  if (normalizedClassKey === 'sentinel' && choiceKey === 'calling') {
+    return true;
+  }
+
+  return false;
+}
+
+// Get all missing feature choices (required but not set) for a character at their current level
+function getMissingFeatureChoices(character) {
+  const missing = [];
+  
+  character.classes.forEach(cls => {
+    if (cls.name === PLACEHOLDER_CLASS) return;
+    
+    const classKey = String(cls.name).toLowerCase();
+    const activeChoices = getActiveFeatureChoices(classKey, cls.level);
+    
+    activeChoices.forEach(choice => {
+      if (isFeatureChoiceSatisfiedByArchetype(classKey, choice, cls)) {
+        return;
+      }
+
+      const featureKey = `${classKey}_${choice.featureKey}`;
+      const currentValue = character.featureChoices[featureKey];
+      
+      // Check if this choice is required but not set
+      if (choice.choiceType === 'single' && !currentValue) {
+        missing.push({
+          classKey,
+          level: cls.level,
+          feature: choice.label,
+          featureKey
+        });
+      } else if (choice.choiceType === 'multi' && (!currentValue || !Array.isArray(currentValue) || currentValue.length < choice.count)) {
+        const selectedCount = Array.isArray(currentValue) ? currentValue.length : 0;
+        missing.push({
+          classKey,
+          level: cls.level,
+          feature: `${choice.label} (${selectedCount}/${choice.count})`,
+          featureKey
+        });
+      }
+    });
+  });
+  
+  return missing;
 }
 
 function isTelekineticsArchetype(archetype) {
@@ -2356,9 +3016,21 @@ function normalizeClassEntry(entry) {
   const fallback = getDefaultClassEntry();
   return {
     name: String(entry?.name || fallback.name),
-    level: Math.max(1, Number(entry?.level) || fallback.level),
+    level: clampLevel(entry?.level || fallback.level),
     archetype: String(entry?.archetype || '')
   };
+}
+
+function getMaxAllowedLevelForRow(classConfig, index) {
+  const normalized = normalizeClassConfig(classConfig);
+  const levelUsedByOtherConcreteClasses = normalized.reduce((total, entry, currentIndex) => {
+    if (currentIndex === index || entry.name === PLACEHOLDER_CLASS) {
+      return total;
+    }
+    return total + Math.max(0, Number(entry.level) || 0);
+  }, 0);
+
+  return Math.max(1, MAX_CHARACTER_LEVEL - levelUsedByOtherConcreteClasses);
 }
 
 function normalizeClassConfig(config) {
@@ -2390,7 +3062,7 @@ function getClassLevelConfig() {
   if (container) {
     const rows = Array.from(container.querySelectorAll('.class-level-row')).map((row) => ({
       name: row.querySelector('.class-level-select')?.value || PLACEHOLDER_CLASS,
-      level: parseInt(row.querySelector('.class-level-input')?.value, 10) || 1,
+      level: clampLevel(parseInt(row.querySelector('.class-level-input')?.value, 10) || 1),
       archetype: row.querySelector('.class-archetype-input')?.value || ''
     }));
 
@@ -2465,7 +3137,7 @@ function renderClassLevelRows(classConfig) {
         <label class="fp-label" for="classLevelValue_${index}">Class Level</label>
         <div class="class-level-stepper">
           <button type="button" class="class-level-step-btn" onclick="changeClassLevelBy(${index}, -1)">&#8722;</button>
-          <input id="classLevelValue_${index}" type="number" min="1" class="class-level-input" value="${entry.level}" onchange="updateClassLevelRow(${index}, 'level', this.value)">
+          <input id="classLevelValue_${index}" type="number" min="1" max="${MAX_CHARACTER_LEVEL}" class="class-level-input" value="${entry.level}" onchange="updateClassLevelRow(${index}, 'level', this.value)">
           <button type="button" class="class-level-step-btn" onclick="changeClassLevelBy(${index}, 1)">&#43;</button>
         </div>
       </div>
@@ -2496,6 +3168,9 @@ function buildLevelChoiceDefinitions(classConfig) {
 
     const options = [...rule.options];
     const current = String(entry.archetype || '');
+    const hasChoiceSelected = Boolean(current.trim());
+    const subclassFeatureLevels = getSubclassFeatureLevelsForClass(entry.name, entry.level)
+      .filter((featureLevel) => featureLevel >= rule.unlockLevel);
     if (current && !options.includes(current)) {
       options.unshift(current);
     }
@@ -2507,7 +3182,9 @@ function buildLevelChoiceDefinitions(classConfig) {
       label: rule.label,
       description: rule.description,
       options,
-      current
+      current,
+      missingChoice: !hasChoiceSelected,
+      requiredAtLevels: subclassFeatureLevels
     }];
   });
 }
@@ -2525,6 +3202,11 @@ function renderLevelChoicePanel(classConfig) {
   }
 
   container.innerHTML = choices.map((choice) => {
+    const statusBadges = [`<span class="level-choice-badge">${choice.label} Unlock</span>`];
+    if (choice.missingChoice) {
+      statusBadges.push('<span class="level-choice-badge level-choice-badge-warning">Missing Choice</span>');
+    }
+
     const selectOptions = [
       `<option value="">Choose ${choice.className} ${choice.label}</option>`,
       ...choice.options.map((option) => `<option value="${option}" ${option === choice.current ? 'selected' : ''}>${option}</option>`)
@@ -2533,20 +3215,138 @@ function renderLevelChoicePanel(classConfig) {
     const customHint = choice.current && !CLASS_CHOICE_RULES[String(choice.className).toLowerCase()]?.options.includes(choice.current)
       ? '<span class="fp-used-label">Current selection is a custom/expanded archetype.</span>'
       : '<span class="fp-used-label">Expanded PDF archetypes can still be entered manually in the class row if needed.</span>';
+    const missingChoiceHint = choice.missingChoice
+      ? choice.requiredAtLevels.length
+        ? `<span class="fp-used-label">Required for ${choice.className} feature levels ${choice.requiredAtLevels.join('/')}. Select a ${choice.label.toLowerCase()} to clear this warning.</span>`
+        : `<span class="fp-used-label">Select a ${choice.label.toLowerCase()} to activate required class progression choices.</span>`
+      : '';
 
     return `
       <div class="level-choice-card">
         <div class="level-choice-card-header">
           <span class="level-choice-title">${choice.className} Level ${choice.level}</span>
-          <span class="level-choice-badge">${choice.label} Unlock</span>
+          <div class="level-choice-badge-group">${statusBadges.join('')}</div>
         </div>
         <p class="level-choice-description">${choice.description}</p>
         <select class="level-choice-select" onchange="updateClassLevelRow(${choice.index}, 'archetype', this.value)">
           ${selectOptions}
         </select>
+        ${missingChoiceHint}
         ${customHint}
       </div>
     `;
+  }).join('');
+}
+
+// Render comprehensive feature choices panel (Instincts, Vows, Ideals, Exploits, etc.)
+function renderFeatureChoicesPanel(characterData) {
+  const container = document.getElementById('featureChoiceList');
+  if (!container) {
+    return;
+  }
+
+  const choices = [];
+  
+  // Collect all active feature choices for all classes at their current levels
+  characterData.classes.forEach((cls, classIndex) => {
+    if (cls.name === PLACEHOLDER_CLASS) return;
+    
+    const classKey = String(cls.name).toLowerCase();
+    const activeChoices = getActiveFeatureChoices(classKey, cls.level);
+    
+    activeChoices.forEach(choice => {
+      if (isFeatureChoiceSatisfiedByArchetype(classKey, choice, cls)) {
+        return;
+      }
+
+      const featureKey = `${classKey}_${choice.featureKey}`;
+      const currentValue = characterData.featureChoices[featureKey];
+      
+      choices.push({
+        classKey,
+        className: cls.name,
+        level: cls.level,
+        classIndex,
+        featureKey,
+        choice,
+        currentValue,
+        isMissing: choice.choiceType === 'single' ? !currentValue : (!currentValue || !Array.isArray(currentValue) || currentValue.length < choice.count)
+      });
+    });
+  });
+
+  if (!choices.length) {
+    container.innerHTML = '<p class="features-empty">No class feature choices required at the current levels.</p>';
+    return;
+  }
+
+  // Group by class and level for better organization
+  const grouped = {};
+  choices.forEach(choice => {
+    const key = `${choice.className}-L${choice.level}`;
+    if (!grouped[key]) {
+      grouped[key] = [];
+    }
+    grouped[key].push(choice);
+  });
+
+  container.innerHTML = Object.entries(grouped).map(([key, groupChoices]) => {
+    return groupChoices.map((item) => {
+      const { choice, currentValue, featureKey, isMissing } = item;
+      
+      const statusBadges = [];
+      if (isMissing) {
+        statusBadges.push(`<span class="level-choice-badge level-choice-badge-warning">Missing</span>`);
+      }
+      
+      if (choice.choiceType === 'single') {
+        const selectOptions = [
+          `<option value="">Select ${choice.label}...</option>`,
+          ...choice.options.map((option) => `<option value="${option}" ${option === currentValue ? 'selected' : ''}>${option}</option>`)
+        ].join('');
+        
+        return `
+          <div class="level-choice-card ${isMissing ? 'feature-choice-missing' : ''}">
+            <div class="level-choice-card-header">
+              <span class="level-choice-title">${item.className} - ${choice.label}</span>
+              <div class="level-choice-badge-group">${statusBadges.join('')}</div>
+            </div>
+            <p class="level-choice-description">${choice.description}</p>
+            <select class="level-choice-select" onchange="updateFeatureChoice('${featureKey}', this.value, false)">
+              ${selectOptions}
+            </select>
+          </div>
+        `;
+      } else {
+        // Multi-choice rendering
+        const selectedArray = Array.isArray(currentValue) ? currentValue : [];
+        const selectableOptions = choice.options.filter(opt => opt !== '(Select force power from character knowledge)' && opt !== '(Skill/tool selection managed separately)' && opt !== '(30+ maneuvers available - selection handled in combat)');
+        
+        const checkboxes = selectableOptions.map((option) => `
+          <label class="feature-choice-checkbox-label">
+            <input type="checkbox" class="feature-choice-checkbox" value="${option.replace(/"/g, '&quot;')}" data-feature-key="${featureKey}" data-max-count="${choice.count}" ${selectedArray.includes(option) ? 'checked' : ''} onchange="handleFeatureChoiceCheckbox(this)">
+            <span>${option}</span>
+          </label>
+        `).join('');
+        
+        const progressText = `${selectedArray.length}/${choice.count}`;
+        const isComplete = selectedArray.length >= choice.count;
+        
+        return `
+          <div class="level-choice-card ${isMissing ? 'feature-choice-missing' : ''}">
+            <div class="level-choice-card-header">
+              <span class="level-choice-title">${item.className} - ${choice.label} (${progressText})</span>
+              <div class="level-choice-badge-group">${statusBadges.join('')}</div>
+            </div>
+            <p class="level-choice-description">${choice.description}</p>
+            <div class="feature-choice-checkboxes">
+              ${checkboxes}
+            </div>
+            ${!isComplete ? `<span class="fp-used-label">Select ${choice.count - selectedArray.length} more option${choice.count - selectedArray.length > 1 ? 's' : ''}.</span>` : ''}
+          </div>
+        `;
+      }
+    }).join('');
   }).join('');
 }
 
@@ -2664,15 +3464,69 @@ function renderCharacterInfoArchetypeTabs(classConfig) {
   refreshArchetypeInputHints();
 }
 
+// Update a single-choice feature (e.g., Force Affinity, Monastic Order)
+function updateFeatureChoice(featureKey, value, triggerRender = true) {
+  if (!window.currentCharacterFeatureChoices) {
+    window.currentCharacterFeatureChoices = {};
+  }
+  window.currentCharacterFeatureChoices[featureKey] = value || null;
+  if (triggerRender) {
+    applyLevelProgression();
+  }
+}
+
+// Update a multi-choice feature (e.g., Berserker Instincts, Monastic Vows)
+function updateFeatureChoiceMulti(featureKey, value, isChecked, maxCount) {
+  if (!window.currentCharacterFeatureChoices) {
+    window.currentCharacterFeatureChoices = {};
+  }
+  
+  let current = window.currentCharacterFeatureChoices[featureKey];
+  if (!Array.isArray(current)) {
+    current = [];
+  }
+  
+  if (isChecked) {
+    if (current.length < maxCount && !current.includes(value)) {
+      current.push(value);
+    }
+  } else {
+    current = current.filter(item => item !== value);
+  }
+  
+  window.currentCharacterFeatureChoices[featureKey] = current.length > 0 ? current : null;
+  applyLevelProgression();
+}
+
+// Handle checkbox change for multi-choice features
+function handleFeatureChoiceCheckbox(checkbox) {
+  const featureKey = checkbox.getAttribute('data-feature-key');
+  const maxCount = parseInt(checkbox.getAttribute('data-max-count')) || 1;
+  const value = checkbox.value;
+  const isChecked = checkbox.checked;
+  
+  updateFeatureChoiceMulti(featureKey, value, isChecked, maxCount);
+}
+
+
 function setClassLevelConfig(classConfig) {
   const normalized = normalizeClassConfig(classConfig);
   renderClassLevelRows(normalized);
   renderLevelChoicePanel(normalized);
+  renderFeatureChoicesPanel(getCharacterData());
   renderCharacterInfoArchetypeTabs(normalized);
 }
 
 function addClassLevelRow() {
   const current = getClassLevelConfig();
+  const totalLevel = getTotalCharacterLevel(current);
+  if (totalLevel >= MAX_CHARACTER_LEVEL) {
+    const validation = document.getElementById('levelValidation');
+    if (validation) {
+      validation.textContent = `Maximum supported character level is ${MAX_CHARACTER_LEVEL}.`;
+    }
+    return;
+  }
   const selectableClasses = CLASS_OPTIONS.filter((option) => option !== PLACEHOLDER_CLASS);
   const nextClass = selectableClasses.find((option) => !current.some((entry) => entry.name === option)) || 'Consular';
   current.push({ name: nextClass, level: 1, archetype: '' });
@@ -2687,7 +3541,9 @@ function updateClassLevelRow(index, field, value) {
   }
 
   if (field === 'level') {
-    current[index][field] = Math.max(1, parseInt(value, 10) || 1);
+    const currentLevel = Math.max(1, parseInt(current[index].level, 10) || 1);
+    const maxAllowedForRow = Math.max(currentLevel, getMaxAllowedLevelForRow(current, index));
+    current[index][field] = Math.min(maxAllowedForRow, Math.max(1, parseInt(value, 10) || 1));
   } else {
     current[index][field] = value;
   }
@@ -2702,7 +3558,10 @@ function changeClassLevelBy(index, delta) {
     return;
   }
 
-  current[index].level = Math.max(1, (parseInt(current[index].level, 10) || 1) + delta);
+  const currentLevel = Math.max(1, parseInt(current[index].level, 10) || 1);
+  const maxAllowedForRow = Math.max(currentLevel, getMaxAllowedLevelForRow(current, index));
+  const nextLevel = Math.max(1, currentLevel + delta);
+  current[index].level = Math.min(maxAllowedForRow, nextLevel);
   setClassLevelConfig(current);
   applyLevelProgression();
 }
@@ -2785,6 +3644,26 @@ function getForceCastingRowForClass(className, level) {
   }
 
   return null;
+}
+
+function getSubclassFeatureLevelsForClass(className, level) {
+  const classData = getClassProgressionData(className);
+  if (!classData?.progression) {
+    return [];
+  }
+
+  const levels = [];
+  const maxLevel = Math.max(1, Number(level) || 1);
+  for (let currentLevel = 1; currentLevel <= maxLevel; currentLevel += 1) {
+    const row = classData.progression[String(currentLevel)];
+    const hasSubclassFeature = Array.isArray(row?.features)
+      && row.features.some((featureName) => /\bfeature\b/i.test(String(featureName || '')));
+    if (hasSubclassFeature) {
+      levels.push(currentLevel);
+    }
+  }
+
+  return levels;
 }
 
 function buildProgression(character) {
@@ -2924,9 +3803,34 @@ function buildProgression(character) {
     warnings.push('At level 3+, choose Force Affinity (Ashla, Bendu, or Bogan).');
   }
 
-  if (consularLevel >= 6 && !isTelekineticsArchetype(primaryConsularArchetype) && classConfig.some((entry) => String(entry.name || '').toLowerCase().includes('consular'))) {
-    warnings.push('Tradition features at levels 6/10/14/18 require a valid Consular tradition/archetype.');
-  }
+  classConfig.forEach((entry) => {
+    const className = String(entry.name || '');
+    if (!className || className === PLACEHOLDER_CLASS) {
+      return;
+    }
+
+    const classKey = className.trim().toLowerCase();
+    const choiceRule = CLASS_CHOICE_RULES[classKey];
+    if (!choiceRule) {
+      return;
+    }
+
+    const classLevel = Math.max(1, Number(entry.level) || 1);
+    const hasArchetypeChoice = Boolean(String(entry.archetype || '').trim());
+    if (hasArchetypeChoice || classLevel < choiceRule.unlockLevel) {
+      return;
+    }
+
+    const subclassFeatureLevels = getSubclassFeatureLevelsForClass(className, classLevel)
+      .filter((featureLevel) => featureLevel >= choiceRule.unlockLevel);
+
+    if (subclassFeatureLevels.length) {
+      warnings.push(`${className} ${choiceRule.label} feature levels ${subclassFeatureLevels.join('/')} require selecting a ${choiceRule.label.toLowerCase()}.`);
+      return;
+    }
+
+    warnings.push(`${className} reaches level ${choiceRule.unlockLevel}+ and requires selecting a ${choiceRule.label.toLowerCase()}.`);
+  });
 
   if (unsupportedClasses.length) {
     warnings.push(`Class feature data is not yet loaded for: ${unsupportedClasses.join(', ')}.`);
@@ -2939,6 +3843,25 @@ function buildProgression(character) {
   if (asiSpent > asiAllowed) {
     warnings.push(`ASI overspent: ${asiSpent} spent but only ${asiAllowed} available at level ${level}.`);
   }
+
+  // Add warnings for missing feature choices (Instincts, Vows, Ideals, etc.)
+  const missingChoices = getMissingFeatureChoices(character);
+  missingChoices.forEach(choice => {
+    const classKey = choice.classKey;
+    const featureRules = FEATURE_CHOICE_RULES[classKey];
+    if (featureRules) {
+      for (let lvl = 1; lvl <= 20; lvl++) {
+        if (featureRules[lvl]) {
+          for (let choiceRule of featureRules[lvl]) {
+            if (choiceRule.featureKey === choice.featureKey.split('_').slice(1).join('_')) {
+              warnings.push(`${choice.classKey.charAt(0).toUpperCase() + choice.classKey.slice(1)} Level ${choice.level}: Choose ${choiceRule.label} (${choiceRule.description})`);
+              break;
+            }
+          }
+        }
+      }
+    }
+  });
 
   return {
     level,
@@ -3151,38 +4074,59 @@ function getConsularLevelFromCharacter(character) {
 }
 
 function updateForceAffinityState(character) {
+  const castingAbilitySelect = document.getElementById('castingAbility');
   const affinitySelect = document.getElementById('forceAffinity');
   const titleEl = document.getElementById('affinityInfoTitle');
   const descEl = document.getElementById('affinityInfoDesc');
   const panelEl = document.getElementById('affinityInfo');
   const consularConfigSection = document.getElementById('consularConfigSection');
+  const consularCastingAbilityRow = document.getElementById('consularCastingAbilityRow');
+  const consularAffinityRow = document.getElementById('consularAffinityRow');
   const consularFecOptionsSection = document.getElementById('consularFecOptionsSection');
   const consularFecDisplaySection = document.getElementById('consularFecDisplaySection');
   const consularAffinityDisplaySection = document.getElementById('consularAffinityDisplaySection');
-  if (!affinitySelect || !titleEl || !descEl || !panelEl) {
+  if (!castingAbilitySelect || !affinitySelect || !titleEl || !descEl || !panelEl) {
     return;
   }
 
-  const hasConsularLevels = getConsularLevelFromCharacter(character) > 0;
+  const consularLevel = getConsularLevelFromCharacter(character);
+  const hasConsularLevels = consularLevel > 0;
+  const hasCastingAbilityAccess = consularLevel >= 1;
+  const hasFecAccess = consularLevel >= 2;
+  const hasAffinityAccess = consularLevel >= 3;
+
   if (consularConfigSection) {
     consularConfigSection.hidden = !hasConsularLevels;
   }
+  if (consularCastingAbilityRow) {
+    consularCastingAbilityRow.hidden = !hasCastingAbilityAccess;
+  }
+  if (consularAffinityRow) {
+    consularAffinityRow.hidden = !hasAffinityAccess;
+  }
   if (consularFecOptionsSection) {
-    consularFecOptionsSection.hidden = !hasConsularLevels;
+    consularFecOptionsSection.hidden = !hasFecAccess;
   }
   if (consularFecDisplaySection) {
-    consularFecDisplaySection.hidden = !hasConsularLevels;
+    consularFecDisplaySection.hidden = !hasFecAccess;
   }
   if (consularAffinityDisplaySection) {
-    consularAffinityDisplaySection.hidden = !hasConsularLevels;
+    consularAffinityDisplaySection.hidden = !hasAffinityAccess;
   }
 
-  affinitySelect.disabled = !hasConsularLevels;
+  castingAbilitySelect.disabled = !hasCastingAbilityAccess;
+  castingAbilitySelect.title = hasCastingAbilityAccess
+    ? 'Universal Force Ability applies to your active Consular progression.'
+    : 'Universal Force Ability is available when you add at least one Consular level.';
+
+  affinitySelect.disabled = !hasAffinityAccess;
   affinitySelect.title = hasConsularLevels
-    ? 'Force Affinity applies to Consular progression.'
+    ? hasAffinityAccess
+      ? 'Force Affinity applies to Consular progression.'
+      : 'Force Affinity unlocks at Consular level 3.'
     : 'Force Affinity becomes available when a Consular class is added.';
 
-  if (!hasConsularLevels) {
+  if (!hasFecAccess) {
     const hiddenFec = document.getElementById('fecChosen');
     if (hiddenFec) {
       hiddenFec.value = '';
@@ -3192,16 +4136,24 @@ function updateForceAffinityState(character) {
       checkbox.disabled = true;
     });
     renderFecDisplay([]);
+  } else {
+    enforceFecCheckboxLimit(getNumericReadonlyFieldValue('fecOptionsAllowed'));
+  }
 
+  if (!hasAffinityAccess) {
     if (affinitySelect.value !== 'none') {
       affinitySelect.value = 'none';
     }
     panelEl.classList.remove('affinity-ashla', 'affinity-bendu', 'affinity-bogan');
     panelEl.classList.add('affinity-none');
-    titleEl.textContent = 'Force Affinity Unavailable';
-    descEl.textContent = 'Force Affinity is specific to Consular progression and is disabled until you add at least one Consular level.';
+    if (hasConsularLevels) {
+      titleEl.textContent = 'Force Affinity Locked';
+      descEl.textContent = 'Force Affinity unlocks at Consular level 3.';
+    } else {
+      titleEl.textContent = 'Force Affinity Unavailable';
+      descEl.textContent = 'Force Affinity is specific to Consular progression and is disabled until you add at least one Consular level.';
+    }
   } else {
-    enforceFecCheckboxLimit(getNumericReadonlyFieldValue('fecOptionsAllowed'));
     renderForceAffinityInfo(affinitySelect.value || 'none');
   }
 }
@@ -3970,9 +4922,10 @@ function applyLevelProgression(options = {}) {
 
   document.getElementById('level').value = progression.level;
   setProgressionOutputs(progression);
+  updateForceAffinityState(character);
+  renderFeatureChoicesPanel(character);
   refreshEquipmentBuild({ skipSkillRecalc: true });
   renderAppliedEquipmentSummary();
-  updateForceAffinityState(character);
   ensureIdentityFieldsEditable();
   ensureCoreTextInputsEditable();
   ensureRosterOverlayClosed();
@@ -3989,7 +4942,9 @@ function applyLevelProgression(options = {}) {
 
 function levelUp() {
   const current = getClassLevelConfig();
-  current[0].level = Math.max(1, (parseInt(current[0].level, 10) || 1) + 1);
+  const currentLevel = Math.max(1, parseInt(current[0].level, 10) || 1);
+  const maxAllowedForRow = Math.max(currentLevel, getMaxAllowedLevelForRow(current, 0));
+  current[0].level = Math.min(maxAllowedForRow, currentLevel + 1);
   setClassLevelConfig(current);
   applyLevelProgression({ announce: true });
 }
@@ -4151,6 +5106,7 @@ function getCharacterData() {
       forceAffinity: document.getElementById('forceAffinity')?.value || 'none',
       fecChosen: parseCommaList(document.getElementById('fecChosen')?.value || '')
     },
+    featureChoices: window.currentCharacterFeatureChoices || {},
     abilityScoreConfig: {
       asiHistory
     },
@@ -4168,6 +5124,9 @@ function setCharacterData(data) {
       console.error('setCharacterData: data is null or undefined');
       return;
     }
+    
+    // Initialize feature choices in global scope for persistence
+    window.currentCharacterFeatureChoices = data.featureChoices || {};
     
     // Basic Info
   document.getElementById('name').value = data.name || '';
@@ -5879,32 +6838,12 @@ function resetCharacter() {
   }
   
   try {
-    console.log('Resetting character to template...');
-    const characterData = loadTemplate();
-    
-    if (!characterData) {
-      alert('Error: Could not load template');
-      return;
-    }
-    
-    // Ensure force powers are properly initialized
-    if (!characterData.forcePowers) {
-      characterData.forcePowers = [];
-    }
-    
-    // Ensure force/tech point data is reset
-    if (!characterData.combatStats) {
-      characterData.combatStats = {};
-    }
-    characterData.combatStats.forcePointsUsed = 0;
-    characterData.combatStats.forceShieldUsed = 0;
-    characterData.combatStats.techPointsUsed = 0;
-    characterData.combatStats.hitPointsLost = 0;
-    characterData.combatStats.temporaryHitPoints = 0;
+    console.log('Resetting character to blank template...');
+    const characterData = getBlankCharacterTemplate();
     
     setCharacterData(characterData);
-    console.log('Character reset to template:', characterData.name);
-    alert(`Character reset to template (${characterData.name})`);
+    console.log('Character reset to blank template.');
+    alert('Character reset to a blank template.');
   } catch (err) {
     console.error('Error resetting character:', err);
     alert('Error resetting character: ' + err.message);
@@ -6157,6 +7096,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   loadClassProgressionCatalog();
   loadForcePowerCatalog();
   loadTechPowerCatalog();
+  loadFeatCatalog();
   loadSheetReferenceCatalogs();
   await initializeEquipmentSystem();
   populateEquipmentLinkedOptions();
